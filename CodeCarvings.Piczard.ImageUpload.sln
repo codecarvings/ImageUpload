@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SimpleImageUpload_UserControl_CS", "SimpleImageUpload_UserControl_CS\", "{C1B418AC-30C3-40D4-911B-F139473F6E30}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFramework = "3.5"
+		Debug.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_CS"
+		Debug.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_CS\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_CS\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_CS"
+		Release.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_CS\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_CS\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "40274"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SimpleImageUpload_UserControl_VB", "SimpleImageUpload_UserControl_VB\", "{DFB8FD10-46B6-44EA-B4E5-C7C2510F6896}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFramework = "3.5"
+		Debug.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_VB"
+		Debug.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_VB\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_VB\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_VB"
+		Release.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_VB\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_VB\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "40277"
+		DefaultWebSiteLanguage = "Visual Basic"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{E86EDE7C-1DEF-4D28-8247-286510951E9E}"
+	ProjectSection(SolutionItems) = preProject
+		README.txt = README.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1B418AC-30C3-40D4-911B-F139473F6E30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1B418AC-30C3-40D4-911B-F139473F6E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB8FD10-46B6-44EA-B4E5-C7C2510F6896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB8FD10-46B6-44EA-B4E5-C7C2510F6896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
