@@ -368,7 +368,9 @@ Partial Class SimpleImageUpload
                 End If
 
                 ' Save the preview image
-                job.SaveProcessedImageToFileSystem(Me.TemporarySourceImageFilePath, Me.PreviewImageFilePath, New JpegFormatEncoderParams())
+                If (File.Exists(Me.TemporarySourceImageFilePath)) Then
+                    job.SaveProcessedImageToFileSystem(Me.TemporarySourceImageFilePath, Me.PreviewImageFilePath, New JpegFormatEncoderParams())
+                End If
 
                 ' Force the reload of the preivew
                 Me.imgPreview.ImageUrl = Me.PreviewImageUrl

@@ -5,7 +5,7 @@
 
     <div class="PageTitle">
         <h1>
-            SimpleImageUpload User Control
+            SimpleImageUpload User Control - VB.NET
         </h1>
     </div>
     

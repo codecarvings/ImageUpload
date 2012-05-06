@@ -5,7 +5,7 @@
 
     <div class="PageTitle">
         <h1>
-            SimpleImageUpload User Control
+            SimpleImageUpload User Control - C#
         </h1>
     </div>
     

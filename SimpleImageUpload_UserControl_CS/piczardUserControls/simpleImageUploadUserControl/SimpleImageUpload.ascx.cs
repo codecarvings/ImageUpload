@@ -364,7 +364,10 @@ public partial class SimpleImageUpload
                 }
 
                 // Save the preview image
-                job.SaveProcessedImageToFileSystem(this.TemporarySourceImageFilePath, this.PreviewImageFilePath, new JpegFormatEncoderParams());
+                if (File.Exists(this.TemporarySourceImageFilePath))
+                {
+                    job.SaveProcessedImageToFileSystem(this.TemporarySourceImageFilePath, this.PreviewImageFilePath, new JpegFormatEncoderParams());
+                }
 
                 // Force the reload of the preview
                 this.imgPreview.ImageUrl = this.PreviewImageUrl;
