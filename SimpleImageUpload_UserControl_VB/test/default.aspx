@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Piczard - Simple Image Upload Control" Language="VB" MasterPageFile="~/test/masters/DefaultMasterPage.master" AutoEventWireup="false" CodeFile="default.aspx.vb" Inherits="test_default" %>
-<%@ Register src="~/piczardUserControls/simpleImageUploadUserControl/SimpleImageUpload.ascx" tagname="SimpleImageUpload" tagprefix="uc1" %>
+<%@ Register src="~/piczardUserControls/simpleImageUploadUserControl/SimpleImageUpload.ascx" tagname="SimpleImageUpload" tagprefix="ccPiczardUC" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="pageBody" Runat="Server">
 
@@ -20,7 +20,7 @@
                 <strong>
                     Interactive image crop test:<br />
                 </strong>            
-                <uc1:SimpleImageUpload ID="ImageUpload1" runat="server" 
+                <ccPiczardUC:SimpleImageUpload ID="ImageUpload1" runat="server" 
                     Width="500px"
                     AutoOpenImageEditPopupAfterUpload="true"
                  />
@@ -30,7 +30,7 @@
                 <strong>
                     Automatic image resize test:<br />
                 </strong>                  
-                <uc1:SimpleImageUpload ID="ImageUpload2" runat="server" 
+                <ccPiczardUC:SimpleImageUpload ID="ImageUpload2" runat="server" 
                     Width="500px"
                     EnableEdit="false"
                  />  

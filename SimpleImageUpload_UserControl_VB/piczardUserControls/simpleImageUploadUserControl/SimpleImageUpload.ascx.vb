@@ -34,6 +34,10 @@
 ' SUCH DAMAGE.
 ' -------------------------------------------------------
 
+' #########
+' SimpleImageUpload Version 2.0.0
+' #########
+
 Imports System.Drawing
 Imports System.Xml
 Imports System.IO
@@ -799,7 +803,7 @@ Partial Class SimpleImageUpload
         End Set
     End Property
     ''' <summary>
-    ''' Sets the current satus message.</summary>
+    ''' Sets the current status message.</summary>
     ''' <param name="text">The message to display.</param>
     Public Sub SetCurrentStatusMessage(ByVal text As String)
         Me.CurrentStatusMessage = text
@@ -843,7 +847,7 @@ Partial Class SimpleImageUpload
 
     Protected _StatusMessage_InvalidImageSize As String = "<span style=""color:#cc0000;"">The uploaded image is not valid (too small or too large).</span>"
     ''' <summary>
-    ''' Gets or sets the text displayed when the size of the uploaded image is too small or too large.</summary>
+    ''' Gets or sets the text displayed when the size of the uploaded image is too small or too large (please see: CodeCarvings.Piczard.Configuration.DrawingSettings.MaxImageSize).</summary>
     Public Property StatusMessage_InvalidImageSize() As String
         Get
             Return Me._StatusMessage_InvalidImageSize
@@ -1260,11 +1264,11 @@ Partial Class SimpleImageUpload
     ''' Represents the method that handles the ImageUpload event.</summary>
     ''' <param name="sender">The source of the event.</param>
     ''' <param name="args">The argument of type ImageUploadEventArgs that contains the event data.</param>    
-    Public Delegate Sub ImageUploadEventHhander(ByVal sender As Object, ByVal args As ImageUploadEventArgs)
+    Public Delegate Sub ImageUploadEventHandler(ByVal sender As Object, ByVal args As ImageUploadEventArgs)
 
     ''' <summary>
     ''' Occurs when a new image is uploaded.</summary>
-    Public Event ImageUpload As ImageUploadEventHhander
+    Public Event ImageUpload As ImageUploadEventHandler
     Protected Sub OnImageUpload(ByVal e As ImageUploadEventArgs)
         RaiseEvent ImageUpload(Me, e)
     End Sub
@@ -1294,11 +1298,11 @@ Partial Class SimpleImageUpload
     ''' Represents the method that handles the SelectedConfigurationIndexChanged event.</summary>
     ''' <param name="sender">The source of the event.</param>
     ''' <param name="args">The argument of type SelectedConfigurationIndexChangedEventArgs that contains the event data.</param>
-    Public Delegate Sub SelectedConfigurationIndexChangedEventHhander(ByVal sender As Object, ByVal args As SelectedConfigurationIndexChangedEventArgs)
+    Public Delegate Sub SelectedConfigurationIndexChangedEventHandler(ByVal sender As Object, ByVal args As SelectedConfigurationIndexChangedEventArgs)
 
     ''' <summary>
     ''' Occurs when a new image is uploaded.</summary>
-    Public Event SelectedConfigurationIndexChanged As SelectedConfigurationIndexChangedEventHhander
+    Public Event SelectedConfigurationIndexChanged As SelectedConfigurationIndexChangedEventHandler
     Protected Sub OnSelectedConfigurationIndexChanged(ByVal e As SelectedConfigurationIndexChangedEventArgs)
         RaiseEvent SelectedConfigurationIndexChanged(Me, e)
     End Sub
@@ -1512,7 +1516,7 @@ Partial Class SimpleImageUpload
     End Sub
 
     ''' <summary>
-    ''' Processes the source image and retuns a byte array containing the processed image encoded with a specific image format.</summary>
+    ''' Processes the source image and returns a byte array containing the processed image encoded with a specific image format.</summary>
     ''' <param name="formatEncoderParams">The image format of the saved image.</param>
     ''' <returns>An array of bytes containing the processed image.</returns>
     Public Function SaveProcessedImageToByteArray(ByVal formatEncoderParams As FormatEncoderParams) As Byte()
@@ -1521,7 +1525,7 @@ Partial Class SimpleImageUpload
     End Function
 
     ''' <summary>
-    ''' Processes the source image and retuns a byte array containing the processed image encoded with the default image format.</summary>
+    ''' Processes the source image and returns a byte array containing the processed image encoded with the default image format.</summary>
     ''' <returns>An array of bytes containing the processed image.</returns>
     Public Function SaveProcessedImageToByteArray() As Byte()
         Dim job As ImageProcessingJob = Me.GetImageProcessingJob()

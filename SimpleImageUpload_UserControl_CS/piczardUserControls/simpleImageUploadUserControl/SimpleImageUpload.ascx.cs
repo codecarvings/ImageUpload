@@ -33,6 +33,10 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
+ 
+// #########
+// SimpleImageUpload Version 2.0.0
+// #########
 
 using System;
 using System.Collections.Generic;
@@ -896,7 +900,7 @@ public partial class SimpleImageUpload
         }
     }
     /// <summary>
-    /// Sets the current satus message.</summary>
+    /// Sets the current status message.</summary>
     /// <param name="text">The message to display.</param>
     public void SetCurrentStatusMessage(string text)
     {
@@ -950,7 +954,7 @@ public partial class SimpleImageUpload
 
     protected string _StatusMessage_InvalidImageSize = "<span style=\"color:#cc0000;\">The uploaded image is not valid (too small or too large).</span>";
     /// <summary>
-    /// Gets or sets the text displayed when the size of the uploaded image is too small or too large.</summary>
+    /// Gets or sets the text displayed when the size of the uploaded image is too small or too large (please see: CodeCarvings.Piczard.Configuration.DrawingSettings.MaxImageSize).</summary>
     public string StatusMessage_InvalidImageSize
     {
         get
@@ -1466,11 +1470,11 @@ public partial class SimpleImageUpload
     /// Represents the method that handles the ImageUpload event.</summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="args">The argument of type ImageUploadEventArgs that contains the event data.</param>
-    public delegate void ImageUploadEventHhander(object sender, ImageUploadEventArgs args);
+    public delegate void ImageUploadEventHandler(object sender, ImageUploadEventArgs args);
 
     /// <summary>
     /// Occurs when a new image is uploaded.</summary>
-    public event ImageUploadEventHhander ImageUpload = null;
+    public event ImageUploadEventHandler ImageUpload = null;
     protected void OnImageUpload(ImageUploadEventArgs e)
     {
         if (this.ImageUpload != null)
@@ -1516,11 +1520,11 @@ public partial class SimpleImageUpload
     /// Represents the method that handles the SelectedConfigurationIndexChanged event.</summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="args">The argument of type SelectedConfigurationIndexChangedEventArgs that contains the event data.</param>
-    public delegate void SelectedConfigurationIndexChangedEventHhander(object sender, SelectedConfigurationIndexChangedEventArgs args);
+    public delegate void SelectedConfigurationIndexChangedEventHandler(object sender, SelectedConfigurationIndexChangedEventArgs args);
 
     /// <summary>
     /// Occurs when a the ConfigurationIndex has been changed by the user.</summary>
-    public event SelectedConfigurationIndexChangedEventHhander SelectedConfigurationIndexChanged = null;
+    public event SelectedConfigurationIndexChangedEventHandler SelectedConfigurationIndexChanged = null;
     protected void OnSelectedConfigurationIndexChanged(SelectedConfigurationIndexChangedEventArgs e)
     {
         if (this.SelectedConfigurationIndexChanged != null)
@@ -1769,7 +1773,7 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Processes the source image and retuns a byte array containing the processed image encoded with a specific image format.</summary>
+    /// Processes the source image and returns a byte array containing the processed image encoded with a specific image format.</summary>
     /// <param name="formatEncoderParams">The image format of the saved image.</param>
     /// <returns>An array of bytes containing the processed image.</returns>
     public byte[] SaveProcessedImageToByteArray(FormatEncoderParams formatEncoderParams)
@@ -1779,7 +1783,7 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Processes the source image and retuns a byte array containing the processed image encoded with the default image format.</summary>
+    /// Processes the source image and returns a byte array containing the processed image encoded with the default image format.</summary>
     /// <returns>An array of bytes containing the processed image.</returns>
     public byte[] SaveProcessedImageToByteArray()
     {
