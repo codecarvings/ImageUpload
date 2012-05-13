@@ -9,7 +9,7 @@ user control with a powerful and intuitive image manipulation interface.
 SimpleImageUpload user control allows the final user to:
 
 - Upload an image to the server
-- Interactively crop and/or resize the uploaded image
+- Interactively crop and/or resize the uploaded image (WYSIWYG)
 - Automatically apply post-processing filters (e.g.: image resize + watermark)
 - View a preview of the uploaded image
 - Edit a previously uploaded image maintaining the image parameters selected in the past (crop coordinates, resize factor, rotation angle, color adjustments, etc.. )
@@ -34,11 +34,26 @@ Quick links:
   http://piczard.com/docs/help/v1/online/?SimpleImageUpload_ASCX_User_Control.html
  
 - Support forum:
-  http://forum.codecarvings.com/products/piczard
+  http://forum.codecarvings.com/products/piczard 
   
 - Git repository:
   https://github.com/CodeCarvings/ImageUpload
 
+  
+*********
+SimpleImageUpload.ascx does not require Ajax.
+However, since it can perform some page postbacks, for optimal use it is suggested to insert it within an UpdatePanel.
+
+Please note that the ASCX control is part of "Web Site" projects.
+If you want to use it in a "Web Application" project you need to convert the control files.
+From within Microsoft Visual Studio open your "Web Application" project.
+In the Solution Explorer right-click the folder that contains the ASCX control and then click Convert to Web Application.
+
+For more information about "Web Site" and "Web Application" projects please see:
+
+http://msdn.microsoft.com/en-us/library/aa983476.aspx 
+http://msdn.microsoft.com/en-us/library/dd547590.aspx 
+*********  
   
   
 ============================================================

@@ -63,7 +63,7 @@ public partial class SimpleImageUpload
 
     protected static readonly Size DefaultImageEditPopupSize = new Size(800, 520);
     protected static readonly Size DefaultButtonSize = new Size(110, 26);
-    protected const bool PerformTemporaryFolderWriteTestOnPageLoad = true;
+    protected static bool PerformTemporaryFolderWriteTestOnPageLoad = true;
 
     #endregion
 
@@ -102,7 +102,7 @@ public partial class SimpleImageUpload
         values.Add(JSONSerializer.SerializeToString(this._CropConstraint));
         values.Add(JSONSerializer.SerializeToString(this._PostProcessingFilter, true)); // Important: also serialize the type!
         values.Add((int)this._PostProcessingFilterApplyMode);
-        values.Add(JSONSerializer.SerializeToString(this._PreviewResizeConstraint));
+        values.Add(JSONSerializer.SerializeToString(this._PreviewFilter, true)); // Important: also serialize the type!
         values.Add(this._ImageUploaded);
         values.Add(this._ImageEdited);
         values.Add(this._SourceImageClientFileName);
@@ -127,7 +127,7 @@ public partial class SimpleImageUpload
             this._CropConstraint = CropConstraint.FromJSON((string)values[i++]);
             this._PostProcessingFilter = (ImageProcessingFilter)JSONSerializer.Deserialize((string)values[i++]);
             this._PostProcessingFilterApplyMode = (SimpleImageUploadPostProcessingFilterApplyMode)(int)values[i++];
-            this._PreviewResizeConstraint = ResizeConstraint.FromJSON((string)values[i++]);
+            this._PreviewFilter = (ImageProcessingFilter)JSONSerializer.Deserialize((string)values[i++]);
             this._ImageUploaded = (bool)values[i++];
             this._ImageEdited = (bool)values[i++];
             this._SourceImageClientFileName = (string)values[i++];
@@ -361,10 +361,10 @@ public partial class SimpleImageUpload
                 ImageProcessingJob job = this.GetImageProcessingJob();
                 job.OutputResolution = CommonData.DefaultResolution;
 
-                // Add the resize constraint
-                if (this.PreviewResizeConstraint != null)
+                // Add the preview filter constraint
+                if (this.PreviewFilter != null)
                 {
-                    job.Filters.Add(this.PreviewResizeConstraint);
+                    job.Filters.Add(this.PreviewFilter);
                 }
 
                 // Save the preview image
@@ -637,23 +637,40 @@ public partial class SimpleImageUpload
         }
     }
 
-    protected ResizeConstraint _PreviewResizeConstraint = null;
+    protected ImageProcessingFilter _PreviewFilter = null;
     /// <summary>
-    /// Gets or sets the preview resize constraint.</summary>
-    public ResizeConstraint PreviewResizeConstraint
+    /// Gets or sets the filter(s) to apply to the preview image.</summary>
+    public ImageProcessingFilter PreviewFilter
     {
         get
         {
-            return this._PreviewResizeConstraint;
+            return this._PreviewFilter;
         }
         set
         {
             if (this.HasImage)
             {
-                throw new Exception("Cannot change the PreviewResizeConstraint after an image has been loaded.");
+                throw new Exception("Cannot change the PreviewFilter after an image has been loaded.");
             }
 
-            this._PreviewResizeConstraint = value;
+            this._PreviewFilter = value;
+        }
+    }
+  
+    /// <summary>
+    /// Gets or sets the ResizeConstraint used to generate the preview image.
+    /// This property is marked as obsolete since version 2.0.0 of the control and will be soon removed.
+    /// Use 'PreviewFilter' instead.</summary>
+    [Obsolete]
+    public ResizeConstraint PreviewResizeConstraint
+    {
+        get
+        {
+            return (ResizeConstraint)this.PreviewFilter;
+        }
+        set
+        {
+            this.PreviewFilter = value;
         }
     }
 
@@ -1343,6 +1360,34 @@ public partial class SimpleImageUpload
         }
     }
 
+    /// <summary>
+    /// Gets the resolution (DPI) of the source image.</summary>
+    public float SourceImageResolution
+    {
+        get
+        {
+            if (!this.HasImage)
+            {
+                throw new Exception("Image not loaded.");
+            }
+            return this.popupPictureTrimmer1.SourceImageResolution;
+        }
+    }
+
+    /// <summary>
+    /// Gets the format of the source image.</summary>
+    public Guid SourceImageFormatId
+    {
+        get
+        {
+            if (!this.HasImage)
+            {
+                throw new Exception("Image not loaded.");
+            }
+            return this.popupPictureTrimmer1.SourceImageFormatId;
+        }
+    }
+
     #endregion
 
     #region File paths / urls
@@ -1932,7 +1977,7 @@ public partial class SimpleImageUpload
             if (this.ImageUpload != null)
             {
                 // EVENT: Image upload
-                ImageUploadEventArgs args = new ImageUploadEventArgs(this._OutputResolution, this.CropConstraint, this.PostProcessingFilter, this.PreviewResizeConstraint);
+                ImageUploadEventArgs args = new ImageUploadEventArgs(this._OutputResolution, this.CropConstraint, this.PostProcessingFilter, this.PreviewFilter);
                 this.OnImageUpload(args);
                 if (this.HasImage)
                 {
@@ -1968,10 +2013,10 @@ public partial class SimpleImageUpload
                     // No need to reload if only the post processing filter has changed
                     // AND - the updatePreview is surely already TRUE
                 }
-                if (args.PreviewResizeConstraintChanged)
+                if (args.PreviewFilterChanged)
                 {
-                    this._PreviewResizeConstraint = args.PreviewResizeConstraint;
-                    // No need to reload if only the preview resize constraint has changed
+                    this._PreviewFilter = args.PreviewFilter;
+                    // No need to reload if only the preview filter has changed
                     // AND - the updatePreview is surely already TRUE
                 }
                 if (args.ReloadImageSet)
@@ -1985,8 +2030,10 @@ public partial class SimpleImageUpload
                     // Reload the image
                     if (!args.ReloadImageSet)
                     {
-                        // Standard reload, use the current source image size to save memory
+                        // Standard reload, use the current source image size, resolutaion and format to save memory
                         this.popupPictureTrimmer1.SetLoadImageData_ImageSize(this.SourceImageSize);
+                        this.popupPictureTrimmer1.SetLoadImageData_ImageResolution(this.SourceImageResolution);
+                        this.popupPictureTrimmer1.SetLoadImageData_ImageFormatId(this.SourceImageFormatId);
                     }
                     this.popupPictureTrimmer1.LoadImageFromFileSystem(this.TemporarySourceImageFilePath, this._OutputResolution, this.CropConstraint);
                 }
@@ -2055,7 +2102,7 @@ public partial class SimpleImageUpload
         {
             string pictureTrimmerTID = this.popupPictureTrimmer1.TemporaryFileId;
             /// EVENT: Configuration index changed
-            SelectedConfigurationIndexChangedEventArgs args = new SelectedConfigurationIndexChangedEventArgs(this._OutputResolution, this.CropConstraint, this.PostProcessingFilter, this.PreviewResizeConstraint);
+            SelectedConfigurationIndexChangedEventArgs args = new SelectedConfigurationIndexChangedEventArgs(this._OutputResolution, this.CropConstraint, this.PostProcessingFilter, this.PreviewFilter);
             this.OnSelectedConfigurationIndexChanged(args);
             if (this.HasImage)
             {
@@ -2085,13 +2132,13 @@ public partial class SimpleImageUpload
             if (args.PostProcessingFilterChanged)
             {
                 this._PostProcessingFilter = args.PostProcessingFilter;
-                // No need to reload if only the post processing filter has changed
+                // No need to reload if only the post filter has changed
                 // AND - the updatePreview is surely already TRUE
             }
-            if (args.PreviewResizeConstraintChanged)
+            if (args.PreviewFilterChanged)
             {
-                this._PreviewResizeConstraint = args.PreviewResizeConstraint;
-                // No need to reload if only the preview resize constraint has changed
+                this._PreviewFilter = args.PreviewFilter;
+                // No need to reload if only the preview filter has changed
                 // AND - the updatePreview is surely already TRUE
             }
             if (args.ReloadImageSet)
@@ -2107,6 +2154,8 @@ public partial class SimpleImageUpload
                 {
                     // Standard reload, use the current source image size to save memory
                     this.popupPictureTrimmer1.SetLoadImageData_ImageSize(this.SourceImageSize);
+                    this.popupPictureTrimmer1.SetLoadImageData_ImageResolution(this.SourceImageResolution);
+                    this.popupPictureTrimmer1.SetLoadImageData_ImageFormatId(this.SourceImageFormatId);
                 }
                 this.popupPictureTrimmer1.LoadImageFromFileSystem(this.TemporarySourceImageFilePath, this._OutputResolution, this.CropConstraint);
             }
@@ -2130,18 +2179,18 @@ public partial class SimpleImageUpload
         /// <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         /// <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         /// <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
-        /// <param name="previewResizeConstraint">The size of the preview image.</param>
-        public ConfigurationEventArgs(float outputResolution, CropConstraint cropConstraint, ImageProcessingFilter postProcessingFilter, ResizeConstraint previewResizeConstraint)
+        /// <param name="previewFilter">The filter(s) to apply to the preview image.</param>
+        public ConfigurationEventArgs(float outputResolution, CropConstraint cropConstraint, ImageProcessingFilter postProcessingFilter, ImageProcessingFilter previewFilter)
         {
             this._OutputResolution = outputResolution;
             this._CropConstraint = cropConstraint;
             this._PostProcessingFilter = postProcessingFilter;
-            this._PreviewResizeConstraint = previewResizeConstraint;
+            this._PreviewFilter = previewFilter;
 
             this._OriginalOutputResolution = this._OutputResolution;
             this._OriginalCropConstraintString = JSONSerializer.SerializeToString(this._CropConstraint, true);
             this._OriginalPostProcessingFilterString = JSONSerializer.SerializeToString(this._PostProcessingFilter, true);
-            this._OriginalPreviewResizeConstraintString = JSONSerializer.SerializeToString(this._PreviewResizeConstraint, true);
+            this._OriginalPreviewFilterString = JSONSerializer.SerializeToString(this._PreviewFilter, true);
 
             this._ReloadImageSet = false;
         }
@@ -2194,18 +2243,35 @@ public partial class SimpleImageUpload
             }
         }
 
-        private ResizeConstraint _PreviewResizeConstraint;
+        private ImageProcessingFilter _PreviewFilter;
         /// <summary>
-        /// Gets or sets the preview resize constraint.</summary>
+        /// Gets or sets the filter(s) to apply to the preview image.</summary>
+        public ImageProcessingFilter PreviewFilter
+        {
+            get
+            {
+                return this._PreviewFilter;
+            }
+            set
+            {
+                this._PreviewFilter = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the ResizeConstraint used to generate the preview image.
+        /// This property is marked as obsolete since version 2.0.0 of the control and will be soon removed.
+        /// Use 'PreviewFilter' instead.</summary>
+        [Obsolete]
         public ResizeConstraint PreviewResizeConstraint
         {
             get
             {
-                return this._PreviewResizeConstraint;
+                return (ResizeConstraint)this.PreviewFilter;
             }
             set
             {
-                this._PreviewResizeConstraint = value;
+                this.PreviewFilter = value;
             }
         }
 
@@ -2236,12 +2302,12 @@ public partial class SimpleImageUpload
             }
         }
 
-        private string _OriginalPreviewResizeConstraintString;
-        internal bool PreviewResizeConstraintChanged
+        private string _OriginalPreviewFilterString;
+        internal bool PreviewFilterChanged
         {
             get
             {
-                return JSONSerializer.SerializeToString(this._PreviewResizeConstraint, true) != this._OriginalPreviewResizeConstraintString;
+                return JSONSerializer.SerializeToString(this._PreviewFilter, true) != this._OriginalPreviewFilterString;
             }
         }
 
@@ -2271,9 +2337,9 @@ public partial class SimpleImageUpload
         /// <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         /// <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         /// <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
-        /// <param name="previewResizeConstraint">The size of the preview image.</param>
-        public ImageUploadEventArgs(float outputResolution, CropConstraint cropConstraint, ImageProcessingFilter postProcessingFilter, ResizeConstraint previewResizeConstraint)
-            : base(outputResolution, cropConstraint, postProcessingFilter, previewResizeConstraint)
+        /// <param name="previewFilter">The filter(s) to apply to the preview image.</param>
+        public ImageUploadEventArgs(float outputResolution, CropConstraint cropConstraint, ImageProcessingFilter postProcessingFilter, ImageProcessingFilter previewFilter)
+            : base(outputResolution, cropConstraint, postProcessingFilter, previewFilter)
         {
         }
     }
@@ -2288,9 +2354,9 @@ public partial class SimpleImageUpload
         /// <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         /// <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         /// <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
-        /// <param name="previewResizeConstraint">The size of the preview image.</param>
-        public SelectedConfigurationIndexChangedEventArgs(float outputResolution, CropConstraint cropConstraint, ImageProcessingFilter postProcessingFilter, ResizeConstraint previewResizeConstraint)
-            : base(outputResolution, cropConstraint, postProcessingFilter, previewResizeConstraint)
+        /// <param name="previewFilter">The filter(s) to apply to the preview image.</param>
+        public SelectedConfigurationIndexChangedEventArgs(float outputResolution, CropConstraint cropConstraint, ImageProcessingFilter postProcessingFilter, ImageProcessingFilter previewFilter)
+            : base(outputResolution, cropConstraint, postProcessingFilter, previewFilter)
         {
         }
     }

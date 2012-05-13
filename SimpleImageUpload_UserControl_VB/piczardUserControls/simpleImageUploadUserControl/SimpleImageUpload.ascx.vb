@@ -58,7 +58,7 @@ Partial Class SimpleImageUpload
 
     Protected Shared ReadOnly DefaultImageEditPopupSize As Size = New Size(800, 520)
     Protected Shared ReadOnly DefaultButtonSize As Size = New Size(110, 26)
-    Protected Const PerformTemporaryFolderWriteTestOnPageLoad As Boolean = True
+    Protected Shared PerformTemporaryFolderWriteTestOnPageLoad As Boolean = True
 
 #End Region
 
@@ -93,7 +93,7 @@ Partial Class SimpleImageUpload
         values.Add(JSONSerializer.SerializeToString(Me._CropConstraint))
         values.Add(JSONSerializer.SerializeToString(Me._PostProcessingFilter, True)) ''Important: also serialize the type!
         values.Add(DirectCast(Me._PostProcessingFilterApplyMode, Integer))
-        values.Add(JSONSerializer.SerializeToString(Me._PreviewResizeConstraint))
+        values.Add(JSONSerializer.SerializeToString(Me._PreviewFilter, True)) ''Important: also serialize the type!
         values.Add(Me._ImageUploaded)
         values.Add(Me._ImageEdited)
         values.Add(Me._SourceImageClientFileName)
@@ -122,7 +122,7 @@ Partial Class SimpleImageUpload
             i += 1
             Me._PostProcessingFilterApplyMode = DirectCast(DirectCast(values(i), Integer), SimpleImageUploadPostProcessingFilterApplyMode)
             i += 1
-            Me._PreviewResizeConstraint = ResizeConstraint.FromJSON(DirectCast(values(i), String))
+            Me._PreviewFilter = DirectCast(JSONSerializer.Deserialize(DirectCast(values(i), String)), ImageProcessingFilter)
             i += 1
             Me._ImageUploaded = DirectCast(values(i), Boolean)
             i += 1
@@ -366,9 +366,9 @@ Partial Class SimpleImageUpload
                 Dim job As ImageProcessingJob = Me.GetImageProcessingJob()
                 job.OutputResolution = CommonData.DefaultResolution
 
-                ' Add the resize constraint
-                If (Me.PreviewResizeConstraint IsNot Nothing) Then
-                    job.Filters.Add(Me.PreviewResizeConstraint)
+                ' Add the preview filter
+                If (Me.PreviewFilter IsNot Nothing) Then
+                    job.Filters.Add(Me.PreviewFilter)
                 End If
 
                 ' Save the preview image
@@ -592,19 +592,32 @@ Partial Class SimpleImageUpload
         End Set
     End Property
 
-    Protected _PreviewResizeConstraint As ResizeConstraint = Nothing
+    Protected _PreviewFilter As ImageProcessingFilter = Nothing
     ''' <summary>
-    ''' Gets or sets the preview resize constraint.</summary>
+    ''' Gets or sets the filter(s) to apply to the preview image.</summary>
+    Public Property PreviewFilter() As ImageProcessingFilter
+        Get
+            Return Me._PreviewFilter
+        End Get
+        Set(ByVal value As ImageProcessingFilter)
+            If (Me.HasImage) Then
+                Throw New Exception("Cannot change the PreviewFilter after an image has been loaded.")
+            End If
+            Me._PreviewFilter = value
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Gets or sets the ResizeConstraint used to generate the preview image.
+    ''' This property is marked as obsolete since version 2.0.0 of the control and will be soon removed.
+    ''' Use 'PreviewFilter' instead.</summary>
+    <Obsolete()> _
     Public Property PreviewResizeConstraint() As ResizeConstraint
         Get
-            Return Me._PreviewResizeConstraint
+            Return DirectCast(Me.PreviewFilter, ResizeConstraint)
         End Get
         Set(ByVal value As ResizeConstraint)
-            If (Me.HasImage) Then
-                Throw New Exception("Cannot change the PreviewResizeConstraint after an image has been loaded.")
-            End If
-
-            Me._PreviewResizeConstraint = value
+            Me.PreviewFilter = value
         End Set
     End Property
 
@@ -1159,6 +1172,30 @@ Partial Class SimpleImageUpload
         End Get
     End Property
 
+    ''' <summary>
+    ''' Gets the resolution (DPI) of the source image.</summary>
+    Public ReadOnly Property SourceImageResolution() As Single
+        Get
+            If (Not Me.HasImage) Then
+                Throw New Exception("Image not loaded.")
+            End If
+
+            Return Me.popupPictureTrimmer1.SourceImageResolution
+        End Get
+    End Property
+
+    ''' <summary>
+    ''' Gets the format of the source image</summary>
+    Public ReadOnly Property SourceImageFormatId() As Guid
+        Get
+            If (Not Me.HasImage) Then
+                Throw New Exception("Image not loaded.")
+            End If
+
+            Return Me.popupPictureTrimmer1.SourceImageFormatId
+        End Get
+    End Property
+
 #End Region
 
 #Region "File paths / urls"
@@ -1650,7 +1687,7 @@ Partial Class SimpleImageUpload
 
             '--- If (Not (Me.ImageUploadEvent Is Nothing)) Then
             ' EVENT: Image upload
-            Dim args As ImageUploadEventArgs = New ImageUploadEventArgs(Me._OutputResolution, Me.CropConstraint, Me.PostProcessingFilter, Me.PreviewResizeConstraint)
+            Dim args As ImageUploadEventArgs = New ImageUploadEventArgs(Me._OutputResolution, Me.CropConstraint, Me.PostProcessingFilter, Me.PreviewFilter)
             Me.OnImageUpload(args)
             If (Me.HasImage) Then
                 If (Not String.IsNullOrEmpty(pictureTrimmerTID)) Then
@@ -1678,9 +1715,9 @@ Partial Class SimpleImageUpload
                 ' No need to reload if only the post processing filter has changed
                 ' AND - the updatePreview is surely already TRUE
             End If
-            If (args.PreviewResizeConstraintChanged) Then
-                Me._PreviewResizeConstraint = args.PreviewResizeConstraint
-                ' No need to reload if only the preview resize constraint has changed
+            If (args.PreviewFilterChanged) Then
+                Me._PreviewFilter = args.PreviewFilter
+                ' No need to reload if only the preview filter has changed
                 ' AND - the updatePreview is surely already TRUE
             End If
             If (args.ReloadImageSet) Then
@@ -1691,8 +1728,10 @@ Partial Class SimpleImageUpload
             If (reloadImage) Then
                 ' Reload the image
                 If (Not args.ReloadImageSet) Then
-                    ' Standard reload, use the current source image size to save memory
+                    ' Standard reload, use the current source image size, resolutaion and format to save memory
                     Me.popupPictureTrimmer1.SetLoadImageData_ImageSize(Me.SourceImageSize)
+                    Me.popupPictureTrimmer1.SetLoadImageData_ImageResolution(Me.SourceImageResolution)
+                    Me.popupPictureTrimmer1.SetLoadImageData_ImageFormatId(Me.SourceImageFormatId)
                 End If
                 Me.popupPictureTrimmer1.LoadImageFromFileSystem(Me.TemporarySourceImageFilePath, Me._OutputResolution, Me.CropConstraint)
             End If
@@ -1754,7 +1793,7 @@ Partial Class SimpleImageUpload
         '--- If (Not (Me.SelectedConfigurationIndexChangedEvent Is Nothing)) Then
         Dim pictureTrimmerTID As String = Me.popupPictureTrimmer1.TemporaryFileId
         ' EVENT: Configuration index changed
-        Dim args As SelectedConfigurationIndexChangedEventArgs = New SelectedConfigurationIndexChangedEventArgs(Me._OutputResolution, Me.CropConstraint, Me.PostProcessingFilter, Me.PreviewResizeConstraint)
+        Dim args As SelectedConfigurationIndexChangedEventArgs = New SelectedConfigurationIndexChangedEventArgs(Me._OutputResolution, Me.CropConstraint, Me.PostProcessingFilter, Me.PreviewFilter)
         Me.OnSelectedConfigurationIndexChanged(args)
         If (Me.HasImage) Then
             If (Me.popupPictureTrimmer1.TemporaryFileId <> pictureTrimmerTID) Then
@@ -1780,9 +1819,9 @@ Partial Class SimpleImageUpload
             ' No need to reload if only the post processing filter has changed
             ' AND - the updatePreview is surely already TRUE
         End If
-        If (args.PreviewResizeConstraintChanged) Then
-            Me._PreviewResizeConstraint = args.PreviewResizeConstraint
-            ' No need to reload if only the preview resize constraint has changed
+        If (args.PreviewFilterChanged) Then
+            Me._PreviewFilter = args.PreviewFilter
+            ' No need to reload if only the preview filter has changed
             ' AND - the updatePreview is surely already TRUE
         End If
         If (args.ReloadImageSet) Then
@@ -1793,8 +1832,10 @@ Partial Class SimpleImageUpload
         If (reloadImage) Then
             ' Reload the image
             If (Not args.ReloadImageSet) Then
-                ' Standard reload, use the current source image size to save memory
+                ' Standard reload, use the current source image size, resolutaion and format to save memory
                 Me.popupPictureTrimmer1.SetLoadImageData_ImageSize(Me.SourceImageSize)
+                Me.popupPictureTrimmer1.SetLoadImageData_ImageResolution(Me.SourceImageResolution)
+                Me.popupPictureTrimmer1.SetLoadImageData_ImageFormatId(Me.SourceImageFormatId)
             End If
             Me.popupPictureTrimmer1.LoadImageFromFileSystem(Me.TemporarySourceImageFilePath, Me._OutputResolution, Me.CropConstraint)
         End If
@@ -1817,19 +1858,19 @@ Partial Class SimpleImageUpload
         ''' <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         ''' <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         ''' <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
-        ''' <param name="previewResizeConstraint">The size of the preview image.</param>
-        Public Sub New(ByVal outputResolution As Single, ByVal cropConstraint As CropConstraint, ByVal postProcessingFilter As ImageProcessingFilter, ByVal previewResizeConstraint As ResizeConstraint)
+        ''' <param name="previewFilter">The filter(s) to apply to the preview image.</param>
+        Public Sub New(ByVal outputResolution As Single, ByVal cropConstraint As CropConstraint, ByVal postProcessingFilter As ImageProcessingFilter, ByVal previewFilter As ImageProcessingFilter)
             MyBase.New()
 
             Me._OutputResolution = outputResolution
             Me._CropConstraint = cropConstraint
             Me._PostProcessingFilter = postProcessingFilter
-            Me._PreviewResizeConstraint = previewResizeConstraint
+            Me._PreviewFilter = PreviewFilter
 
             Me._OriginalOutputResolution = Me._OutputResolution
             Me._OriginalCropConstraintString = JSONSerializer.SerializeToString(Me._CropConstraint, True)
             Me._OriginalPostProcessingFilterString = JSONSerializer.SerializeToString(Me._PostProcessingFilter, True)
-            Me._OriginalPreviewResizeConstraintString = JSONSerializer.SerializeToString(Me._PreviewResizeConstraint, True)
+            Me._OriginalPreviewFilterString = JSONSerializer.SerializeToString(Me._PreviewFilter, True)
 
             Me._ReloadImageSet = False
         End Sub
@@ -1863,7 +1904,7 @@ Partial Class SimpleImageUpload
 
         Private _PostProcessingFilter As ImageProcessingFilter
         ''' <summary>
-        ''' Gets the constraints that have to be satisfied by the cropped image.</summary>
+        ''' Gets or sets the filter(s) to apply to the image.</summary>
         Public Property PostProcessingFilter() As ImageProcessingFilter
             Get
                 Return Me._PostProcessingFilter
@@ -1873,15 +1914,29 @@ Partial Class SimpleImageUpload
             End Set
         End Property
 
-        Private _PreviewResizeConstraint As ResizeConstraint
+        Private _PreviewFilter As ImageProcessingFilter
         ''' <summary>
-        ''' Gets or sets the preview resize constraint.</summary>
+        ''' Gets or sets the filter(s) to apply to the preview image.</summary>
+        Public Property PreviewFilter() As ImageProcessingFilter
+            Get
+                Return Me._PreviewFilter
+            End Get
+            Set(ByVal value As ImageProcessingFilter)
+                Me._PreviewFilter = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets the ResizeConstraint used to generate the preview image.
+        ''' This property is marked as obsolete since version 2.0.0 of the control and will be soon removed.
+        ''' Use 'PreviewFilter' instead.</summary>
+        <Obsolete()> _
         Public Property PreviewResizeConstraint() As ResizeConstraint
             Get
-                Return Me._PreviewResizeConstraint
+                Return DirectCast(Me.PreviewFilter, ResizeConstraint)
             End Get
             Set(ByVal value As ResizeConstraint)
-                Me._PreviewResizeConstraint = value
+                Me.PreviewFilter = value
             End Set
         End Property
 
@@ -1906,10 +1961,10 @@ Partial Class SimpleImageUpload
             End Get
         End Property
 
-        Private _OriginalPreviewResizeConstraintString As String
-        Friend ReadOnly Property PreviewResizeConstraintChanged() As Boolean
+        Private _OriginalPreviewFilterString As String
+        Friend ReadOnly Property PreviewFilterChanged() As Boolean
             Get
-                Return JSONSerializer.SerializeToString(Me._PreviewResizeConstraint, True) <> Me._OriginalPreviewResizeConstraintString
+                Return JSONSerializer.SerializeToString(Me._PreviewFilter, True) <> Me._OriginalPreviewFilterString
             End Get
         End Property
 
@@ -1937,9 +1992,9 @@ Partial Class SimpleImageUpload
         ''' <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         ''' <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         ''' <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
-        ''' <param name="previewResizeConstraint">The size of the preview image.</param>
-        Public Sub New(ByVal outputResolution As Single, ByVal cropConstraint As CropConstraint, ByVal postProcessingFilter As ImageProcessingFilter, ByVal previewResizeConstraint As ResizeConstraint)
-            MyBase.New(outputResolution, cropConstraint, postProcessingFilter, previewResizeConstraint)
+        ''' <param name="previewFilter">The filter(s) to apply to the preview image.</param>
+        Public Sub New(ByVal outputResolution As Single, ByVal cropConstraint As CropConstraint, ByVal postProcessingFilter As ImageProcessingFilter, ByVal previewFilter As ImageProcessingFilter)
+            MyBase.New(outputResolution, cropConstraint, postProcessingFilter, previewFilter)
         End Sub
     End Class
 
@@ -1953,9 +2008,9 @@ Partial Class SimpleImageUpload
         ''' <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         ''' <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         ''' <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
-        ''' <param name="previewResizeConstraint">The size of the preview image.</param>
-        Public Sub New(ByVal outputResolution As Single, ByVal cropConstraint As CropConstraint, ByVal postProcessingFilter As ImageProcessingFilter, ByVal previewResizeConstraint As ResizeConstraint)
-            MyBase.New(outputResolution, cropConstraint, postProcessingFilter, previewResizeConstraint)
+        ''' <param name="previewFilter">The filter(s) to apply to the preview image.</param>
+        Public Sub New(ByVal outputResolution As Single, ByVal cropConstraint As CropConstraint, ByVal postProcessingFilter As ImageProcessingFilter, ByVal previewFilter As ImageProcessingFilter)
+            MyBase.New(outputResolution, cropConstraint, postProcessingFilter, previewFilter)
         End Sub
     End Class
 
