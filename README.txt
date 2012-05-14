@@ -35,10 +35,7 @@ Quick links:
  
 - Support forum:
   http://forum.codecarvings.com/products/piczard
-  
-- NuGet package:
-  http://www.nuget.org/packages/CodeCarvings.Piczard.ImageUpload  
-   
+     
 - Git repository:
   https://github.com/CodeCarvings/ImageUpload
 
