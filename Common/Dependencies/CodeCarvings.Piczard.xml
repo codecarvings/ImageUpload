@@ -3541,6 +3541,20 @@
             <returns>An unique (random) file name.</returns>
             <param name="folderPath">Directory to look for file name in.</param>
         </member>
+        <member name="M:CodeCarvings.Piczard.Helpers.IOHelper.GetUniqueFilePath">
+            <summary>Returns a unique file path.</summary>
+        </member>
+        <member name="M:CodeCarvings.Piczard.Helpers.IOHelper.GetUniqueFilePath(System.String,System.String)">
+            <summary>Returns an unique file path.</summary>
+            <returns>The file path composed by the provided folder path plus the value returned by the GetUniqueFileName(String,String) method.</returns>
+            <param name="folderPath">Directory to look for file name in.</param>
+            <param name="fileName">File name to check.</param>
+        </member>
+        <member name="M:CodeCarvings.Piczard.Helpers.IOHelper.GetUniqueFilePath(System.String)">
+            <summary>Returns an unique (random) file path.</summary>
+            <returns>The file path composed by the provided folder path plus the value returned by the GetUniqueFileName(String) method.</returns>
+            <param name="folderPath">Directory to look for file name in.</param>
+        </member>
         <member name="M:CodeCarvings.Piczard.Helpers.IOHelper.TranslatePathToAbsolute(System.String)">
             <summary>Converts a path to an application absolute path.</summary>
             <returns>The absolute path</returns>

@@ -34,8 +34,8 @@ Quick links:
   http://piczard.com/docs/help/v1/online/?SimpleImageUpload_ASCX_User_Control.html
  
 - Support forum:
-  http://forum.codecarvings.com/products/piczard 
-  
+  http://forum.codecarvings.com/products/piczard
+   
 - Git repository:
   https://github.com/CodeCarvings/ImageUpload
 
