@@ -1,0 +1,57 @@
+﻿<%@ Master Language="VB" Inherits="SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage" Codebehind="DefaultMasterPage.master.vb" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+        <head runat="server">
+            <title>CodeCarvings Piczard | .NET Image Manipulation Library</title>  
+
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta http-equiv="content-language" content="en-us" />
+            
+            <link rel="stylesheet" href="~/test/css/default.css" type="text/css" media="all" />
+            <link rel="shortcut icon" href="~/favicon.ico" />            
+        </head>
+    <body>
+        <form runat="server" id="form1">
+
+            <div id="Master_Page">
+                <div id="Master_Page_Border_Left" class="Master_Page_Border">
+                </div>
+                <div id="Master_Page_Border_Right" class="Master_Page_Border">
+                </div>
+               
+                <div id="Master_Page_Header">
+                    <div id="Master_Page_Header_Logo">
+                        <a href="http://codecarvings.com" onclick="window.open('http://codecarvings.com'); return false;">
+                            <asp:Image ID="imgCodeCarvingsLogo" runat="server" alt="CodeCarvings" ImageUrl="~/test/gfx/codeCarvingsHeaderLogo.gif" />
+                        </a>
+                    </div>                    
+                </div>       
+                
+                <div id="Master_Page_Header_Right">
+                </div>
+                
+                <div id="Master_Page_Body">
+                    <div id="Theme_Page_BrandLogo">
+                        <a href="http://piczard.com" onclick="window.open('http://piczard.com'); return false;">        
+                            <asp:Image runat="server" alt="Piczard" ID="imgPageBrandLogo" ImageUrl="~/test/gfx/piczardPageLogo.gif" BorderStyle="None" />
+                        </a>
+                    </div> 
+
+                    <div id="Theme_Page_Body">
+                        <asp:ContentPlaceHolder runat="server" ID="pageBody">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </div>
+
+                <div id="Master_Page_Footer">
+                    <div id="Master_Page_Footer_Content">
+                        <a href="http://piczard.com" onclick="window.open('http://piczard.com'); return false;">Piczard</a> | .NET Image Manipulation Library by Sergio Turolla
+                    </div>
+                </div>
+
+            </div>                            
+
+        </form>
+        
+    </body>
+</html>

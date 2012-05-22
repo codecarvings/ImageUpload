@@ -1,19 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SimpleImageUpload_UserControl_CS", "SimpleImageUpload_UserControl_CS\", "{C1B418AC-30C3-40D4-911B-F139473F6E30}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SimpleImageUpload_UserControl_WebSite_CS", "SimpleImageUpload_UserControl_WebSite_CS\", "{C1B418AC-30C3-40D4-911B-F139473F6E30}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFramework = "3.5"
-		Debug.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_CS"
-		Debug.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_CS\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_CS\"
+		Debug.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_WebSite_CS"
+		Debug.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_WebSite_CS\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_WebSite_CS\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_CS"
-		Release.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_CS\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_CS\"
+		Release.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_WebSite_CS"
+		Release.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_WebSite_CS\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_WebSite_CS\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
@@ -22,19 +22,19 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SimpleImageUpload_UserContr
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SimpleImageUpload_UserControl_VB", "SimpleImageUpload_UserControl_VB\", "{DFB8FD10-46B6-44EA-B4E5-C7C2510F6896}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "SimpleImageUpload_UserControl_WebSite_VB", "SimpleImageUpload_UserControl_WebSite_VB\", "{DFB8FD10-46B6-44EA-B4E5-C7C2510F6896}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFramework = "3.5"
-		Debug.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_VB"
-		Debug.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_VB\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_VB\"
+		Debug.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_WebSite_VB"
+		Debug.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_WebSite_VB\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_WebSite_VB\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_VB"
-		Release.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_VB\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_VB\"
+		Release.AspNetCompiler.VirtualPath = "/SimpleImageUpload_UserControl_WebSite_VB"
+		Release.AspNetCompiler.PhysicalPath = "SimpleImageUpload_UserControl_WebSite_VB\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\SimpleImageUpload_UserControl_WebSite_VB\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
@@ -48,15 +48,32 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "README", "README", "{E86EDE
 		README.txt = README.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleImageUpload_UserControl_WebApp_CS", "SimpleImageUpload_UserControl_WebApp_CS\SimpleImageUpload_UserControl_WebApp_CS.csproj", "{1F6708BE-C6DF-4E30-9BC4-6EEF4CF32668}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SimpleImageUpload_UserControl_WebApp_VB", "SimpleImageUpload_UserControl_WebApp_VB\SimpleImageUpload_UserControl_WebApp_VB.vbproj", "{50F026BB-E89D-415E-97FC-EF893E6753AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C1B418AC-30C3-40D4-911B-F139473F6E30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C1B418AC-30C3-40D4-911B-F139473F6E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1B418AC-30C3-40D4-911B-F139473F6E30}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1B418AC-30C3-40D4-911B-F139473F6E30}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{DFB8FD10-46B6-44EA-B4E5-C7C2510F6896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DFB8FD10-46B6-44EA-B4E5-C7C2510F6896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB8FD10-46B6-44EA-B4E5-C7C2510F6896}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB8FD10-46B6-44EA-B4E5-C7C2510F6896}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{1F6708BE-C6DF-4E30-9BC4-6EEF4CF32668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6708BE-C6DF-4E30-9BC4-6EEF4CF32668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6708BE-C6DF-4E30-9BC4-6EEF4CF32668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6708BE-C6DF-4E30-9BC4-6EEF4CF32668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50F026BB-E89D-415E-97FC-EF893E6753AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50F026BB-E89D-415E-97FC-EF893E6753AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50F026BB-E89D-415E-97FC-EF893E6753AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50F026BB-E89D-415E-97FC-EF893E6753AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

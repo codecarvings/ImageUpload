@@ -9,7 +9,7 @@ user control with a powerful and intuitive image manipulation interface.
 SimpleImageUpload user control allows the final user to:
 
 - Upload an image to the server
-- Interactively crop and/or resize the uploaded image (WYSIWYG)
+- Interactively crop, resize, rotate/flip and color adjust the uploaded image (WYSIWYG) 
 - Automatically apply post-processing filters (e.g.: image resize + watermark)
 - View a preview of the uploaded image
 - Edit a previously uploaded image maintaining the image parameters selected in the past (crop coordinates, resize factor, rotation angle, color adjustments, etc.. )
@@ -35,7 +35,10 @@ Quick links:
  
 - Support forum:
   http://forum.codecarvings.com/products/piczard
-     
+  
+- NuGet package:
+  http://www.nuget.org/packages/CodeCarvings.Piczard.ImageUpload  
+   
 - Git repository:
   https://github.com/CodeCarvings/ImageUpload
 
