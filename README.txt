@@ -31,7 +31,7 @@ Quick links:
   http://piczard.com/download
   
 - Online documentation:
-  http://piczard.com/docs/help/v1/online/?SimpleImageUpload_ASCX_User_Control.html
+  http://piczard.com/docs/help/v1/online/?SimpleImageUpload_ASCX_User_Control_Overview.html
  
 - Support forum:
   http://forum.codecarvings.com/products/piczard
@@ -92,3 +92,4 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 SUCH DAMAGE.
 ============================================================
+

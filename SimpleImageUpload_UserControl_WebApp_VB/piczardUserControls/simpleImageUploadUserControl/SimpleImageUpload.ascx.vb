@@ -35,7 +35,7 @@
 ' -------------------------------------------------------
 
 ' #########
-' SimpleImageUpload Version 2.0.0
+' SimpleImageUpload Version 2.0.1
 ' #########
 
 Option Strict On
