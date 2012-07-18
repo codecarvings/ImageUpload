@@ -35,7 +35,7 @@
  */
  
 // #########
-// SimpleImageUpload Version 2.0.1
+// SimpleImageUpload Version 2.0.2
 // #########
 
 using System;
@@ -84,6 +84,9 @@ public partial class SimpleImageUpload
         {
             this.Page.ClientScript.RegisterClientScriptInclude(t, scriptKey, this.ResolveUrl("simpleImageUpload.js?v=2"));
         }
+
+        // Reset the initialization function
+        this.popupPictureTrimmer1.OnClientControlLoadFunction = "";
     }
 
     #endregion
@@ -291,10 +294,6 @@ public partial class SimpleImageUpload
         if (this.Visible)
         {
             this.popupPictureTrimmer1.OnClientControlLoadFunction = this.InitFunctionName;
-        }
-        else
-        {
-            this.popupPictureTrimmer1.OnClientControlLoadFunction = "";
         }
 
         #endregion

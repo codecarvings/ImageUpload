@@ -35,7 +35,7 @@
 ' -------------------------------------------------------
 
 ' #########
-' SimpleImageUpload Version 2.0.1
+' SimpleImageUpload Version 2.0.2
 ' #########
 
 Option Strict On
@@ -79,6 +79,9 @@ Partial Public Class SimpleImageUpload
         If (Not Me.Page.ClientScript.IsClientScriptIncludeRegistered(t, scriptKey)) Then
             Me.Page.ClientScript.RegisterClientScriptInclude(t, scriptKey, Me.ResolveUrl("simpleImageUpload.js?v=2"))
         End If
+
+        ' Reset the initialization function
+        Me.popupPictureTrimmer1.OnClientControlLoadFunction = ""
     End Sub
 
 #End Region
@@ -304,11 +307,7 @@ Partial Public Class SimpleImageUpload
         ' Setup the initialization function
         If (Me.Visible) Then
             Me.popupPictureTrimmer1.OnClientControlLoadFunction = Me.InitFunctionName
-        Else
-            Me.popupPictureTrimmer1.OnClientControlLoadFunction = ""
         End If
-
-        ' ' ### Dynamic load CSS and JS files ######
 
         ' Update the layout
         Me.btnEdit.Enabled = Me.HasImage
