@@ -67,6 +67,15 @@ Partial Public Class SimpleImageUpload_upload
         End If
     End Sub
 
+    Protected Overrides Sub OnPreRender(ByVal e As System.EventArgs)
+        ' Setup sizes
+        Me.fuFile.Style(HtmlTextWriterStyle.FontSize) = Me.ButtonSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px"
+        Me.fuFile.Style(HtmlTextWriterStyle.Height) = Me.ButtonSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px"
+        Me.fuFile.Style(HtmlTextWriterStyle.Width) = Me.ButtonSize.Width.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px"
+
+        MyBase.OnPreRender(e)
+    End Sub
+
 #Region "Upload monitor"
 
     Protected Sub Page_Error(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Error

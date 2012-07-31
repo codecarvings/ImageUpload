@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="upload.aspx.cs" Inherits="SimpleImageUpload_upload" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="upload.aspx.cs" Inherits="SimpleImageUpload_upload" EnableEventValidation="false" Theme="" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -24,20 +24,13 @@
         {
         	display:none;
         }
-        
-        .InputFile
-        {
-        	font-size: <% =this.ButtonSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) %>px;
-        	height: <% =this.ButtonSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) %>px;
-        	width: <% =this.ButtonSize.Width.ToString(System.Globalization.CultureInfo.InvariantCulture) %>px;
-        }
     </style>
 </head>
 <body onload="onUploadReady();">
     <form id="form1" runat="server">
         <asp:PlaceHolder runat="server" ID="phMainContainer">
             <div class="containerDiv">
-                <asp:FileUpload runat="server" ID="fuFile" CssClass="InputFile" />
+                <asp:FileUpload runat="server" ID="fuFile" />
                 <div class="hiddenDiv">
                     <asp:DropDownList runat="server" ID="ddlDummyForceDoPostBackCreation" AutoPostBack="true">
                         <asp:ListItem Text="Dummy" Value="Dummy" Selected="True"></asp:ListItem>

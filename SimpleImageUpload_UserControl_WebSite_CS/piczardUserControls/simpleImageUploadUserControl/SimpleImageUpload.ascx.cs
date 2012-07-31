@@ -35,7 +35,7 @@
  */
  
 // #########
-// SimpleImageUpload Version 2.0.2
+// SimpleImageUpload Version 2.0.3
 // #########
 
 using System;

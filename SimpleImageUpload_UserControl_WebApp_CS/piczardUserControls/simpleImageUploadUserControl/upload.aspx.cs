@@ -74,6 +74,16 @@ public partial class SimpleImageUpload_upload : System.Web.UI.Page
         }
     }
 
+    protected override void OnPreRender(EventArgs e)
+    {
+        // Setup sizes
+        this.fuFile.Style[HtmlTextWriterStyle.FontSize] = this.ButtonSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px";
+        this.fuFile.Style[HtmlTextWriterStyle.Height] = this.ButtonSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px";
+        this.fuFile.Style[HtmlTextWriterStyle.Width] = this.ButtonSize.Width.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px";
+
+        base.OnPreRender(e);
+    }
+
     #region Upload monitor
 
     protected void Page_Error(object sender, EventArgs e)
