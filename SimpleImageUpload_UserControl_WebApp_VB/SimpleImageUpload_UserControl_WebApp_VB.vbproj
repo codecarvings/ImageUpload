@@ -156,6 +156,7 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\blank.gif" />
     <Content Include="piczardUserControls\simpleImageUploadUserControl\preview.ashx" />
     <Content Include="piczardUserControls\simpleImageUploadUserControl\uploadMonitor.ashx" />
     <Content Include="default.aspx" />

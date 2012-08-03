@@ -13,6 +13,15 @@
 public partial class SimpleImageUpload {
     
     /// <summary>
+    /// Controllo phDesignTimeStart.
+    /// </summary>
+    /// <remarks>
+    /// Campo generato automaticamente.
+    /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.PlaceHolder phDesignTimeStart;
+    
+    /// <summary>
     /// Controllo litStatusMessage.
     /// </summary>
     /// <remarks>
@@ -164,4 +173,13 @@ public partial class SimpleImageUpload {
     /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
     /// </remarks>
     protected global::CodeCarvings.Piczard.Web.PopupPictureTrimmer popupPictureTrimmer1;
+    
+    /// <summary>
+    /// Controllo phDesignTimeEnd.
+    /// </summary>
+    /// <remarks>
+    /// Campo generato automaticamente.
+    /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.PlaceHolder phDesignTimeEnd;
 }

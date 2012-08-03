@@ -23,7 +23,7 @@
                 <ccPiczardUC:SimpleImageUpload ID="ImageUpload1" runat="server" 
                     Width="500px"
                     AutoOpenImageEditPopupAfterUpload="true"
-                    Culture="en"
+                    Culture="en"                    
                  />
                 
                 <br />    

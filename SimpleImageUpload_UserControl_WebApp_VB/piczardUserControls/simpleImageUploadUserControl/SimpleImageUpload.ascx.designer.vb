@@ -16,6 +16,15 @@ Option Explicit On
 Partial Public Class SimpleImageUpload
 
     '''<summary>
+    '''Controllo phDesignTimeStart.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents phDesignTimeStart As Global.System.Web.UI.WebControls.PlaceHolder
+
+    '''<summary>
     '''Controllo litStatusMessage.
     '''</summary>
     '''<remarks>
@@ -167,4 +176,13 @@ Partial Public Class SimpleImageUpload
     '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
     '''</remarks>
     Protected WithEvents popupPictureTrimmer1 As Global.CodeCarvings.Piczard.Web.PopupPictureTrimmer
+
+    '''<summary>
+    '''Controllo phDesignTimeEnd.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents phDesignTimeEnd As Global.System.Web.UI.WebControls.PlaceHolder
 End Class

@@ -35,7 +35,7 @@
  */
  
 // #########
-// SimpleImageUpload Version 2.0.3
+// SimpleImageUpload Version 2.1.0
 // #########
 
 using System;
@@ -154,6 +154,7 @@ public partial class SimpleImageUpload
         values.Add(this._AutoOpenImageEditPopupAfterUpload);
         values.Add(this._ImageEditPopupSize);
         values.Add(this._ButtonSize);
+        values.Add(this._CssClass);
 
         values.Add(this._EnableEdit);
         values.Add(this._EnableRemove);
@@ -186,6 +187,7 @@ public partial class SimpleImageUpload
             this._AutoOpenImageEditPopupAfterUpload = (bool)values[i++];
             this._ImageEditPopupSize = (Size)values[i++];
             this._ButtonSize = (Size)values[i++];
+            this._CssClass = (string)values[i++];
 
             this._EnableEdit = (bool)values[i++];
             this._EnableRemove = (bool)values[i++];
@@ -298,6 +300,11 @@ public partial class SimpleImageUpload
 
         #endregion
 
+        // Hide design-time elements
+
+        this.phDesignTimeStart.Visible = false;
+        this.phDesignTimeEnd.Visible = false;
+
         // Update the layout
 
         this.btnEdit.Enabled = this.HasImage;
@@ -377,6 +384,12 @@ public partial class SimpleImageUpload
             }
         }
 
+        if (string.IsNullOrEmpty(this.imgPreview.ImageUrl))
+        {
+            // Set a dummy image (for xhtml compliance)
+            this.imgPreview.ImageUrl = this.ResolveUrl("blank.gif");
+        }
+
         if (this._CropConstraint != null)
         {
             // Crop Enabled
@@ -410,6 +423,15 @@ public partial class SimpleImageUpload
         else
         {
             this.ddlConfigurations.Visible = false;
+        }
+
+        if (!string.IsNullOrEmpty(this._CssClass))
+        {
+            string[] classes = this._CssClass.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (Array.IndexOf<string>(classes, "ccpz_fobr") >= 0)
+            {
+                this.popupPictureTrimmer1.CssClass = string.IsNullOrEmpty(this.popupPictureTrimmer1.CssClass) ? "ccpz_fobr" : this.popupPictureTrimmer1.CssClass + " ccpz_fobr";
+            }
         }
 
         base.OnPreRender(e);
@@ -715,6 +737,21 @@ public partial class SimpleImageUpload
         set
         {
             this._ButtonSize = value;
+        }
+    }
+
+    protected string _CssClass = string.Empty;
+    /// <summary>
+    /// Gets or sets the Cascading Style Sheet (CSS) class rendered by the user control on the client.</summary>
+    public string CssClass
+    {
+        get
+        {
+            return this._CssClass;
+        }
+        set
+        {
+            this._CssClass = value;
         }
     }
 

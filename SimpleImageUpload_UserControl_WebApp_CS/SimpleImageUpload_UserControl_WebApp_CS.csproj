@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\blank.gif" />
     <Content Include="test\masters\DefaultMasterPage.master" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

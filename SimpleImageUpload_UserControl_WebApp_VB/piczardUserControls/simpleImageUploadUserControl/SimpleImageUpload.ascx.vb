@@ -35,7 +35,7 @@
 ' -------------------------------------------------------
 
 ' #########
-' SimpleImageUpload Version 2.0.3
+' SimpleImageUpload Version 2.1.0
 ' #########
 
 Option Strict On
@@ -158,6 +158,7 @@ Partial Public Class SimpleImageUpload
         values.Add(Me._AutoOpenImageEditPopupAfterUpload)
         values.Add(Me._ImageEditPopupSize)
         values.Add(Me._ButtonSize)
+        values.Add(Me._CssClass)
 
         values.Add(Me._EnableEdit)
         values.Add(Me._EnableRemove)
@@ -192,6 +193,8 @@ Partial Public Class SimpleImageUpload
             Me._ImageEditPopupSize = DirectCast(values(i), Size)
             i += 1
             Me._ButtonSize = DirectCast(values(i), Size)
+            i += 1
+            Me._CssClass = DirectCast(values(i), String)
             i += 1
 
             Me._EnableEdit = DirectCast(values(i), Boolean)
@@ -309,6 +312,10 @@ Partial Public Class SimpleImageUpload
             Me.popupPictureTrimmer1.OnClientControlLoadFunction = Me.InitFunctionName
         End If
 
+        ' Hide design-time elements
+        Me.phDesignTimeStart.Visible = False
+        Me.phDesignTimeEnd.Visible = False
+
         ' Update the layout
         Me.btnEdit.Enabled = Me.HasImage
         Me.btnRemove.Enabled = Me.HasImage
@@ -383,6 +390,11 @@ Partial Public Class SimpleImageUpload
             End If
         End If
 
+        If (String.IsNullOrEmpty(Me.imgPreview.ImageUrl)) Then
+            ' Set a dummy image (for xhtml compliance)
+            Me.imgPreview.ImageUrl = Me.ResolveUrl("blank.gif")
+        End If
+
         If (Me._CropConstraint IsNot Nothing) Then
             ' Crop Enabled
             Me.popupPictureTrimmer1.ShowZoomPanel = True
@@ -408,6 +420,13 @@ Partial Public Class SimpleImageUpload
             Me.ddlConfigurations.Visible = True
         Else
             Me.ddlConfigurations.Visible = False
+        End If
+
+        If (Not String.IsNullOrEmpty(Me._CssClass)) Then
+            Dim classes As String() = Me._CssClass.Split(New Char() {" "c}, StringSplitOptions.RemoveEmptyEntries)
+            If (Array.IndexOf(Of String)(classes, "ccpz_fobr") >= 0) Then
+                Me.popupPictureTrimmer1.CssClass = If(String.IsNullOrEmpty(Me.popupPictureTrimmer1.CssClass), "ccpz_fobr", Me.popupPictureTrimmer1.CssClass + " ccpz_fobr")
+            End If
         End If
 
         MyBase.OnPreRender(e)
@@ -656,6 +675,18 @@ Partial Public Class SimpleImageUpload
         End Get
         Set(ByVal value As Size)
             Me._ButtonSize = value
+        End Set
+    End Property
+
+    Protected _CssClass As String = String.Empty
+    ''' <summary>
+    ''' Gets or sets the Cascading Style Sheet (CSS) class rendered by the user control on the client.</summary>
+    Public Property CssClass() As String
+        Get
+            Return Me._CssClass
+        End Get
+        Set(ByVal value As String)
+            Me._CssClass = value
         End Set
     End Property
 

@@ -78,6 +78,14 @@ Controllo btnUpload.
 Campo generato automaticamente.
 Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
 </remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.phDesignTimeStart">
+	<summary>
+Controllo phDesignTimeStart.
+</summary>
+	<remarks>
+Campo generato automaticamente.
+Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+</remarks>
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.litStatusMessage">
 	<summary>
 Controllo litStatusMessage.
@@ -214,6 +222,14 @@ Controllo popupPictureTrimmer1.
 Campo generato automaticamente.
 Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
 </remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.phDesignTimeEnd">
+	<summary>
+Controllo phDesignTimeEnd.
+</summary>
+	<remarks>
+Campo generato automaticamente.
+Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+</remarks>
 </member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.Computer">
 	<summary>
  Restituisce le informazioni sul computer host.
@@ -272,6 +288,9 @@ Per la modifica, spostare la dichiarazione di campo dal file di progettazione al
 </member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ButtonSize">
 	<summary>
  Gets or sets the size of the buttons.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.CssClass">
+	<summary>
+ Gets or sets the Cascading Style Sheet (CSS) class rendered by the user control on the client.</summary>
 </member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Configurations">
 	<summary>
  Gets or sets the available configuration names.</summary>

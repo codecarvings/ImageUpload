@@ -1,6 +1,9 @@
 ﻿<%@ Control Language="VB" AutoEventWireup="false" CodeFile="SimpleImageUpload.ascx.vb" Inherits="SimpleImageUpload" %>
 <%@ Register assembly="CodeCarvings.Piczard" namespace="CodeCarvings.Piczard.Web" tagprefix="ccPiczard" %>
-<div id="<% =HttpUtility.HtmlAttributeEncode(Me.GetSubElementId("container0")) %>" style="<% =Me.GetRenderStyleWidth() %>">
+<asp:PlaceHolder runat="server" ID="phDesignTimeStart" EnableViewState="false">
+    <div style="display:none;">
+</asp:PlaceHolder> 
+<div id="<% =HttpUtility.HtmlAttributeEncode(Me.GetSubElementId("container0")) %>" <% =If(Not string.IsNullOrEmpty(Me.CssClass), "class=""" + HttpUtility.HtmlAttributeEncode(Me.CssClass) + """", "") %> style="<% =Me.GetRenderStyleWidth() %>">
     <div id="<% =HttpUtility.HtmlAttributeEncode(Me.GetSubElementId("container1")) %>" style="padding:5px; background-color:#eeeeee; border:solid 1px #cccccc;">
     
         <div id="<% =HttpUtility.HtmlAttributeEncode(Me.GetSubElementId("content")) %>" style="padding:5px; background-color:#ffffff; border:solid 1px #cccccc; overflow: auto;">
@@ -68,7 +71,15 @@
         OnClientBeforePopupOpenFunction="CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onImageEditBeforePopupOpen"
         OnClientAfterPopupCloseFunction="CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onImageEditAfterPopupClose"
         EnableViewState="false" />
+            
     </div>
 </div>
+<asp:PlaceHolder runat="server" ID="phDesignTimeEnd" EnableViewState="false">
+    </div>
+    <div style="margin:5px; padding: 5px; border: solid 1px #c6c6c6; background-color: #d6d6d6; font-size: 12px; font-family:Arial,Hevetica,sans-serif;text-align:left;">
+        <span style="font-weight:bold;">Piczard</span> - .NET Image Manipulation Library by Sergio Turolla<br />
+         SimpleImageUpload User Control &nbsp;v 2.1.0
+    </div>
+</asp:PlaceHolder>  
 
         
