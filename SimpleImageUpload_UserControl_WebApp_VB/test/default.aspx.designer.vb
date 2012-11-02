@@ -50,4 +50,13 @@ Partial Public Class test_default
     '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
     '''</remarks>
     Protected WithEvents ImageUpload2 As Global.SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload
+
+    '''<summary>
+    '''Controllo btnDummyPostback.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents btnDummyPostback As Global.System.Web.UI.WebControls.Button
 End Class

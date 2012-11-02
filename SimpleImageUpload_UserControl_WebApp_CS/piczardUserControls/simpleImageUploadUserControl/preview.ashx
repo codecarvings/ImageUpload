@@ -67,6 +67,14 @@ public class SimpleImageUpload_preview
         if (File.Exists(previewImageFilePath))
         {
             // Preview image found
+
+            // Set cache
+            DateTime dtLastModified = DateTime.Now;
+            context.Response.Cache.SetLastModified(dtLastModified);
+            context.Response.Cache.SetExpires(dtLastModified.AddDays(2));
+            context.Response.Cache.SetCacheability(HttpCacheability.Private);         
+            
+            // Transmit the image
             ImageArchiver.TransmitImageFileToWebResponse(previewImageFilePath, context.Response);
         }
         else

@@ -6,39 +6,7 @@ SimpleImageUpload_UserControl_WebApp_VB
 </name>
 </assembly>
 <members>
-<member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.ScriptManager1">
-	<summary>
-Controllo ScriptManager1.
-</summary>
-	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-</remarks>
-</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.UpdatePanel1">
-	<summary>
-Controllo UpdatePanel1.
-</summary>
-	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-</remarks>
-</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.ImageUpload1">
-	<summary>
-Controllo ImageUpload1.
-</summary>
-	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-</remarks>
-</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.ImageUpload2">
-	<summary>
-Controllo ImageUpload2.
-</summary>
-	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-</remarks>
-</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload_upload.form1">
+<member name="F:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload_upload.form1">
 	<summary>
 Controllo form1.
 </summary>
@@ -73,6 +41,576 @@ Per la modifica, spostare la dichiarazione di campo dal file di progettazione al
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload_upload.btnUpload">
 	<summary>
 Controllo btnUpload.
+</summary>
+	<remarks>
+Campo generato automaticamente.
+Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+</remarks>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Width">
+	<summary>
+ Gets or sets the control width.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.BackColor">
+	<summary>
+ Gets or sets the background color of the image upload control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.BorderColor">
+	<summary>
+ Gets or sets the border color of the image upload control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.BorderStyle">
+	<summary>
+ Gets or sets the border style of the image upload control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.BorderWidth">
+	<summary>
+ Gets or sets the border width of the image upload control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ContentBackColor">
+	<summary>
+ Gets or sets the background color of the content element.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ContentForeColor">
+	<summary>
+ Gets or sets the foreground color of the content element.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ContentErrorForeColor">
+	<summary>
+ Gets or sets the foreground color of the content element when an error is displayed.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ContentBorderColor">
+	<summary>
+ Gets or sets the border color of the content element.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ContentBorderStyle">
+	<summary>
+ Gets or sets the border style of the content element.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ContentBorderWidth">
+	<summary>
+ Gets or sets the border width of the content element.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PreviewBorderColor">
+	<summary>
+ Gets or sets the border color of the preview image element.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PreviewBorderStyle">
+	<summary>
+ Gets or sets the border style of the preview image element.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PreviewBorderWidth">
+	<summary>
+ Gets or sets the border width of the preview image element.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.OutputResolution">
+	<summary>
+ Gets or sets the output resolution (DPI - default value = 96).</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.CropConstraint">
+	<summary>
+ Gets or sets the crop constraint.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUploadPreProcessingFilter">
+	<summary>
+ Gets or sets the filter(s) to apply after a new upload, before the image is loaded into the control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PostProcessingFilter">
+	<summary>
+ Gets or sets the filter(s) to apply to the image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PostProcessingFilterApplyMode">
+	<summary>
+ Gets or sets a value indicating if and when ImageProcessingFilter must be applied.
+ Default values is: "OnlyNewImages".</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PreviewFilter">
+	<summary>
+ Gets or sets the filter(s) to apply to the preview image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PreviewResizeConstraint">
+	<summary>
+ Gets or sets the ResizeConstraint used to generate the preview image.
+ This property is marked as obsolete since version 2.0.0 of the control and will be soon removed.
+ Use 'PreviewFilter' instead.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageEditPopupSize">
+	<summary>
+ Gets or sets the image edit popup size.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.AutoOpenImageEditPopupAfterUpload">
+	<summary>
+ Gets or sets a value indicating whether to automatically open the image edit popup after the upload process.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.AutoDisableImageEdit">
+	<summary>
+ Gets or sets a value indicating whether to automatically disable image edit feature if not available (e.g. Flash Player not installed).</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ButtonSize">
+	<summary>
+ Gets or sets the size of the buttons.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.CssClass">
+	<summary>
+ Gets or sets the Cascading Style Sheet (CSS) class rendered by the user control on the client.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Configurations">
+	<summary>
+ Gets or sets the available configuration names.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SelectedConfigurationIndex">
+	<summary>
+ Gets or sets the index of the selected configuration.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.DebugUploadProblems">
+	<summary>
+ Gets or sets a value indicating whether to show details when an upload error occurs.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PictureTrimmerSettings">
+	<summary>
+  Gets an object that allows to customize settings of the PopupPictureTrimmer instance.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Text_EditButton">
+	<summary>
+ Gets or sets the text of the "Edit" button.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Text_RemoveButton">
+	<summary>
+ Gets or sets the text of the "Remove" button.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Text_BrowseButton">
+	<summary>
+ Gets or sets the text of the "Browse" button.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Text_CancelUploadButton">
+	<summary>
+ Gets or sets the text of the "Cancel Upload" button.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Text_ConfigurationLabel">
+	<summary>
+ Gets or sets the text of the "Configuration" label.</summary>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SetCurrentStatusMessage(System.String,System.Boolean)">
+	<summary>
+ Sets the current status message.</summary>
+	<param name="text">The message to display.</param>
+	<param name="isError">If true, the message will be displayed as error message.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SetCurrentStatusMessage(System.String)">
+	<summary>
+ Sets the current status message.</summary>
+	<param name="text">The message to display.</param>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.StatusMessage_NoImageSelected">
+	<summary>
+ Gets or sets the text displayed when no image has been selected.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.StatusMessage_UploadError">
+	<summary>
+ Gets or sets the text displayed when a (generic) upload error has occurred.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.StatusMessage_InvalidImage">
+	<summary>
+ Gets or sets the text displayed when the uploaded image file is invalid.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.StatusMessage_InvalidImageSize">
+	<summary>
+ Gets or sets the text displayed when the size of the uploaded image is too small or too large (please see: CodeCarvings.Piczard.Configuration.DrawingSettings.MaxImageSize).</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.StatusMessage_Wait">
+	<summary>
+ Gets or sets the text displayed when the user has to wait (e.g. a postback has been delayed).</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.EnableEdit">
+	<summary>
+ Gets or sets a value indicating whether it's possible to edit the image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.EnableRemove">
+	<summary>
+ Gets or sets a value indicating whether it's possible to remove the image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.EnableUpload">
+	<summary>
+ Gets or sets a value indicating whether it's possible to upload an image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.EnableCancelUpload">
+	<summary>
+ Gets or sets a value indicating whether it's possible to cancel an upload in progess.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.TemporaryFileId">
+	<summary>
+ Gets or sets the current temporary file id.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.HasImage">
+	<summary>
+ Gets a value indicating whether the control has an image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.HasNewImage">
+	<summary>
+ Gets a value indicating whether the control has an image uploaded or edited by the user.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUploaded">
+	<summary>
+ Gets a value indicating whether the control has an image uploaded by the user.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageEdited">
+	<summary>
+ Gets a value indicating whether the control has an image edited by the user.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SourceImageClientFileName">
+	<summary>
+ Gets or sets the original image file name (before upload).</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.UserState">
+	<summary>
+ Gets the current PictureTrimmerUserState of the PictureTrimmer control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Value">
+	<summary>
+ Gets the current PictureTrimmerValue of the PictureTrimmer control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Culture">
+	<summary>
+ Gets or sets the current culture.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.CanvasColor">
+	<summary>
+ Gets or sets the CanvasColor used by the PictureTrimmer" control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageBackColor">
+	<summary>
+ Gets or sets the ImageBackColor used by the PictureTrimmer" control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageBackColorApplyMode">
+	<summary>
+ Gets or sets the ImageBackColorApplyMode property of the PictureTrimmer control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.UIUnit">
+	<summary>
+ Gets or sets the UIUnit used by the PictureTrimmer control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.CropShadowMode">
+	<summary>
+ Gets or sets a value indicating how the PictureTrimmer GUI renders the cropping mask.
+ This property is marked as obsolete since version 3.0.0 of the control and will be soon removed.
+ Use 'PictureTrimmerSettings-CropShadowMode' instead.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SourceImageSize">
+	<summary>
+ Gets the size (pixel) of the source image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SourceImageResolution">
+	<summary>
+ Gets the resolution (DPI) of the source image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SourceImageFormatId">
+	<summary>
+ Gets the format of the source image</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.TemporarySourceImageFilePath">
+	<summary>
+ Gets the path of the temporary file containing the source image.</summary>
+</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUploadEventHandler">
+	<summary>
+ Represents the method that handles the ImageUpload event.</summary>
+	<param name="sender">The source of the event.</param>
+	<param name="args">The argument of type ImageUploadEventArgs that contains the event data.</param>
+</member><member name="E:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUpload">
+	<summary>
+ Occurs when a new image is uploaded.</summary>
+</member><member name="E:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.UploadError">
+	<summary>
+ Occurs when an upload process does not complete successfully.</summary>
+</member><member name="E:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageEdit">
+	<summary>
+ Occurs when the image is edited.</summary>
+</member><member name="E:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageRemove">
+	<summary>
+ Occurs when the image is removed.</summary>
+</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SelectedConfigurationIndexChangedEventHandler">
+	<summary>
+ Represents the method that handles the SelectedConfigurationIndexChanged event.</summary>
+	<param name="sender">The source of the event.</param>
+	<param name="args">The argument of type SelectedConfigurationIndexChangedEventArgs that contains the event data.</param>
+</member><member name="E:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SelectedConfigurationIndexChanged">
+	<summary>
+ Occurs when the ConfigurationIndex has been changed by the user.</summary>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromFileSystem(System.String,CodeCarvings.Piczard.Web.PictureTrimmerValue)">
+	<summary>
+ Loads an image stored in the file system and applies a specific PictureTrimmerValue.</summary>
+	<param name="sourceImageFilePath">The path of the image to load.</param>
+	<param name="value">The PictureTrimmerValue to apply.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromFileSystem(System.String)">
+	<summary>
+ Loads an image stored in the file system and auto-calculates the PictureTrimmerValue to use.</summary>
+	<param name="sourceImageFilePath">The path of the image to load.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromStream(System.IO.Stream,CodeCarvings.Piczard.Web.PictureTrimmerValue)">
+	<summary>
+ Loads an image from a Stream and applies a specific PictureTrimmerValue.</summary>
+	<param name="sourceImageStream">The Stream containing the image to load.</param>
+	<param name="value">The PictureTrimmerValue to apply.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromStream(System.IO.Stream)">
+	<summary>
+ Loads an image from a Stream and auto-calculates the PictureTrimmerValue to use.</summary>
+	<param name="sourceImageStream">The Stream containing the image to load.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromByteArray(System.Byte[],CodeCarvings.Piczard.Web.PictureTrimmerValue)">
+	<summary>
+ Loads an image from an array of bytes and applies a specific PictureTrimmerValue.</summary>
+	<param name="sourceImageBytes">The array of bytes to load.</param>
+	<param name="value">The PictureTrimmerValue to apply.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromByteArray(System.Byte[])">
+	<summary>
+ Loads an image from an array of bytes and auto-calculates the PictureTrimmerValue to use.</summary>
+	<param name="sourceImageBytes">The array of bytes to load.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImage(CodeCarvings.Piczard.LoadedImage,CodeCarvings.Piczard.Web.PictureTrimmerValue)">
+	<summary>
+ Loads an image from an array of bytes and applies a specific PictureTrimmerValue.</summary>
+	<param name="sourceImage">The source image to load.</param>
+	<param name="value">The PictureTrimmerValue to apply.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImage(CodeCarvings.Piczard.LoadedImage)">
+	<summary>
+ Loads an image and auto-calculates the PictureTrimmerValue to use.</summary>
+	<param name="sourceImage">The source image to load.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImage(System.Drawing.Image,CodeCarvings.Piczard.Web.PictureTrimmerValue)">
+	<summary>
+ Loads an image from an array of bytes and applies a specific PictureTrimmerValue.</summary>
+	<param name="sourceImage">The source image to load.</param>
+	<param name="value">The PictureTrimmerValue to apply.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImage(System.Drawing.Image)">
+	<summary>
+ Loads an image and auto-calculates the PictureTrimmerValue to use.</summary>
+	<param name="sourceImage">The source image to load.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.UnloadImage(System.Boolean)">
+	<summary>
+ Unloads the current image.</summary>
+	<param name="clearTemporaryFiles">If true, delete the temporary files.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.UnloadImage">
+	<summary>
+ Unloads the current image and clears the temporary files.</summary>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.GetImageProcessingJob">
+	<summary>
+ Returns the ImageProcessingJob that can be used to process the source image.</summary>
+	<returns>An ImageProcessingJob ready to be used to process imagess.</returns>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.GetProcessedImage(CodeCarvings.Piczard.FormatEncoderParams)">
+	<summary>
+ Returns the output image processed by the control.</summary>
+	<param name="hintFormatEncoderParams">The image format that will be used then to save image.</param>
+	<returns>A Bitmap image processed by the control.</returns>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.GetProcessedImage">
+	<summary>
+ Returns the output image processed by the control.</summary>
+	<returns>A Bitmap image processed by the control.</returns>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToStream(System.IO.Stream,CodeCarvings.Piczard.FormatEncoderParams)">
+	<summary>
+ Processes  the source image and saves the output in a Stream with a specific image format.</summary>
+	<param name="destStream">The Stream in which the image will be saved.</param>
+	<param name="formatEncoderParams">The image format of the saved image.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToStream(System.IO.Stream)">
+	<summary>
+ Processes the source image and saves the output in a Stream with the default image format.</summary>
+	<param name="destStream">The Stream in which the image will be saved.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToFileSystem(System.String,CodeCarvings.Piczard.FormatEncoderParams)">
+	<summary>
+ Processes the source image and saves the output in the file system with a specific image format.</summary>
+	<param name="destFilePath">The file path of the saved image.</param>
+	<param name="formatEncoderParams">The image format of the saved image.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToFileSystem(System.String)">
+	<summary>
+ Processes the source image and save the output in the file system with the default image format.</summary>
+	<param name="destFilePath">The file path of the saved image.</param>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToByteArray(CodeCarvings.Piczard.FormatEncoderParams)">
+	<summary>
+ Processes the source image and returns a byte array containing the processed image encoded with a specific image format.</summary>
+	<param name="formatEncoderParams">The image format of the saved image.</param>
+	<returns>An array of bytes containing the processed image.</returns>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToByteArray">
+	<summary>
+ Processes the source image and returns a byte array containing the processed image encoded with the default image format.</summary>
+	<returns>An array of bytes containing the processed image.</returns>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ClearTemporaryFiles">
+	<summary>
+ Deletes the internal temporary files generated by the control.</summary>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.OpenImageEditPopup">
+	<summary>
+ Opens the image edit popup window.</summary>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.#ctor(System.Single,CodeCarvings.Piczard.CropConstraint,CodeCarvings.Piczard.ImageProcessingFilter,CodeCarvings.Piczard.ImageProcessingFilter)">
+	<summary>
+ Intializes new instace of the ConfigurationEventArgs class.</summary>
+	<param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
+	<param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
+	<param name="postProcessingFilter">The filter(s) to apply to the image.</param>
+	<param name="previewFilter">The filter(s) to apply to the preview image.</param>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.OutputResolution">
+	<summary>
+ Gets or sets the resolution (DPI) of the image that is generated by the control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.CropConstraint">
+	<summary>
+ Gets the constraints that have to be satisfied by the cropped image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.PostProcessingFilter">
+	<summary>
+ Gets or sets the filter(s) to apply to the image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.PreviewFilter">
+	<summary>
+ Gets or sets the filter(s) to apply to the preview image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.PreviewResizeConstraint">
+	<summary>
+ Gets or sets the ResizeConstraint used to generate the preview image.
+ This property is marked as obsolete since version 2.0.0 of the control and will be soon removed.
+ Use 'PreviewFilter' instead.</summary>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.ReloadImage">
+	<summary>
+ Force the reloading of the source image.</summary>
+</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs">
+	<summary>
+ Base class that provides data for the ImageUpload and the SelectedConfigurationIndexChanged events.</summary>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUploadEventArgs.#ctor(System.Single,CodeCarvings.Piczard.CropConstraint,CodeCarvings.Piczard.ImageProcessingFilter,CodeCarvings.Piczard.ImageProcessingFilter)">
+	<summary>
+ Intializes new instace of the ImageUploadEventArgs class.</summary>
+	<param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
+	<param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
+	<param name="postProcessingFilter">The filter(s) to apply to the image.</param>
+	<param name="previewFilter">The filter(s) to apply to the preview image.</param>
+</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUploadEventArgs">
+	<summary>
+ Provides data for the ImageUpload event.</summary>
+</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SelectedConfigurationIndexChangedEventArgs.#ctor(System.Single,CodeCarvings.Piczard.CropConstraint,CodeCarvings.Piczard.ImageProcessingFilter,CodeCarvings.Piczard.ImageProcessingFilter)">
+	<summary>
+ Intializes new instace of the SelectedConfigurationIndexChangedEventArgs class.</summary>
+	<param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
+	<param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
+	<param name="postProcessingFilter">The filter(s) to apply to the image.</param>
+	<param name="previewFilter">The filter(s) to apply to the preview image.</param>
+</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SelectedConfigurationIndexChangedEventArgs">
+	<summary>
+ Provides data for the SelectedConfigurationIndexChanged event.</summary>
+</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SimpleImageUploadPostProcessingFilterApplyMode">
+	<summary>
+ Specifies if and when PostProcessingFilter must be applied.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.AllowResize">
+	<summary>
+ Gets or sets a value indicating whether users can resize the source image through the GUI.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.AutoFreezeOnFormSubmit">
+	<summary>
+ Gets or sets a value indicating whether the control has to automatically freeze the GUI when the form is submitted.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.AutoZoomMode">
+	<summary>
+ Gets or sets a value indicating how the PictureTrimmer instance automatically calculates the ZoomFactor.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.BackColor">
+	<summary>
+ Gets or sets the BackColor property of the PictureTrimmer control.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.CancelButtonText">
+	<summary>
+ Gets or sets the text of the "Cancel button".</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.CropShadowMode">
+	<summary>
+ Gets or sets a value indicating how the PictureTrimmer GUI renders the cropping mask.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.EnableAutoCenterView">
+	<summary>
+ Gets or sets a value indicating whether the control has to automatically
+ center the view after the user drags the crop area outside the visible area.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.EnableSnapping">
+	<summary>
+ Gets or sets a value indicating whether the crop area automatically snaps
+ to the edge or the center of the image when the user moves the rectangle
+ near those positions.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.FlashWMode">
+	<summary>
+ Gets or sets the Window Mode property of the Adobe Flash movie for transparency,
+ layering, and positioning in the browser (it is strongly suggested to use
+ the FlashWMode.Window setting).</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.ForeColor">
+	<summary>
+ Gets or sets the foreground color.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.LightBoxCssClass">
+	<summary>
+ Gets or sets the Cascading Style Sheet (CSS) class used to customize the
+ style of the LightBox popup window.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.SaveButtonText">
+	<summary>
+ Gets or sets the text of the "Save button".</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.ShowCancelButton">
+	<summary>
+ Gets or sets a value indicating whether to display the "Cancel button" in the popup window.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.ShowCropAlignmentLines">
+	<summary>
+ Gets or sets a value indicating whether to show lines that facilitate the
+ alignment of the crop rectangle.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.ShowDetailsPanel">
+	<summary>
+ Gets or sets a value indicating whether to show the "Details panel" in the
+ component GUI.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.ShowFlipPanel">
+	<summary>
+ Gets or sets a value indicating whether to show the flip control in the "Rotate/Flip panel". 
+ The flip control allows the user to flip the image horizontally and/or vertically.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.ShowImageAdjustmentsPanel">
+	<summary>
+ Gets or sets a value indicating whether to show the "Adjustments panel" in
+ the component GUI. The "Adjustments panel" allows the user to change Brightness,
+ Contrast, Hue and/or Saturation of the Image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.ShowResizePanel">
+	<summary>
+ Gets or sets a value indicating whether to show the "Resize panel" in the
+ component GUI. The "Resize panel" allows the user to change the ResizeFactor
+ applied to the source Image.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.ShowRotatePanel">
+	<summary>
+ Gets or sets a value indicating whether to show the rotate control in the
+ "Rotate/Flip panel". The rotate control allows the user to rotate the image
+ clockwise by 0, 90, 180 or 270 degrees.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.ShowRulers">
+	<summary>
+ Gets or sets a value indicating whether to show the rulers at the left and
+ at the top of the working area.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PopupPictureTrimmerSettingsProvider.ShowZoomPanel">
+	<summary>
+ Gets or sets a value indicating whether to show the "Zoom panel" in the component
+ GUI. The "Zoom panel" allows the user to magnify an area of the image.
+ Please note that ZoomPanel is always invisible when the crop feature is disabled (CropConstraint = null).</summary>
+</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload">
+	<summary>
+ A ready-to-use ASCX control that provides advanced image uploading features.</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.form1">
+	<summary>
+Controllo form1.
+</summary>
+	<remarks>
+Campo generato automaticamente.
+Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+</remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.imgCodeCarvingsLogo">
+	<summary>
+Controllo imgCodeCarvingsLogo.
+</summary>
+	<remarks>
+Campo generato automaticamente.
+Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+</remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.imgPageBrandLogo">
+	<summary>
+Controllo imgPageBrandLogo.
+</summary>
+	<remarks>
+Campo generato automaticamente.
+Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+</remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.pageBody">
+	<summary>
+Controllo pageBody.
+</summary>
+	<remarks>
+Campo generato automaticamente.
+Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+</remarks>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.Computer">
+	<summary>
+ Restituisce le informazioni sul computer host.
+ </summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.User">
+	<summary>
+ Restituisce le informazioni per l'utente Web corrente.
+ </summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.Request">
+	<summary>
+ Restituisce l'oggetto Request.
+ </summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.Response">
+	<summary>
+ Restituisce l'oggetto Response.
+ </summary>
+</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.Log">
+	<summary>
+ Restituisce l'oggetto AspLog.
+ </summary>
+</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension">
+	<summary>
+ Modulo utilizzato per definire le proprietà disponibili nello spazio dei nomi My per i progetti Web.
+ </summary>
+	<remarks></remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.ScriptManager1">
+	<summary>
+Controllo ScriptManager1.
+</summary>
+	<remarks>
+Campo generato automaticamente.
+Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+</remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.UpdatePanel1">
+	<summary>
+Controllo UpdatePanel1.
+</summary>
+	<remarks>
+Campo generato automaticamente.
+Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+</remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.ImageUpload1">
+	<summary>
+Controllo ImageUpload1.
+</summary>
+	<remarks>
+Campo generato automaticamente.
+Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+</remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.ImageUpload2">
+	<summary>
+Controllo ImageUpload2.
+</summary>
+	<remarks>
+Campo generato automaticamente.
+Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+</remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.btnDummyPostback">
+	<summary>
+Controllo btnDummyPostback.
 </summary>
 	<remarks>
 Campo generato automaticamente.
@@ -225,364 +763,6 @@ Per la modifica, spostare la dichiarazione di campo dal file di progettazione al
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.phDesignTimeEnd">
 	<summary>
 Controllo phDesignTimeEnd.
-</summary>
-	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-</remarks>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.Computer">
-	<summary>
- Restituisce le informazioni sul computer host.
- </summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.User">
-	<summary>
- Restituisce le informazioni per l'utente Web corrente.
- </summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.Request">
-	<summary>
- Restituisce l'oggetto Request.
- </summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.Response">
-	<summary>
- Restituisce l'oggetto Response.
- </summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.Log">
-	<summary>
- Restituisce l'oggetto AspLog.
- </summary>
-</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension">
-	<summary>
- Modulo utilizzato per definire le proprietà disponibili nello spazio dei nomi My per i progetti Web.
- </summary>
-	<remarks></remarks>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Width">
-	<summary>
- Gets or sets the control width.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.OutputResolution">
-	<summary>
- Gets or sets the output resolution (DPI - default value = 96).</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.CropConstraint">
-	<summary>
- Gets or sets the crop constraint.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PostProcessingFilter">
-	<summary>
- Gets or sets the filter(s) to apply to the image.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PostProcessingFilterApplyMode">
-	<summary>
- Gets or sets a value indicating if and when ImageProcessingFilter must be applied.
- Default values is: "OnlyNewImages".</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PreviewFilter">
-	<summary>
- Gets or sets the filter(s) to apply to the preview image.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.PreviewResizeConstraint">
-	<summary>
- Gets or sets the ResizeConstraint used to generate the preview image.
- This property is marked as obsolete since version 2.0.0 of the control and will be soon removed.
- Use 'PreviewFilter' instead.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageEditPopupSize">
-	<summary>
- Gets or sets the image edit popup size.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.AutoOpenImageEditPopupAfterUpload">
-	<summary>
- Gets or sets a value indicating whether to automatically open the image edit popup after the upload process.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ButtonSize">
-	<summary>
- Gets or sets the size of the buttons.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.CssClass">
-	<summary>
- Gets or sets the Cascading Style Sheet (CSS) class rendered by the user control on the client.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Configurations">
-	<summary>
- Gets or sets the available configuration names.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SelectedConfigurationIndex">
-	<summary>
- Gets or sets the index of the selected configuration.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.DebugUploadProblems">
-	<summary>
- Gets or sets a value indicating whether to show details when an upload error occurs.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Text_EditButton">
-	<summary>
- Gets or sets the text of the "Edit" button.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Text_RemoveButton">
-	<summary>
- Gets or sets the text of the "Remove" button.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Text_BrowseButton">
-	<summary>
- Gets or sets the text of the "Browse" button.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Text_CancelUploadButton">
-	<summary>
- Gets or sets the text of the "Cancel Upload" button.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Text_ConfigurationLabel">
-	<summary>
- Gets or sets the text of the "Configuration" label.</summary>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SetCurrentStatusMessage(System.String)">
-	<summary>
- Sets the current status message.</summary>
-	<param name="text">The message to display.</param>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.StatusMessage_NoImageSelected">
-	<summary>
- Gets or sets the text displayed when no image has been selected.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.StatusMessage_UploadError">
-	<summary>
- Gets or sets the text displayed when a (generic) upload error has occurred.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.StatusMessage_InvalidImage">
-	<summary>
- Gets or sets the text displayed when the uploaded image file is invalid.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.StatusMessage_InvalidImageSize">
-	<summary>
- Gets or sets the text displayed when the size of the uploaded image is too small or too large (please see: CodeCarvings.Piczard.Configuration.DrawingSettings.MaxImageSize).</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.StatusMessage_Wait">
-	<summary>
- Gets or sets the text displayed when the user has to wait (e.g. a postback has been delayed).</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.EnableEdit">
-	<summary>
- Gets or sets a value indicating whether it's possible to edit the image.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.EnableRemove">
-	<summary>
- Gets or sets a value indicating whether it's possible to remove the image.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.EnableUpload">
-	<summary>
- Gets or sets a value indicating whether it's possible to upload an image.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.EnableCancelUpload">
-	<summary>
- Gets or sets a value indicating whether it's possible to cancel an upload in progess.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.TemporaryFileId">
-	<summary>
- Gets or sets the current temporary file id.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.HasImage">
-	<summary>
- Gets a value indicating whether the control has an image.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.HasNewImage">
-	<summary>
- Gets a value indicating whether the control has an image uploaded or edited by the user.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUploaded">
-	<summary>
- Gets a value indicating whether the control has an image uploaded by the user.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageEdited">
-	<summary>
- Gets a value indicating whether the control has an image edited by the user.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SourceImageClientFileName">
-	<summary>
- Gets or sets the original image file name (before upload).</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.UserState">
-	<summary>
- Gets the current <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmerUserState"/> of the <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmer"/> control.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Value">
-	<summary>
- Gets the current <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmerValue"/> of the <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmer"/> control.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.Culture">
-	<summary>
- Gets or sets the current culture.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.CanvasColor">
-	<summary>
- Gets or sets the CanvasColor used by the <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmer"/> control.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageBackColor">
-	<summary>
- Gets or sets the ImageBackColor used by the <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmer"/> control.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageBackColorApplyMode">
-	<summary>
- Gets or sets the <see cref="P:CodeCarvings.Piczard.Web.PictureTrimmer.ImageBackColorApplyMode"/> property of the <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmer"/> control.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.UIUnit">
-	<summary>
- Gets or sets the UIUnit used by the <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmer"/> control.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.CropShadowMode">
-	<summary>
- Gets or sets the <see cref="P:CodeCarvings.Piczard.Web.PictureTrimmer.CropShadowMode"/> property of the <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmer"/> control.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SourceImageSize">
-	<summary>
- Gets the size (pixel) of the source image.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SourceImageResolution">
-	<summary>
- Gets the resolution (DPI) of the source image.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SourceImageFormatId">
-	<summary>
- Gets the format of the source image</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.TemporarySourceImageFilePath">
-	<summary>
- Gets the path of the temporary file containing the source image.</summary>
-</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUploadEventHandler">
-	<summary>
- Represents the method that handles the ImageUpload event.</summary>
-	<param name="sender">The source of the event.</param>
-	<param name="args">The argument of type ImageUploadEventArgs that contains the event data.</param>
-</member><member name="E:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUpload">
-	<summary>
- Occurs when a new image is uploaded.</summary>
-</member><member name="E:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.UploadError">
-	<summary>
- Occurs when an upload process does not complete successfully.</summary>
-</member><member name="E:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageEdit">
-	<summary>
- Occurs when the image is edited.</summary>
-</member><member name="E:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageRemove">
-	<summary>
- Occurs when the image is removed.</summary>
-</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SelectedConfigurationIndexChangedEventHandler">
-	<summary>
- Represents the method that handles the SelectedConfigurationIndexChanged event.</summary>
-	<param name="sender">The source of the event.</param>
-	<param name="args">The argument of type SelectedConfigurationIndexChangedEventArgs that contains the event data.</param>
-</member><member name="E:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SelectedConfigurationIndexChanged">
-	<summary>
- Occurs when the ConfigurationIndex has been changed by the user.</summary>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromFileSystem(System.String,CodeCarvings.Piczard.Web.PictureTrimmerValue)">
-	<summary>
- Loads an image stored in the file system and applies a specific <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmerValue"/>.</summary>
-	<param name="sourceImageFilePath">The path of the image to load.</param>
-	<param name="value">The <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmerValue"/> to apply.</param>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromFileSystem(System.String)">
-	<summary>
- Loads an image stored in the file system and auto-calculates the <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmerValue"/> to use.</summary>
-	<param name="sourceImageFilePath">The path of the image to load.</param>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromStream(System.IO.Stream,CodeCarvings.Piczard.Web.PictureTrimmerValue)">
-	<summary>
- Loads an image from a <see cref="T:System.IO.Stream"/> and applies a specific <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmerValue"/>.</summary>
-	<param name="sourceImageStream">The <see cref="T:System.IO.Stream"/> containing the image to load.</param>
-	<param name="value">The <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmerValue"/> to apply.</param>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromStream(System.IO.Stream)">
-	<summary>
- Loads an image from a <see cref="T:System.IO.Stream"/> and auto-calculates the <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmerValue"/> to use.</summary>
-	<param name="sourceImageStream">The <see cref="T:System.IO.Stream"/> containing the image to load.</param>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromByteArray(System.Byte[],CodeCarvings.Piczard.Web.PictureTrimmerValue)">
-	<summary>
- Loads an image from an array of bytes and applies a specific <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmerValue"/>.</summary>
-	<param name="sourceImageBytes">The array of bytes to load.</param>
-	<param name="value">The <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmerValue"/> to apply.</param>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.LoadImageFromByteArray(System.Byte[])">
-	<summary>
- Loads an image from an array of bytes and auto-calculates the <see cref="T:CodeCarvings.Piczard.Web.PictureTrimmerValue"/> to use.</summary>
-	<param name="sourceImageBytes">The array of bytes to load.</param>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.UnloadImage(System.Boolean)">
-	<summary>
- Unloads the current image.</summary>
-	<param name="clearTemporaryFiles">If true, delete the temporary files.</param>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.UnloadImage">
-	<summary>
- Unloads the current image and clears the temporary files.</summary>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.GetImageProcessingJob">
-	<summary>
- Returns the <see cref="T:CodeCarvings.Piczard.ImageProcessingJob"/> that can be used to process the source image.</summary>
-	<returns>An <see cref="T:CodeCarvings.Piczard.ImageProcessingJob"/> ready to be used to process imagess.</returns>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.GetProcessedImage">
-	<summary>
- Returns the output image processed by the control.</summary>
-	<returns>A <see cref="T:System.Drawing.Bitmap"/> image processed by the control.</returns>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToStream(System.IO.Stream,CodeCarvings.Piczard.FormatEncoderParams)">
-	<summary>
- Processes  the source image and saves the output in a <see cref="T:System.IO.Stream"/> with a specific image format.</summary>
-	<param name="destStream">The <see cref="T:System.IO.Stream"/> in which the image will be saved.</param>
-	<param name="formatEncoderParams">The image format of the saved image.</param>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToStream(System.IO.Stream)">
-	<summary>
- Processes the source image and saves the output in a <see cref="T:System.IO.Stream"/> with the default image format.</summary>
-	<param name="destStream">The <see cref="T:System.IO.Stream"/> in which the image will be saved.</param>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToFileSystem(System.String,CodeCarvings.Piczard.FormatEncoderParams)">
-	<summary>
- Processes the source image and saves the output in the file system with a specific image format.</summary>
-	<param name="destFilePath">The file path of the saved image.</param>
-	<param name="formatEncoderParams">The image format of the saved image.</param>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToFileSystem(System.String)">
-	<summary>
- Processes the source image and save the output in the file system with the default image format.</summary>
-	<param name="destFilePath">The file path of the saved image.</param>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToByteArray(CodeCarvings.Piczard.FormatEncoderParams)">
-	<summary>
- Processes the source image and returns a byte array containing the processed image encoded with a specific image format.</summary>
-	<param name="formatEncoderParams">The image format of the saved image.</param>
-	<returns>An array of bytes containing the processed image.</returns>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SaveProcessedImageToByteArray">
-	<summary>
- Processes the source image and returns a byte array containing the processed image encoded with the default image format.</summary>
-	<returns>An array of bytes containing the processed image.</returns>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ClearTemporaryFiles">
-	<summary>
- Deletes the internal temporary files generated by the control.</summary>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.OpenImageEditPopup">
-	<summary>
- Opens the image edit popup window.</summary>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.#ctor(System.Single,CodeCarvings.Piczard.CropConstraint,CodeCarvings.Piczard.ImageProcessingFilter,CodeCarvings.Piczard.ImageProcessingFilter)">
-	<summary>
- Intializes new instace of the <see cref="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs"/> class.</summary>
-	<param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
-	<param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
-	<param name="postProcessingFilter">The filter(s) to apply to the image.</param>
-	<param name="previewFilter">The filter(s) to apply to the preview image.</param>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.OutputResolution">
-	<summary>
- Gets or sets the resolution (DPI) of the image that is generated by the control.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.CropConstraint">
-	<summary>
- Gets the constraints that have to be satisfied by the cropped image.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.PostProcessingFilter">
-	<summary>
- Gets or sets the filter(s) to apply to the image.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.PreviewFilter">
-	<summary>
- Gets or sets the filter(s) to apply to the preview image.</summary>
-</member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.PreviewResizeConstraint">
-	<summary>
- Gets or sets the ResizeConstraint used to generate the preview image.
- This property is marked as obsolete since version 2.0.0 of the control and will be soon removed.
- Use 'PreviewFilter' instead.</summary>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs.ReloadImage">
-	<summary>
- Force the reloading of the source image.</summary>
-</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ConfigurationEventArgs">
-	<summary>
- Base class that provides data for the ImageUpload and the SelectedConfigurationIndexChanged events.</summary>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUploadEventArgs.#ctor(System.Single,CodeCarvings.Piczard.CropConstraint,CodeCarvings.Piczard.ImageProcessingFilter,CodeCarvings.Piczard.ImageProcessingFilter)">
-	<summary>
- Intializes new instace of the <see cref="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUploadEventArgs"/> class.</summary>
-	<param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
-	<param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
-	<param name="postProcessingFilter">The filter(s) to apply to the image.</param>
-	<param name="previewFilter">The filter(s) to apply to the preview image.</param>
-</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.ImageUploadEventArgs">
-	<summary>
- Provides data for the ImageUpload event.</summary>
-</member><member name="M:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SelectedConfigurationIndexChangedEventArgs.#ctor(System.Single,CodeCarvings.Piczard.CropConstraint,CodeCarvings.Piczard.ImageProcessingFilter,CodeCarvings.Piczard.ImageProcessingFilter)">
-	<summary>
- Intializes new instace of the <see cref="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SelectedConfigurationIndexChangedEventArgs"/> class.</summary>
-	<param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
-	<param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
-	<param name="postProcessingFilter">The filter(s) to apply to the image.</param>
-	<param name="previewFilter">The filter(s) to apply to the preview image.</param>
-</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SelectedConfigurationIndexChangedEventArgs">
-	<summary>
- Provides data for the SelectedConfigurationIndexChanged event.</summary>
-</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.SimpleImageUploadPostProcessingFilterApplyMode">
-	<summary>
- Specifies if and when ImageProcessingFilter must be applied.</summary>
-</member><member name="T:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload">
-	<summary>
- A ready-to-use ASCX control that provides advanced image uploading features.</summary>
-</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.form1">
-	<summary>
-Controllo form1.
-</summary>
-	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-</remarks>
-</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.imgCodeCarvingsLogo">
-	<summary>
-Controllo imgCodeCarvingsLogo.
-</summary>
-	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-</remarks>
-</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.imgPageBrandLogo">
-	<summary>
-Controllo imgPageBrandLogo.
-</summary>
-	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-</remarks>
-</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.pageBody">
-	<summary>
-Controllo pageBody.
 </summary>
 	<remarks>
 Campo generato automaticamente.

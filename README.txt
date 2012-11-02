@@ -27,6 +27,9 @@ Quick links:
 - Online demo:
   http://piczard.com/demos/imageUpload 
 
+- Examples (Git):
+  https://github.com/CodeCarvings/Piczard.Examples
+
 - Working examples and help file are included in the Piczard package:
   http://piczard.com/download
   

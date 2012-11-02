@@ -1,81 +1,89 @@
 ﻿/* 
- * Piczard | SimpleImageUpload User Control
- * Author: Sergio Turolla
- * <codecarvings.com>
- * 
- * Copyright (c) 2011-2012 Sergio Turolla
- * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or
- * without modification, are permitted provided that the 
- * following conditions are met:
- * 
- * - Redistributions of source code must retain the above 
- *   copyright notice, this list of conditions and the 
- *   following disclaimer.
- * - Redistributions in binary form must reproduce the above
- *   copyright notice, this list of conditions and the 
- *   following disclaimer in the documentation and/or other
- *   materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
- * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
- * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
+* Piczard | SimpleImageUpload User Control
+* Author: Sergio Turolla
+* <codecarvings.com>
+* 
+* Copyright (c) 2011-2012 Sergio Turolla
+* All rights reserved.
+* 
+* Redistribution and use in source and binary forms, with or
+* without modification, are permitted provided that the 
+* following conditions are met:
+* 
+* - Redistributions of source code must retain the above 
+*   copyright notice, this list of conditions and the 
+*   following disclaimer.
+* - Redistributions in binary form must reproduce the above
+*   copyright notice, this list of conditions and the 
+*   following disclaimer in the documentation and/or other
+*   materials provided with the distribution.
+* 
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+* CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+* INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+* MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+* BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+* SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+* INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+* WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+* SUCH DAMAGE.
+*/
 
 // Setup the variable that indicates that the javascript library has been loaded
 window.__ccpz_siu_lt = true;
 
 // --- Namespaces ---
 
-if (typeof (window.CodeCarvings) === "undefined")
-{
-    window.CodeCarvings = function()
-    {
+if (typeof (window.CodeCarvings) === "undefined") {
+    window.CodeCarvings = function() {
     }
 }
-if (typeof (CodeCarvings.Wcs) === "undefined")
-{
-    CodeCarvings.Wcs = function()
-    {
+if (typeof (CodeCarvings.Wcs) === "undefined") {
+    CodeCarvings.Wcs = function() {
     }
 }
-if (typeof (CodeCarvings.Wcs.Piczard) === "undefined")
-{
-    CodeCarvings.Wcs.Piczard = function()
-    {
+if (typeof (CodeCarvings.Wcs.Piczard) === "undefined") {
+    CodeCarvings.Wcs.Piczard = function() {
     }
 }
-if (typeof (CodeCarvings.Wcs.Piczard.Upload) === "undefined")
-{
-    CodeCarvings.Wcs.Piczard.Upload = function()
-    {
+if (typeof (CodeCarvings.Wcs.Piczard.Upload) === "undefined") {
+    CodeCarvings.Wcs.Piczard.Upload = function() {
     }
 }
 
 // --- Classes ---
 
-if (typeof (CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload) === "undefined")
-{
+if (typeof (CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload) === "undefined") {
     // Do not overwrite the controls array if already defined...
 
-    CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload = function(id)
-    {
+    CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload = function(id) {
         this.id = id;
     }
 
     CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.controls = [];
+
+    // Check if Flash player is available
+    CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.hasFlashPlayer = null;
+    CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.get_hasFlashPlayer = function(forceUpdate) {
+        if (CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.hasFlashPlayer !== null) {
+            if (!forceUpdate) {
+                return CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.hasFlashPlayer;
+            }
+        }
+
+        var ex;
+        try {
+            CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.hasFlashPlayer = CodeCarvings.Wcs.Piczard.Shared.Externals.swfobject_v2_2.swfobject.hasFlashPlayerVersion("8") ? true : false;
+        }
+        catch (ex) {
+        }
+        return CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.hasFlashPlayer;
+    }
 }
 
 CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
@@ -96,33 +104,26 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
     displayConfigurations: false,
     configurationChange: false,
 
-    getSubElementId: function(subId)
-    {
-        if (subId)
-        {
+    getSubElementId: function(subId) {
+        if (subId) {
             return this.id + "_" + subId;
         }
-        else
-        {
+        else {
             return this.id;
         }
     },
 
-    getSubElement: function(subId)
-    {
+    getSubElement: function(subId) {
         return document.getElementById(this.getSubElementId(subId));
     },
 
-    load: function(loadData)
-    {
+    load: function(loadData) {
         this.loadData = loadData;
     },
 
-    initializeUI: function()
-    {
+    initializeUI: function() {
         var popupPictureTrimmer = CodeCarvings.Wcs.Piczard.PictureTrimmer.getControl(this.loadData.popupPictureTrimmerClientId);
-        if (popupPictureTrimmer)
-        {
+        if (popupPictureTrimmer) {
             // Initialize the parent control
             popupPictureTrimmer.parentControl = this;
         }
@@ -130,12 +131,10 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
         // Get the frame element
         var oFrId = this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_ifr);
         var oFr = this.getSubElement(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_ifr);
-        if (!oFr)
-        {
+        if (!oFr) {
             // Not found -> Create it
             var oParent = this.getSubElement(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_uploadPlaceHolder);
-            if (oParent)
-            {
+            if (oParent) {
                 var oFr = document.createElement("ifr" + "ame");
                 oFr.setAttribute("fr" + "ameBorder", "0");
                 oFr.setAttribute("id", oFrId);
@@ -155,141 +154,174 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
         this.statusMessageVisible = !this.get_hasImage();
         this.updateUI();
 
-        if (this.loadData.autoOpenImageEditPopup)
-        {
+        if (this.loadData.autoOpenImageEditPopup) {
             // Auto open the image edit popup
             this.loadData.autoOpenImageEditPopup = false;
 
             var otherPopup = CodeCarvings.Wcs.Piczard.PictureTrimmer.popup_getOpen();
-            if (otherPopup == null)
-            {
+            if (otherPopup == null) {
                 // No popup is open
-                this.openImageEditPopup();
+
+                var enableEdit = true;
+                if (this.loadData.autoDisableImageEdit) {
+                    var hasFlashPlayer = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.get_hasFlashPlayer();
+                    if (!hasFlashPlayer) {
+                        enableEdit = false;
+                    }
+                }
+
+                if (enableEdit) {
+                    this.openImageEditPopup();
+                }
             }
         }
     },
 
-    updateUI: function()
-    {
-        if (this.statusMessageVisible)
-        {
+    updateUI: function() {
+        if (this.statusMessageVisible) {
             this.setElementDisplay(this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_content_statusMessage), "inline");
             this.setElementDisplay(this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_content_preview), "none");
         }
-        else
-        {
+        else {
             this.setElementDisplay(this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_content_statusMessage), "none");
             this.setElementDisplay(this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_content_preview), "inline");
         }
 
-        if (this.wait)
-        {
+        if (this.wait) {
             this.setElementDisabled(this.loadData.btnEditClientId, true);
             this.setElementDisabled(this.loadData.btnRemoveClientId, true);
 
-            this.setElementDisplay(this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_uploadContainer_0), "inline");
+            this.setElementDisplay(this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_uploadContainer_0), "block");
             this.setElementDisplay(this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_uploadContainer_1), "none");
         }
-        else
-        {
+        else {
+            var me = this;
             var hasImage = this.get_hasImage();
-            this.setElementDisabled(this.loadData.btnEditClientId, !hasImage);
+            var enableEdit = this.loadData.enableEdit;
+            var enableRemove = this.loadData.enableRemove;
+
+            if (!hasImage) {
+                enableEdit = false;
+                enableRemove = false;
+            }
+
+            if (enableEdit) {
+                if (this.loadData.autoDisableImageEdit) {
+                    var hasFlashPlayer = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.get_hasFlashPlayer();
+                    if (!hasFlashPlayer) {
+                        enableEdit = false;
+                    }
+                }
+            }
+
+            this.setElementDisabled(this.loadData.btnEditClientId, !enableEdit);
+            var oBtnEdit = document.getElementById(this.loadData.btnEditClientId);
+            if (oBtnEdit) {
+                oBtnEdit.onclick = function() {
+                    if (enableEdit) {
+                        me.openImageEditPopup();
+                    }
+                    return false;
+                }
+            }
+            var oHlPictureImageEdit = document.getElementById(this.loadData.hlPictureImageEditId);
+            if (oHlPictureImageEdit) {
+                oHlPictureImageEdit.onclick = function() {
+                    if (enableEdit) {
+                        me.openImageEditPopup();
+                    }
+                    return false;
+                }
+                oHlPictureImageEdit.style.cursor = enableEdit ? "pointer" : "default";
+            }
+
             this.setElementDisabled(this.loadData.btnRemoveClientId, !hasImage);
+            var oBtnRemove = document.getElementById(this.loadData.btnRemoveClientId);
+            if (oBtnRemove) {
+                oBtnRemove.onclick = function() {
+                    if (enableRemove) {
+                        me.removeImage();
+                    }
+                    return false;
+                }
+            }
 
             this.setElementDisplay(this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_uploadContainer_0), "none");
-            this.setElementDisplay(this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_uploadContainer_1), "inline");
+            this.setElementDisplay(this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_uploadContainer_1), "block");
         }
 
         this.setElementDisplay(this.loadData.btnBrowseDisabledClientId, "inline");
         this.setElementDisplay(this.loadData.btnCancelUploadClientId, "none");
     },
 
-    setElementDisplay: function(id, value)
-    {
+    setElementDisplay: function(id, value) {
         var oElement = document.getElementById(id);
-        if (oElement)
-        {
+        if (oElement) {
             oElement.style.display = value;
         }
     },
 
-    setElementDisabled: function(id, value)
-    {
+    setElementDisabled: function(id, value) {
         var oElement = document.getElementById(id);
-        if (oElement)
-        {
+        if (oElement) {
             oElement.disabled = value;
         }
     },
 
-    displayStatusMessage: function(value)
-    {
+    displayStatusMessage: function(value) {
         this.statusMessageVisible = true;
 
         var oStatusMessage = this.getSubElement(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_content_statusMessage);
-        if (oStatusMessage)
-        {
+        if (oStatusMessage) {
             oStatusMessage.innerHTML = value;
         }
 
         this.updateUI();
     },
 
-    setWaitMode: function()
-    {
+    setWaitMode: function() {
         this.wait = true;
         this.displayStatusMessage(this.loadData.statusMessage_Wait);
     },
 
-    get_hasImage: function()
-    {
+    get_hasImage: function() {
         var popupPictureTrimmer = CodeCarvings.Wcs.Piczard.PictureTrimmer.getControl(this.loadData.popupPictureTrimmerClientId);
-        if (popupPictureTrimmer)
-        {
+        if (popupPictureTrimmer) {
             return popupPictureTrimmer.get_imageLoaded();
         }
-        else
-        {
+        else {
             return false;
         }
     },
 
-    get_uploadInProgress: function()
-    {
+    get_uploadInProgress: function() {
         return this.uploadInProgress;
     },
 
-    get_autoSetPageBlockSubmit: function()
-    {
+    get_autoSetPageBlockSubmit: function() {
         return this.autoSetPageBlockSubmit;
     },
-    set_autoSetPageBlockSubmit: function(value)
-    {
-        if (value)
-        {
+    set_autoSetPageBlockSubmit: function(value) {
+        if (value) {
             this.autoSetPageBlockSubmit = true;
         }
-        else
-        {
+        else {
             this.autoSetPageBlockSubmit = false;
         }
     },
 
-    onUploadReady: function()
-    {
+    onUploadReady: function() {
         this.setElementDisabled(this.loadData.btnBrowseClientId, false);
     },
 
-    onUploadStart: function()
-    {
+    onUploadStart: function() {
         this.startUploadMonitor();
         this.uploadInProgress = true;
         this.wait = true;
         this.updateUI();
 
         // Update the cancel upload interface
-        if (this.loadData.enableCancelUpload)
-        {
+        if (this.loadData.enableCancelUpload) {
             // The user can cancel the current upload
             this.setElementDisabled(this.loadData.btnCancelUploadClientId, true);
 
@@ -297,57 +329,47 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
             this.setElementDisplay(this.loadData.btnCancelUploadClientId, "inline");
 
             var me = this;
-            window.setTimeout(function()
-            {
+            window.setTimeout(function() {
                 me.setElementDisabled(me.loadData.btnCancelUploadClientId, false);
             }, this.cancelUploadEnableDelay);
         }
     },
 
-    onUploadEnd: function()
-    {
+    onUploadEnd: function() {
         this.stopUploadMonitor();
         this.uploadInProgress = false;
     },
 
-    onUploadSuccess: function()
-    {
+    onUploadSuccess: function() {
         this.onUploadEnd();
 
         this.executeUploadAction();
     },
 
-    onUploadError: function(message)
-    {
+    onUploadError: function(message) {
         this.onUploadEnd();
 
-        if (this.loadData.dup)
-        {
+        if (this.loadData.dup) {
             // Display the upload error (if available)
             this.displayUploadError(message);
         }
-        else
-        {
+        else {
             // Perform the postback to display the standard error message
             this.executeUploadAction();
         }
     },
 
-    executeUploadAction: function()
-    {
+    executeUploadAction: function() {
         this.executeAction("upload");
     },
 
-    executeAction: function(act)
-    {
+    executeAction: function(act) {
         var oAct = document.getElementById(this.loadData.hfActClientId);
-        if (oAct)
-        {
+        if (oAct) {
             oAct.value = act;
         }
 
-        if (CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.get_uploadInProgress())
-        {
+        if (CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.get_uploadInProgress()) {
             // Another control is uploading...
             // Do not postback, set in wait mode
             this.setWaitMode();
@@ -357,8 +379,7 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
         // Ensure that the "__doPostBack" ASP.NET method is defined
         CodeCarvings.Wcs.Piczard.Shared.Helpers.UIHelper.ensureAspNetPostBackFunction();
 
-        if (this.get_autoSetPageBlockSubmit())
-        {
+        if (this.get_autoSetPageBlockSubmit()) {
             // Ensure that the postback is not blocked due to validation
             Page_BlockSubmit = false;
         }
@@ -367,21 +388,17 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
         eval(this.loadData.btnPostBack_PostBackEventReference);
     },
 
-    cancelUpload: function()
-    {
+    cancelUpload: function() {
         this.onUploadEnd();
-        this.executeAction("calcelUpload")
+        this.executeAction("calcelUpload");
     },
 
-    removeImage: function()
-    {
-        this.executeAction("remove")
+    removeImage: function() {
+        this.executeAction("remove");
     },
 
-    displayUploadError: function(message)
-    {
-        if (!this.uploadErrorLightbox)
-        {
+    displayUploadError: function(message) {
+        if (!this.uploadErrorLightbox) {
             // Initialize the LightBox
             this.uploadErrorLightbox = new CodeCarvings.Wcs.Piczard.Shared.UI.LightBox(this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_uploadErrorLightbox));
         }
@@ -396,10 +413,8 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
         parentElement.innerHTML = html
     },
 
-    hideUploadError: function()
-    {
-        if (this.uploadErrorLightbox)
-        {
+    hideUploadError: function() {
+        if (this.uploadErrorLightbox) {
             this.uploadErrorLightbox.close();
         }
 
@@ -407,34 +422,27 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
         this.executeUploadAction();
     },
 
-    startUploadMonitor: function()
-    {
+    startUploadMonitor: function() {
         this.stopUploadMonitor();
 
         var f = CodeCarvings.Wcs.Piczard.Shared.Helpers.ObjectHelper.getInstanceFunctionReference(this, "uploadMonitorFunction");
         this.uploadMonitorTimeoutId = window.setTimeout(f, this.uploadMonitorDelay);
     },
 
-    stopUploadMonitor: function()
-    {
-        if (this.uploadMonitorTimeoutId)
-        {
+    stopUploadMonitor: function() {
+        if (this.uploadMonitorTimeoutId) {
             window.clearTimeout(this.uploadMonitorTimeoutId);
             this.uploadMonitorTimeoutId = 0;
         }
     },
 
-    uploadMonitorFunction: function()
-    {
-        if (!this.xmlHttp)
-        {
+    uploadMonitorFunction: function() {
+        if (!this.xmlHttp) {
             // XMLHttpRequest not yet initialized
-            if (window.XMLHttpRequest)
-            {
+            if (window.XMLHttpRequest) {
                 this.xmlHttp = new XMLHttpRequest();
             }
-            else
-            {
+            else {
                 this.xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
         }
@@ -445,45 +453,34 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
         this.xmlHttp.send();
 
         var xmlLoadError = false;
-        if (this.xmlHttp.status)
-        {
-            if (this.xmlHttp.status != 200)
-            {
+        if (this.xmlHttp.status) {
+            if (this.xmlHttp.status != 200) {
                 xmlLoadError = true;
             }
         }
 
-        if (!xmlLoadError)
-        {
+        if (!xmlLoadError) {
             var xmlDoc = this.xmlHttp.responseXML;
-            if (xmlDoc)
-            {
+            if (xmlDoc) {
                 var nodes = xmlDoc.getElementsByTagName("uploadMonitor");
-                if ((nodes) && (nodes.length > 0))
-                {
+                if ((nodes) && (nodes.length > 0)) {
                     var uploadMonitorNode = nodes[0];
-                    if (uploadMonitorNode)
-                    {
+                    if (uploadMonitorNode) {
                         var stateAttribute = uploadMonitorNode.getAttribute("state");
-                        if (stateAttribute == "2")
-                        {
+                        if (stateAttribute == "2") {
                             // Upload success
                             this.onUploadSuccess();
                             return;
                         }
-                        if (stateAttribute == "3")
-                        {
+                        if (stateAttribute == "3") {
                             // Upload error
                             var message = ""
-                            if (uploadMonitorNode.firstChild)
-                            {
-                                if (uploadMonitorNode.firstChild.nodeValue)
-                                {
+                            if (uploadMonitorNode.firstChild) {
+                                if (uploadMonitorNode.firstChild.nodeValue) {
                                     message = uploadMonitorNode.firstChild.nodeValue;
                                 }
                             }
-                            if (!message)
-                            {
+                            if (!message) {
                                 message = "Unknown error.";
                             }
 
@@ -499,26 +496,21 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
         this.startUploadMonitor();
     },
 
-    openImageEditPopup: function()
-    {
+    openImageEditPopup: function() {
         CodeCarvings.Wcs.Piczard.PictureTrimmer.popup_open(this.loadData.popupPictureTrimmerClientId, this.loadData.imageEditPopupSize_width, this.loadData.imageEditPopupSize_height);
     },
 
-    onImageEditBeforePopupOpen: function(sender, args)
-    {
+    onImageEditBeforePopupOpen: function(sender, args) {
         // Check if the "configuration" UI must be shown
         var ddlConfigurations = document.getElementById(this.loadData.ddlConfigurationsClientId);
-        if ((ddlConfigurations) && (ddlConfigurations.options.length > 0))
-        {
+        if ((ddlConfigurations) && (ddlConfigurations.options.length > 0)) {
             this.displayConfigurations = true;
         }
-        else
-        {
+        else {
             this.displayConfigurations = false;
         }
 
-        if (this.displayConfigurations)
-        {
+        if (this.displayConfigurations) {
             args.reservedWindowHeight = 44;
 
             var oPopupExt = this.getSubElement(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_popupExt);
@@ -526,25 +518,20 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
         }
     },
 
-    onImageEditAfterPopupClose: function(sender, args)
-    {
-        if (this.configurationChange)
-        {
+    onImageEditAfterPopupClose: function(sender, args) {
+        if (this.configurationChange) {
             // Configuration changed
             this.configurationChange = false;
             this.executeAction("configuration");
         }
-        else
-        {
-            if (args.saveChanges)
-            {
+        else {
+            if (args.saveChanges) {
                 this.executeAction("edit");
             }
         }
     },
 
-    onConfigurationChange: function()
-    {
+    onConfigurationChange: function() {
         // Close the popup and save the changes
         this.configurationChange = true;
         CodeCarvings.Wcs.Piczard.PictureTrimmer.popup_close(true);
@@ -563,11 +550,9 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_popupExtContai
 CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_popupExt = "popupExt";
 
 // If necessary, create a SimpleImageUpload control and then load it
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.loadControl = function(id, loadData)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.loadControl = function(id, loadData) {
     var control = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.getControl(id);
-    if (control == null)
-    {
+    if (control == null) {
         // Control NOT found -> create it
         control = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.createControl(id);
     }
@@ -582,28 +567,21 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.loadControl = function(id, loa
 }
 
 // Get a SimpleImageUpload control
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.getControl = function(id)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.getControl = function(id) {
     var controls = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.controls;
-    if (!id)
-    {
-        if (controls.length > 0)
-        {
+    if (!id) {
+        if (controls.length > 0) {
             return controls[0];
         }
-        else
-        {
+        else {
             return null;
         }
     }
 
-    for (var i = 0; i < controls.length; i++)
-    {
+    for (var i = 0; i < controls.length; i++) {
         var control = controls[i];
-        if (control)
-        {
-            if (control.id == id)
-            {
+        if (control) {
+            if (control.id == id) {
                 return control;
             }
         }
@@ -613,39 +591,32 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.getControl = function(id)
 }
 
 // Create a new SimpleImageUpload control
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.createControl = function(id)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.createControl = function(id) {
     var control = new CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload(id);
 
     var controls = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.controls;
     var index = -1;
-    for (var i = 0; i < controls.length; i++)
-    {
+    for (var i = 0; i < controls.length; i++) {
         var oldControl = controls[i];
-        if (oldControl.id == id)
-        {
+        if (oldControl.id == id) {
             index = i;
             break;
         }
     }
 
-    if (index >= 0)
-    {
+    if (index >= 0) {
         controls[index] = control;
     }
-    else
-    {
+    else {
         CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.controls[CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.controls.length] = control;
     }
 
     return control;
 }
 
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.openImageEditPopup = function(id)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.openImageEditPopup = function(id) {
     var control = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.getControl(id);
-    if (control == null)
-    {
+    if (control == null) {
         // Control NOT found
         return;
     }
@@ -653,29 +624,24 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.openImageEditPopup = function(
     control.openImageEditPopup();
 }
 
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onImageEditBeforePopupOpen = function(sender, args)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onImageEditBeforePopupOpen = function(sender, args) {
     // Execute the control functions
     sender.parentControl.onImageEditBeforePopupOpen(sender, args);
 }
 
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onImageEditAfterPopupOpen = function(sender, args)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onImageEditAfterPopupOpen = function(sender, args) {
     // Execute the control functions
     sender.parentControl.onImageEditAfterPopupOpen(sender, args);
 }
 
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onImageEditAfterPopupClose = function(sender, args)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onImageEditAfterPopupClose = function(sender, args) {
     // Execute the control functions
     sender.parentControl.onImageEditAfterPopupClose(sender, args);
 }
 
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onConfigurationChange = function(id)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onConfigurationChange = function(id) {
     var control = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.getControl(id);
-    if (control == null)
-    {
+    if (control == null) {
         // Control NOT found
         return true;
     }
@@ -683,11 +649,9 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onConfigurationChange = functi
     control.onConfigurationChange();
 }
 
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.cancelUpload = function(id)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.cancelUpload = function(id) {
     var control = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.getControl(id);
-    if (control == null)
-    {
+    if (control == null) {
         // Control NOT found
         return true;
     }
@@ -695,11 +659,9 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.cancelUpload = function(id)
     return control.cancelUpload();
 }
 
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.removeImage = function(id)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.removeImage = function(id) {
     var control = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.getControl(id);
-    if (control == null)
-    {
+    if (control == null) {
         // Control NOT found
         return;
     }
@@ -707,11 +669,9 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.removeImage = function(id)
     control.removeImage();
 }
 
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.hideUploadError = function(id)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.hideUploadError = function(id) {
     var control = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.getControl(id);
-    if (control == null)
-    {
+    if (control == null) {
         // Control NOT found
         return;
     }
@@ -719,11 +679,9 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.hideUploadError = function(id)
     return control.hideUploadError();
 }
 
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.get_hasImage = function(id)
-{
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.get_hasImage = function(id) {
     var control = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.getControl(id);
-    if (control == null)
-    {
+    if (control == null) {
         // Control NOT found
         return null;
     }
@@ -731,31 +689,24 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.get_hasImage = function(id)
     return control.get_hasImage();
 }
 
-CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.get_uploadInProgress = function(id)
-{
-    if (id)
-    {
+CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.get_uploadInProgress = function(id) {
+    if (id) {
         var control = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.getControl(id);
-        if (control == null)
-        {
+        if (control == null) {
             // Control NOT found
             return null;
         }
 
         return control.get_uploadInProgress();
     }
-    else
-    {
+    else {
         // Return true if there is at least a control that is uploading
 
         var controls = CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.controls;
-        for (var i = 0; i < controls.length; i++)
-        {
+        for (var i = 0; i < controls.length; i++) {
             var control = controls[i];
-            if (control)
-            {
-                if (control.get_uploadInProgress())
-                {
+            if (control) {
+                if (control.get_uploadInProgress()) {
                     return true;
                 }
             }

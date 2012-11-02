@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="SimpleImageUpload_upload" EnableEventValidation="false" Codebehind="upload.aspx.cs" Theme="" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Inherits="SimpleImageUpload_upload" EnableEventValidation="false" Theme="" Codebehind="upload.aspx.cs" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -24,13 +24,21 @@
         {
         	display:none;
         }
+        
+        .fuFile
+        {
+            position: absolute;
+            display: block;
+            right: 0;            
+            cursor: default;            
+        }        
     </style>
 </head>
 <body onload="onUploadReady();">
     <form id="form1" runat="server">
         <asp:PlaceHolder runat="server" ID="phMainContainer">
             <div class="containerDiv">
-                <asp:FileUpload runat="server" ID="fuFile" />
+                <asp:FileUpload runat="server" ID="fuFile" CssClass="fuFile" />
                 <div class="hiddenDiv">
                     <asp:DropDownList runat="server" ID="ddlDummyForceDoPostBackCreation" AutoPostBack="true">
                         <asp:ListItem Text="Dummy" Value="Dummy" Selected="True"></asp:ListItem>

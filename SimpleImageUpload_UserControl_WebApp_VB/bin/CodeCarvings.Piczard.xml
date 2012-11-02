@@ -1544,11 +1544,24 @@
         <member name="M:CodeCarvings.Piczard.ImageProcessingFilter.GetProcessedImage">
             <summary>Applies the current ImageProcessingFilter to the specified image and returns the result as a Bitmap object.</summary>
         </member>
+        <member name="M:CodeCarvings.Piczard.ImageProcessingFilter.GetProcessedImage(System.Object,System.Single,CodeCarvings.Piczard.FormatEncoderParams)">
+            <summary>Applies the current ImageProcessingFilter to the specified image and returns the result as a Bitmap object; the specified output resolution (DPI) is used. BackgroundColor and quantization are applied according to the specified FormatEncoderParams.</summary>
+            <returns>The image processed by the current ImageProcessingFilter.</returns>
+            <param name="source">The source image to process. Can be: a string (file path), a Stream, an array of bytes containing the image data, an Image object or a LoadedImage object.</param>
+            <param name="outputResolution">The output resolution (DPI) used to process the image.</param>
+            <param name="hintFormatEncoderParams">A FormatEncoderParams object used to guess the right BackgroundColor and quantization mode to apply to the output image.</param>
+        </member>
         <member name="M:CodeCarvings.Piczard.ImageProcessingFilter.GetProcessedImage(System.Object,System.Single)">
             <summary>Applies the current ImageProcessingFilter to the specified image and returns the result as a Bitmap object; the specified output resolution (DPI) is used.</summary>
             <returns>The image processed by the current ImageProcessingFilter.</returns>
             <param name="source">The source image to process. Can be: a string (file path), a Stream, an array of bytes containing the image data, an Image object or a LoadedImage object.</param>
             <param name="outputResolution">The output resolution (DPI) used to process the image.</param>
+        </member>
+        <member name="M:CodeCarvings.Piczard.ImageProcessingFilter.GetProcessedImage(System.Object,CodeCarvings.Piczard.FormatEncoderParams)">
+            <summary>Applies the current ImageProcessingFilter to the specified image and returns the result as a Bitmap object; the default resolution (96 DPI) is used. BackgroundColor and quantization are applied according to the specified FormatEncoderParams.</summary>
+            <returns>The image processed by the current ImageProcessingFilter.</returns>
+            <param name="source">The source image to process. Can be: a string (file path), a Stream, an array of bytes containing the image data, an Image object or a LoadedImage object.</param>
+            <param name="hintFormatEncoderParams">A FormatEncoderParams object used to guess the right BackgroundColor and quantization mode to apply to the output image.</param>
         </member>
         <member name="M:CodeCarvings.Piczard.ImageProcessingFilter.GetProcessedImage(System.Object)">
             <summary>Applies the current ImageProcessingFilter to the specified image and returns the result as a Bitmap object; the default resolution (96 DPI) is used.</summary>
@@ -1797,6 +1810,16 @@
             <returns>The deserialized object.</returns>
             <remarks>For more information about JSON serialization please see: JSON Serialization.</remarks>
             <param name="jsonString">The JSON string to be deserialized.</param>
+        </member>
+        <member name="M:CodeCarvings.Piczard.ImageProcessingJob.GetProcessedImage">
+            <summary>Applies all the filters to the specified image and returns the result as a Bitmap object.Applies all the filters to the specified image and returns the result as a Bitmap object.</summary>
+            <returns>The processed image.</returns>
+        </member>
+        <member name="M:CodeCarvings.Piczard.ImageProcessingJob.GetProcessedImage(System.Object,CodeCarvings.Piczard.FormatEncoderParams)">
+            <summary>Applies all the filters to the specified image and returns the result as a Bitmap object. BackgroundColor and quantization are applied according to the specified FormatEncoderParams.</summary>
+            <returns>The processed image.</returns>
+            <param name="source">The source image to process. Can be: a string (file path), a Stream, an array of bytes containing the image data, an Image object or a LoadedImage object.</param>
+            <param name="hintFormatEncoderParams">A FormatEncoderParams object used to guess the right BackgroundColor and quantization mode to apply to the output image.</param>
         </member>
         <member name="M:CodeCarvings.Piczard.ImageProcessingJob.GetProcessedImage(System.Object)">
             <summary>Applies all the filters to the specified image and returns the result as a Bitmap object.</summary>
@@ -2472,7 +2495,6 @@
         </member>
         <member name="M:CodeCarvings.Piczard.NoopFilter.#ctor">
             <summary>Initializes a new instance of the NoopFilter class.</summary>
-            <returns>Initializes a new instance of the NoopFilter class.</returns>
         </member>
         <member name="M:CodeCarvings.Piczard.NoopFilter.Clone">
             <summary>Creates a copy of the NoopFilter.</summary>
@@ -2502,6 +2524,9 @@
         <member name="M:CodeCarvings.Piczard.NoopFilter.GetHashCode">
             <summary>Serves as a hash function for a particular type.</summary>
             <returns>A hash code for the current object.</returns>
+        </member>
+        <member name="P:CodeCarvings.Piczard.NoopFilter.Instance">
+            <summary>Gets an instance of the NoopFilter class.</summary>
         </member>
         <member name="T:CodeCarvings.Piczard.PngFormatEncoderParams">
             <summary>Represents a FormatEncoderParams class that can save images in the Png format.</summary>
@@ -5618,9 +5643,20 @@
         <member name="M:CodeCarvings.Piczard.Web.PictureTrimmer.GetProcessedImage">
             <summary>Applies the current PictureTrimmerValue filter to an image and returns the result as a Bitmap object.</summary>
         </member>
+        <member name="M:CodeCarvings.Piczard.Web.PictureTrimmer.GetProcessedImage(CodeCarvings.Piczard.FormatEncoderParams)">
+            <summary>Applies the current PictureTrimmerValue filter to the currently loaded image and returns the result as a Bitmap object. BackgroundColor and quantization are applied according to the specified FormatEncoderParams.</summary>
+            <returns>The processed image.</returns>
+            <param name="hintFormatEncoderParams">A FormatEncoderParams object used to guess the right BackgroundColor and quantization mode to apply to the output image.</param>
+        </member>
         <member name="M:CodeCarvings.Piczard.Web.PictureTrimmer.GetProcessedImage">
             <summary>Applies the current PictureTrimmerValue filter to the currently loaded image and returns the result as a Bitmap object.</summary>
             <returns>The processed image.</returns>
+        </member>
+        <member name="M:CodeCarvings.Piczard.Web.PictureTrimmer.GetProcessedImage(System.Object,CodeCarvings.Piczard.FormatEncoderParams)">
+            <summary>Applies the current PictureTrimmerValue filter to the specified image and returns the result as a Bitmap object. BackgroundColor and quantization are applied according to the specified FormatEncoderParams.</summary>
+            <returns>The processed image.</returns>
+            <param name="source">The source image to process. Can be: a string (file path), a Stream, an array of bytes containing the image data, an Image object or a LoadedImage object.</param>
+            <param name="hintFormatEncoderParams">A FormatEncoderParams object used to guess the right BackgroundColor and quantization mode to apply to the output image.</param>
         </member>
         <member name="M:CodeCarvings.Piczard.Web.PictureTrimmer.GetProcessedImage(System.Object)">
             <summary>Applies the current PictureTrimmerValue filter to the specified image and returns the result as a Bitmap object.</summary>
@@ -6119,9 +6155,21 @@
         <member name="M:CodeCarvings.Piczard.Web.PictureTrimmerCore.GetProcessedImage">
             <summary>Applies the current PictureTrimmerValue filter to an image and returns the result as a Bitmap object.</summary>
         </member>
+        <member name="M:CodeCarvings.Piczard.Web.PictureTrimmerCore.GetProcessedImage(CodeCarvings.Piczard.FormatEncoderParams)">
+            <summary>Applies the current PictureTrimmerValue filter to the currently loaded image and returns the result as a Bitmap object. BackgroundColor and quantization are applied according to the specified FormatEncoderParams.</summary>
+            <remarks>Requires Piczard 1.2.x or higher.</remarks>
+            <returns>The processed image.</returns>
+            <param name="hintFormatEncoderParams">A FormatEncoderParams object used to guess the right BackgroundColor and quantization mode to apply to the output image..</param>
+        </member>
         <member name="M:CodeCarvings.Piczard.Web.PictureTrimmerCore.GetProcessedImage">
             <summary>Applies the current PictureTrimmerValue filter to the currently loaded image and returns the result as a Bitmap object.</summary>
             <returns>The processed image.</returns>
+        </member>
+        <member name="M:CodeCarvings.Piczard.Web.PictureTrimmerCore.GetProcessedImage(System.Object,CodeCarvings.Piczard.FormatEncoderParams)">
+            <summary>Applies the current PictureTrimmerValue filter to the specified image and returns the result as a Bitmap object. BackgroundColor and quantization are applied according to the specified FormatEncoderParams.</summary>
+            <returns>The processed image.</returns>
+            <param name="source">The source image to process. Can be: a string (file path), a Stream, an array of bytes containing the image data, an Image object or a LoadedImage object.</param>
+            <param name="hintFormatEncoderParams">A FormatEncoderParams object used to guess the right BackgroundColor and quantization mode to apply to the output image.</param>
         </member>
         <member name="M:CodeCarvings.Piczard.Web.PictureTrimmerCore.GetProcessedImage(System.Object)">
             <summary>Applies the current PictureTrimmerValue filter to the specified image and returns the result as a Bitmap object.</summary>

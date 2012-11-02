@@ -23,7 +23,7 @@
                 <ccPiczardUC:SimpleImageUpload ID="ImageUpload1" runat="server" 
                     Width="500px"
                     AutoOpenImageEditPopupAfterUpload="true"
-                    Culture="en"                    
+                    Culture="en"
                  />
                 
                 <br />    
@@ -34,7 +34,11 @@
                 <ccPiczardUC:SimpleImageUpload ID="ImageUpload2" runat="server" 
                     Width="500px"
                     EnableEdit="false"
-                 />                 
+                 />     
+                 
+                <br />    
+                <br />   
+                <asp:Button runat="server" ID="btnDummyPostback" Text="PostBack" style="padding:10px;" />                             
             </div>
             
         </ContentTemplate>

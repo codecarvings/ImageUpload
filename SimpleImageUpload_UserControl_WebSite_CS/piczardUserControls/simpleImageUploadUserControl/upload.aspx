@@ -24,13 +24,21 @@
         {
         	display:none;
         }
+        
+        .fuFile
+        {
+            position: absolute;
+            display: block;
+            right: 0;            
+            cursor: default;            
+        }        
     </style>
 </head>
 <body onload="onUploadReady();">
     <form id="form1" runat="server">
         <asp:PlaceHolder runat="server" ID="phMainContainer">
             <div class="containerDiv">
-                <asp:FileUpload runat="server" ID="fuFile" />
+                <asp:FileUpload runat="server" ID="fuFile" CssClass="fuFile" />
                 <div class="hiddenDiv">
                     <asp:DropDownList runat="server" ID="ddlDummyForceDoPostBackCreation" AutoPostBack="true">
                         <asp:ListItem Text="Dummy" Value="Dummy" Selected="True"></asp:ListItem>

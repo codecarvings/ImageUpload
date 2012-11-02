@@ -47,4 +47,13 @@ public partial class test_default {
     /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
     /// </remarks>
     protected global::SimpleImageUpload ImageUpload2;
+    
+    /// <summary>
+    /// Controllo btnDummyPostback.
+    /// </summary>
+    /// <remarks>
+    /// Campo generato automaticamente.
+    /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Button btnDummyPostback;
 }

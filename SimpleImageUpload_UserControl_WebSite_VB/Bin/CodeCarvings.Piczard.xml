@@ -1798,10 +1798,9 @@
             <remarks>For more information about JSON serialization please see: JSON Serialization.</remarks>
             <param name="jsonString">The JSON string to be deserialized.</param>
         </member>
-        <member name="M:CodeCarvings.Piczard.ImageProcessingJob.GetProcessedImage(System.Object)">
+        <member name="M:CodeCarvings.Piczard.ImageProcessingJob.GetProcessedImage">
             <summary>Applies all the filters to the specified image and returns the result as a Bitmap object.</summary>
             <returns>The processed image.</returns>
-            <param name="source">The source image to process. Can be: a string (file path), a Stream, an array of bytes containing the image data, an Image object or a LoadedImage object.</param>
         </member>
         <member name="M:CodeCarvings.Piczard.ImageProcessingJob.SaveProcessedImageToByteArray">
             <summary>Applies all the filters to the specified image and saves the result Bitmap to a byte array.</summary>
@@ -2469,10 +2468,6 @@
         </member>
         <member name="T:CodeCarvings.Piczard.NoopFilter">
             <summary>Represents an ImageProcessingFilter that perform no operation. This class cannot be inherited.</summary>
-        </member>
-        <member name="M:CodeCarvings.Piczard.NoopFilter.#ctor">
-            <summary>Initializes a new instance of the NoopFilter class.</summary>
-            <returns>Initializes a new instance of the NoopFilter class.</returns>
         </member>
         <member name="M:CodeCarvings.Piczard.NoopFilter.Clone">
             <summary>Creates a copy of the NoopFilter.</summary>

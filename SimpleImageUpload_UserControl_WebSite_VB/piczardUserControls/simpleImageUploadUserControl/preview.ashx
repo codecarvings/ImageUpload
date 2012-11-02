@@ -65,6 +65,14 @@ Public Class SimpleImageUpload_preview
         Dim previewImageFilePath As String = Me.GetPreviewImageFilePath(temporaryFileId)
         If (File.Exists(previewImageFilePath)) Then
             ' Preview image found
+            
+            ' Set cache
+            Dim dtLastModified As DateTime = DateTime.Now
+            context.Response.Cache.SetLastModified(dtLastModified)
+            context.Response.Cache.SetExpires(dtLastModified.AddDays(2))
+            context.Response.Cache.SetCacheability(HttpCacheability.Private)
+            
+            ' Transmit the image            
             ImageArchiver.TransmitImageFileToWebResponse(previewImageFilePath, context.Response)
         Else
             ' Preview image not found

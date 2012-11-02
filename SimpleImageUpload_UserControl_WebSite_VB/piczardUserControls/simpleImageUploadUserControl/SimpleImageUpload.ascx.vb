@@ -35,7 +35,7 @@
 ' -------------------------------------------------------
 
 ' #########
-' SimpleImageUpload Version 2.1.0
+' SimpleImageUpload Version 3.0.0
 ' #########
 
 Option Strict On
@@ -63,6 +63,22 @@ Partial Public Class SimpleImageUpload
     Protected Shared ReadOnly DefaultButtonSize As Size = New Size(110, 26)
     Protected Shared PerformTemporaryFolderWriteTestOnPageLoad As Boolean = True
 
+    Protected Const DefaultValues_BackColor As String = "#eeeeee"
+    Protected Const DefaultValues_BorderColor As String = "#cccccc"
+    Protected Shared ReadOnly DefaultValues_BorderStyle As BorderStyle = BorderStyle.Solid
+    Protected Shared ReadOnly DefaultValues_BorderWidth As Unit = Unit.Pixel(1)
+
+    Protected Const DefaultValues_ContentBackColor As String = "#ffffff"
+    Protected Const DefaultValues_ContentForeColor As String = "#000000"
+    Protected Const DefaultValues_ContentErrorForeColor As String = "#cc0000"
+    Protected Const DefaultValues_ContentBorderColor As String = "#cccccc"
+    Protected Shared ReadOnly DefaultValues_ContentBorderStyle As BorderStyle = BorderStyle.Solid
+    Protected Shared ReadOnly DefaultValues_ContentBorderWidth As Unit = Unit.Pixel(1)
+
+    Protected Const DefaultValues_PreviewBorderColor As String = "#cccccc"
+    Protected Shared ReadOnly DefaultValues_PreviewBorderStyle As BorderStyle = BorderStyle.Solid
+    Protected Shared ReadOnly DefaultValues_PreviewBorderWidth As Unit = Unit.Pixel(1)
+
 #End Region
 
 #Region "Event Handlers"
@@ -77,7 +93,7 @@ Partial Public Class SimpleImageUpload
         Dim t As Type = Me.Page.GetType()
         Dim scriptKey As String = "simpleImageUpload.js"
         If (Not Me.Page.ClientScript.IsClientScriptIncludeRegistered(t, scriptKey)) Then
-            Me.Page.ClientScript.RegisterClientScriptInclude(t, scriptKey, Me.ResolveUrl("simpleImageUpload.js?v=2"))
+            Me.Page.ClientScript.RegisterClientScriptInclude(t, scriptKey, Me.ResolveUrl("simpleImageUpload.js?v=4"))
         End If
 
         ' Reset the initialization function
@@ -97,6 +113,7 @@ Partial Public Class SimpleImageUpload
         values.Add(Me.TemporaryFileId)
         values.Add(Me._OutputResolution)
         values.Add(JSONSerializer.SerializeToString(Me._CropConstraint))
+        values.Add(JSONSerializer.SerializeToString(Me._ImageUploadPreProcessingFilter, True)) ''Important: also serialize the type!
         values.Add(JSONSerializer.SerializeToString(Me._PostProcessingFilter, True)) ''Important: also serialize the type!
         values.Add(DirectCast(Me._PostProcessingFilterApplyMode, Integer))
         values.Add(JSONSerializer.SerializeToString(Me._PreviewFilter, True)) ''Important: also serialize the type!
@@ -104,7 +121,11 @@ Partial Public Class SimpleImageUpload
         values.Add(Me._ImageEdited)
         values.Add(Me._SourceImageClientFileName)
         values.Add(Me._Configurations)
-        values.Add(Me.imgPreview.ImageUrl) ' This property is important and is not saved in the viewsate! (EnableViewState=false in ASCX)
+
+        ' These properties are important and are not saved in the viewsate! (EnableViewState=false in ASCX)
+        values.Add(Me.imgPreview.ImageUrl)
+        values.Add(Me.imgPreview.Width)
+        values.Add(Me.imgPreview.Height)
 
         values.Add(Me._DebugUploadProblems)
 
@@ -124,6 +145,8 @@ Partial Public Class SimpleImageUpload
             i += 1
             Me._CropConstraint = CropConstraint.FromJSON(DirectCast(values(i), String))
             i += 1
+            Me._ImageUploadPreProcessingFilter = DirectCast(JSONSerializer.Deserialize(DirectCast(values(i), String)), ImageProcessingFilter)
+            i += 1
             Me._PostProcessingFilter = DirectCast(JSONSerializer.Deserialize(DirectCast(values(i), String)), ImageProcessingFilter)
             i += 1
             Me._PostProcessingFilterApplyMode = DirectCast(DirectCast(values(i), Integer), SimpleImageUploadPostProcessingFilterApplyMode)
@@ -138,7 +161,12 @@ Partial Public Class SimpleImageUpload
             i += 1
             Me._Configurations = DirectCast(values(i), String())
             i += 1
+
             Me.imgPreview.ImageUrl = DirectCast(values(i), String)
+            i += 1
+            Me.imgPreview.Width = DirectCast(values(i), Unit)
+            i += 1
+            Me.imgPreview.Height = DirectCast(values(i), Unit)
             i += 1
 
             Me._DebugUploadProblems = DirectCast(values(i), Boolean)
@@ -155,7 +183,25 @@ Partial Public Class SimpleImageUpload
         values.Add(MyBase.SaveViewState())
 
         values.Add(Me._Width)
+
+        values.Add(Me._BackColor)
+        values.Add(Me._BorderColor)
+        values.Add(Me._BorderStyle)
+        values.Add(Me._BorderWidth)
+
+        values.Add(Me._ContentBackColor)
+        values.Add(Me._ContentForeColor)
+        values.Add(Me._ContentErrorForeColor)
+        values.Add(Me._ContentBorderColor)
+        values.Add(Me._ContentBorderStyle)
+        values.Add(Me._ContentBorderWidth)
+
+        values.Add(Me._PreviewBorderColor)
+        values.Add(Me._PreviewBorderStyle)
+        values.Add(Me._PreviewBorderWidth)
+
         values.Add(Me._AutoOpenImageEditPopupAfterUpload)
+        values.Add(Me._AutoDisableImageEdit)
         values.Add(Me._ImageEditPopupSize)
         values.Add(Me._ButtonSize)
         values.Add(Me._CssClass)
@@ -188,7 +234,39 @@ Partial Public Class SimpleImageUpload
 
             Me._Width = DirectCast(values(i), Unit)
             i += 1
+
+            Me._BackColor = DirectCast(values(i), Color)
+            i += 1
+            Me._BorderColor = DirectCast(values(i), Color)
+            i += 1
+            Me._BorderStyle = DirectCast(values(i), BorderStyle)
+            i += 1
+            Me._BorderWidth = DirectCast(values(i), Unit)
+            i += 1
+
+            Me._ContentBackColor = DirectCast(values(i), Color)
+            i += 1
+            Me._ContentForeColor = DirectCast(values(i), Color)
+            i += 1
+            Me._ContentErrorForeColor = DirectCast(values(i), Color)
+            i += 1
+            Me._ContentBorderColor = DirectCast(values(i), Color)
+            i += 1
+            Me._ContentBorderStyle = DirectCast(values(i), BorderStyle)
+            i += 1
+            Me._ContentBorderWidth = DirectCast(values(i), Unit)
+            i += 1
+
+            Me._PreviewBorderColor = DirectCast(values(i), Color)
+            i += 1
+            Me._PreviewBorderStyle = DirectCast(values(i), BorderStyle)
+            i += 1
+            Me._PreviewBorderWidth = DirectCast(values(i), Unit)
+            i += 1
+
             Me._AutoOpenImageEditPopupAfterUpload = DirectCast(values(i), Boolean)
+            i += 1
+            Me._AutoDisableImageEdit = DirectCast(values(i), Boolean)
             i += 1
             Me._ImageEditPopupSize = DirectCast(values(i), Size)
             i += 1
@@ -265,6 +343,7 @@ Partial Public Class SimpleImageUpload
         sb.Append(",btnBrowseClientId:""" + JSHelper.EncodeString(Me.btnBrowse.ClientID) + """" + crlf)
         sb.Append(",hfActClientId:""" + JSHelper.EncodeString(Me.hfAct.ClientID) + """" + crlf)
         sb.Append(",ddlConfigurationsClientId:""" + JSHelper.EncodeString(Me.ddlConfigurations.ClientID) + """" + crlf)
+        sb.Append(",hlPictureImageEditId:""" + JSHelper.EncodeString(Me.hlPictureImageEdit.ClientID) + """" + crlf)
 
         sb.Append(",uploadUrl:""" + JSHelper.EncodeString(Me.UploadUrl) + """" + crlf)
         sb.Append(",uploadMonitorUrl:""" + JSHelper.EncodeString(Me.UploadMonitorUrl) + """" + crlf)
@@ -272,8 +351,11 @@ Partial Public Class SimpleImageUpload
         sb.Append(",imageEditPopupSize_width:" + Me.ImageEditPopupSize.Width.ToString(System.Globalization.CultureInfo.InvariantCulture) + crlf)
         sb.Append(",imageEditPopupSize_height:" + Me.ImageEditPopupSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) + crlf)
         sb.Append(",autoOpenImageEditPopup:" + JSHelper.EncodeBool(Me._AutoOpenImageEditPopup) + crlf)
+        sb.Append(",autoDisableImageEdit:" + JSHelper.EncodeBool(Me._AutoDisableImageEdit) + crlf)
         sb.Append(",buttonSize_width:" + Me.ButtonSize.Width.ToString(System.Globalization.CultureInfo.InvariantCulture) + crlf)
         sb.Append(",buttonSize_height:" + Me.ButtonSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) + crlf)
+        sb.Append(",enableEdit:" + JSHelper.EncodeBool(Me._EnableEdit) + crlf)
+        sb.Append(",enableRemove:" + JSHelper.EncodeBool(Me._EnableRemove) + crlf)
         sb.Append(",enableCancelUpload:" + JSHelper.EncodeBool(Me._EnableCancelUpload) + crlf)
         sb.Append(",dup:" + JSHelper.EncodeBool(Me._DebugUploadProblems) + crlf)
         sb.Append(",statusMessage_Wait:""" + JSHelper.EncodeString(Me.StatusMessage_Wait) + """" + crlf)
@@ -287,7 +369,7 @@ Partial Public Class SimpleImageUpload
         sb.Append("if (typeof(window.__ccpz_siu_lt) === ""undefined"")" + crlf)
         sb.Append("{" + crlf)
         ' The variable (window.__ccpz_siu_lt) (configured in simpleImageUpload.js) is undefined...
-        sb.Append(JSHelper.GetLoadScript(Me.ResolveUrl("simpleImageUpload.js?v=2"), Me.InitFunctionName + "_load_js", Me.InitFunctionName2 + "();") + crlf)
+        sb.Append(JSHelper.GetLoadScript(Me.ResolveUrl("simpleImageUpload.js?v=4"), Me.InitFunctionName + "_load_js", Me.InitFunctionName2 + "();") + crlf)
         sb.Append("}" + crlf)
         sb.Append("else" + crlf)
         sb.Append("{" + crlf)
@@ -317,25 +399,11 @@ Partial Public Class SimpleImageUpload
         Me.phDesignTimeEnd.Visible = False
 
         ' Update the layout
-        Me.btnEdit.Enabled = Me.HasImage
-        Me.btnRemove.Enabled = Me.HasImage
-
         Me.btnEdit.Visible = Me.EnableEdit
-        Me.btnEdit.OnClientClick = "CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.openImageEditPopup(""" + JSHelper.EncodeString(Me.ClientID) + """); return false"
-        If (Me.EnableEdit) Then
-            Me.hlPictureImageEdit.Attributes("onclick") = Me.btnEdit.OnClientClick
-            Me.hlPictureImageEdit.Style("cursor") = "pointer"
-        Else
-            Me.hlPictureImageEdit.Attributes("onclick") = "return false;"
-            Me.hlPictureImageEdit.Style("cursor") = "default"
-        End If
-
-        Me.btnRemove.Visible = Me.EnableRemove
-        Me.btnRemove.OnClientClick = "CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.removeImage(""" + JSHelper.EncodeString(Me.ClientID) + """); return false;"
-
         Me.btnEdit.Width = Me.ButtonSize.Width
         Me.btnEdit.Height = Me.ButtonSize.Height
 
+        Me.btnRemove.Visible = Me.EnableRemove
         Me.btnRemove.Width = Me.ButtonSize.Width
         Me.btnRemove.Height = Me.ButtonSize.Height
 
@@ -356,7 +424,7 @@ Partial Public Class SimpleImageUpload
         Me.btnCancelUpload.Visible = Me.EnableCancelUpload
 
         ' Update the texts
-        Me.litStatusMessage.Text = Me.CurrentStatusMessage
+        Me.litStatusMessage.Text = Me.GetCurrentStatusMessage()
 
         Me.btnEdit.Text = Me.Text_EditButton
         Me.btnRemove.Text = Me.Text_RemoveButton
@@ -381,8 +449,20 @@ Partial Public Class SimpleImageUpload
                 End If
 
                 ' Save the preview image
+                Me.imgPreview.ImageUrl = Nothing
                 If (File.Exists(Me.TemporarySourceImageFilePath)) Then
-                    job.SaveProcessedImageToFileSystem(Me.TemporarySourceImageFilePath, Me.PreviewImageFilePath, New JpegFormatEncoderParams())
+                    ' job.SaveProcessedImageToFileSystem(Me.TemporarySourceImageFilePath, Me.PreviewImageFilePath, New JpegFormatEncoderParams())
+
+                    ' Jpeg images does not allow transparent images - Apply the right back color!
+                    Dim format As FormatEncoderParams = New JpegFormatEncoderParams()
+                    Using previewImage As System.Drawing.Image = job.GetProcessedImage(Me.TemporarySourceImageFilePath, format)
+                        ImageArchiver.SaveImageToFileSystem(previewImage, Me.PreviewImageFilePath, format)
+
+                        ' Force the reload of the preview
+                        Me.imgPreview.ImageUrl = Me.PreviewImageUrl
+                        Me.imgPreview.Width = Unit.Pixel(previewImage.Size.Width)
+                        Me.imgPreview.Height = Unit.Pixel(previewImage.Size.Height)
+                    End Using
                 End If
 
                 ' Force the reload of the preivew
@@ -393,12 +473,15 @@ Partial Public Class SimpleImageUpload
         If (String.IsNullOrEmpty(Me.imgPreview.ImageUrl)) Then
             ' Set a dummy image (for xhtml compliance)
             Me.imgPreview.ImageUrl = Me.ResolveUrl("blank.gif")
+            Me.imgPreview.Width = Unit.Pixel(1)
+            Me.imgPreview.Height = Unit.Pixel(1)
         End If
 
-        If (Me._CropConstraint IsNot Nothing) Then
-            ' Crop Enabled
-            Me.popupPictureTrimmer1.ShowZoomPanel = True
-        Else
+        Me.imgPreview.BorderColor = Me._PreviewBorderColor
+        Me.imgPreview.BorderStyle = Me._PreviewBorderStyle
+        Me.imgPreview.BorderWidth = Me._PreviewBorderWidth
+
+        If (Me._CropConstraint Is Nothing) Then
             ' Crop disabled
             Me.popupPictureTrimmer1.ShowZoomPanel = False
         End If
@@ -534,7 +617,7 @@ Partial Public Class SimpleImageUpload
 
 #Region "Settings"
 
-#Region "Misc"
+#Region "Appearance"
 
     Protected _Width As Unit = Unit.Empty
     ''' <summary>
@@ -547,6 +630,173 @@ Partial Public Class SimpleImageUpload
             Me._Width = value
         End Set
     End Property
+
+    Protected _BackColor As Color = ColorTranslator.FromHtml(DefaultValues_BackColor)
+    ''' <summary>
+    ''' Gets or sets the background color of the image upload control.</summary>
+    <DefaultValue(GetType(Color), DefaultValues_BackColor)> _
+    <TypeConverter(GetType(WebColorConverter))> Public Property BackColor() As Color
+        Get
+            Return Me._BackColor
+        End Get
+        Set(ByVal value As Color)
+            Me._BackColor = value
+        End Set
+    End Property
+
+    Protected _BorderColor As Color = ColorTranslator.FromHtml(DefaultValues_BorderColor)
+    ''' <summary>
+    ''' Gets or sets the border color of the image upload control.</summary>
+    <DefaultValue(GetType(Color), DefaultValues_BorderColor)> _
+    <TypeConverter(GetType(WebColorConverter))> Public Property BorderColor() As Color
+        Get
+            Return Me._BorderColor
+        End Get
+        Set(ByVal value As Color)
+            Me._BorderColor = value
+        End Set
+    End Property
+
+    Protected _BorderStyle As BorderStyle = DefaultValues_BorderStyle
+    ''' <summary>
+    ''' Gets or sets the border style of the image upload control.</summary>
+    Public Property BorderStyle() As BorderStyle
+        Get
+            Return Me._BorderStyle
+        End Get
+        Set(ByVal value As BorderStyle)
+            Me._BorderStyle = value
+        End Set
+    End Property
+
+    Protected _BorderWidth As Unit = DefaultValues_BorderWidth
+    ''' <summary>
+    ''' Gets or sets the border width of the image upload control.</summary>
+    <DefaultValue(GetType(Unit), "1px")> Public Property BorderWidth() As Unit
+        Get
+            Return Me._BorderWidth
+        End Get
+        Set(ByVal value As Unit)
+            Me._BorderWidth = value
+        End Set
+    End Property
+
+    Protected _ContentBackColor As Color = ColorTranslator.FromHtml(DefaultValues_ContentBackColor)
+    ''' <summary>
+    ''' Gets or sets the background color of the content element.</summary>
+    <DefaultValue(GetType(Color), DefaultValues_ContentBackColor)> _
+    <TypeConverter(GetType(WebColorConverter))> Public Property ContentBackColor() As Color
+        Get
+            Return Me._ContentBackColor
+        End Get
+        Set(ByVal value As Color)
+            Me._ContentBackColor = value
+        End Set
+    End Property
+
+    Protected _ContentForeColor As Color = ColorTranslator.FromHtml(DefaultValues_ContentForeColor)
+    ''' <summary>
+    ''' Gets or sets the foreground color of the content element.</summary>
+    <DefaultValue(GetType(Color), DefaultValues_ContentForeColor)> _
+    <TypeConverter(GetType(WebColorConverter))> Public Property ContentForeColor() As Color
+        Get
+            Return Me._ContentForeColor
+        End Get
+        Set(ByVal value As Color)
+            Me._ContentForeColor = value
+        End Set
+    End Property
+
+    Protected _ContentErrorForeColor As Color = ColorTranslator.FromHtml(DefaultValues_ContentErrorForeColor)
+    ''' <summary>
+    ''' Gets or sets the foreground color of the content element when an error is displayed.</summary>
+    <DefaultValue(GetType(Color), DefaultValues_ContentErrorForeColor)> _
+    <TypeConverter(GetType(WebColorConverter))> Public Property ContentErrorForeColor() As Color
+        Get
+            Return Me._ContentErrorForeColor
+        End Get
+        Set(ByVal value As Color)
+            Me._ContentErrorForeColor = value
+        End Set
+    End Property
+
+    Protected _ContentBorderColor As Color = ColorTranslator.FromHtml(DefaultValues_ContentBorderColor)
+    ''' <summary>
+    ''' Gets or sets the border color of the content element.</summary>
+    <DefaultValue(GetType(Color), DefaultValues_ContentBorderColor)> _
+    <TypeConverter(GetType(WebColorConverter))> Public Property ContentBorderColor() As Color
+        Get
+            Return Me._ContentBorderColor
+        End Get
+        Set(ByVal value As Color)
+            Me._ContentBorderColor = value
+        End Set
+    End Property
+
+    Protected _ContentBorderStyle As BorderStyle = DefaultValues_ContentBorderStyle
+    ''' <summary>
+    ''' Gets or sets the border style of the content element.</summary>
+    Public Property ContentBorderStyle() As BorderStyle
+        Get
+            Return Me._ContentBorderStyle
+        End Get
+        Set(ByVal value As BorderStyle)
+            Me._ContentBorderStyle = value
+        End Set
+    End Property
+
+    Protected _ContentBorderWidth As Unit = DefaultValues_ContentBorderWidth
+    ''' <summary>
+    ''' Gets or sets the border width of the content element.</summary>
+    <DefaultValue(GetType(Unit), "1px")> Public Property ContentBorderWidth() As Unit
+        Get
+            Return Me._ContentBorderWidth
+        End Get
+        Set(ByVal value As Unit)
+            Me._ContentBorderWidth = value
+        End Set
+    End Property
+
+    Protected _PreviewBorderColor As Color = ColorTranslator.FromHtml(DefaultValues_PreviewBorderColor)
+    ''' <summary>
+    ''' Gets or sets the border color of the preview image element.</summary>
+    <DefaultValue(GetType(Color), DefaultValues_PreviewBorderColor)> _
+    <TypeConverter(GetType(WebColorConverter))> Public Property PreviewBorderColor() As Color
+        Get
+            Return Me._PreviewBorderColor
+        End Get
+        Set(ByVal value As Color)
+            Me._PreviewBorderColor = value
+        End Set
+    End Property
+
+    Protected _PreviewBorderStyle As BorderStyle = DefaultValues_PreviewBorderStyle
+    ''' <summary>
+    ''' Gets or sets the border style of the preview image element.</summary>
+    Public Property PreviewBorderStyle() As BorderStyle
+        Get
+            Return Me._PreviewBorderStyle
+        End Get
+        Set(ByVal value As BorderStyle)
+            Me._PreviewBorderStyle = value
+        End Set
+    End Property
+
+    Protected _PreviewBorderWidth As Unit = DefaultValues_PreviewBorderWidth
+    ''' <summary>
+    ''' Gets or sets the border width of the preview image element.</summary>
+    <DefaultValue(GetType(Unit), "1px")> Public Property PreviewBorderWidth() As Unit
+        Get
+            Return Me._PreviewBorderWidth
+        End Get
+        Set(ByVal value As Unit)
+            Me._PreviewBorderWidth = value
+        End Set
+    End Property
+
+#End Region
+
+#Region "Misc"
 
     Protected _OutputResolution As Single = CommonData.DefaultResolution
     ''' <summary>
@@ -579,6 +829,18 @@ Partial Public Class SimpleImageUpload
                 Throw New Exception("Cannot change the CropConstraint after an image has been loaded.")
             End If
             Me._CropConstraint = value
+        End Set
+    End Property
+
+    Protected _ImageUploadPreProcessingFilter As ImageProcessingFilter = Nothing
+    ''' <summary>
+    ''' Gets or sets the filter(s) to apply after a new upload, before the image is loaded into the control.</summary>
+    Public Property ImageUploadPreProcessingFilter() As ImageProcessingFilter
+        Get
+            Return Me._ImageUploadPreProcessingFilter
+        End Get
+        Set(ByVal value As ImageProcessingFilter)
+            Me._ImageUploadPreProcessingFilter = value
         End Set
     End Property
 
@@ -663,6 +925,18 @@ Partial Public Class SimpleImageUpload
         End Get
         Set(ByVal value As Boolean)
             Me._AutoOpenImageEditPopupAfterUpload = value
+        End Set
+    End Property
+
+    Protected _AutoDisableImageEdit As Boolean = True
+    ''' <summary>
+    ''' Gets or sets a value indicating whether to automatically disable image edit feature if not available (e.g. Flash Player not installed).</summary>
+    Public Property AutoDisableImageEdit() As Boolean
+        Get
+            Return Me._AutoDisableImageEdit
+        End Get
+        Set(ByVal value As Boolean)
+            Me._AutoDisableImageEdit = value
         End Set
     End Property
 
@@ -763,6 +1037,19 @@ Partial Public Class SimpleImageUpload
         End Set
     End Property
 
+    Protected _PictureTrimmerSettings As PopupPictureTrimmerSettingsProvider = Nothing
+    ''' <summary>
+    '''  Gets an object that allows to customize settings of the PopupPictureTrimmer instance.</summary>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Content)> _
+    <NotifyParentProperty(True)> Public ReadOnly Property PictureTrimmerSettings() As PopupPictureTrimmerSettingsProvider
+        Get
+            If (Me._PictureTrimmerSettings Is Nothing) Then
+                Me._PictureTrimmerSettings = New PopupPictureTrimmerSettingsProvider(Me.popupPictureTrimmer1)
+            End If
+            Return Me._PictureTrimmerSettings
+        End Get
+    End Property
+
 #End Region
 
 #Region "Globalization"
@@ -834,25 +1121,34 @@ Partial Public Class SimpleImageUpload
 #Region "Status messages"
 
     Protected _CurrentStatusMessage As String = Nothing
-    Protected Property CurrentStatusMessage() As String
-        Get
-            If (Me._CurrentStatusMessage IsNot Nothing) Then
-                ' Last status set
-                Return Me._CurrentStatusMessage
-            End If
+    Protected Function GetCurrentStatusMessage() As String
+        If (Me._CurrentStatusMessage IsNot Nothing) Then
+            ' Last status set
+            Return Me._CurrentStatusMessage
+        End If
 
-            ' By default return the "No image selected" text.
-            Return Me.StatusMessage_NoImageSelected
-        End Get
-        Set(ByVal value As String)
-            Me._CurrentStatusMessage = value
-        End Set
-    End Property
+        ' By default return the "No image selected" text.
+        Return Me.StatusMessage_NoImageSelected
+    End Function
+
+    ''' <summary>
+    ''' Sets the current status message.</summary>
+    ''' <param name="text">The message to display.</param>
+    ''' <param name="isError">If true, the message will be displayed as error message.</param>
+    Public Sub SetCurrentStatusMessage(ByVal text As String, ByVal isError As Boolean)
+        If (isError) Then
+            If (Me._ContentErrorForeColor <> Color.Empty) Then
+                text = "<span style=""color:" + ColorTranslator.ToHtml(Me._ContentErrorForeColor) + ";"">" + text + "</span>"
+            End If
+        End If
+        Me._CurrentStatusMessage = text
+    End Sub
+
     ''' <summary>
     ''' Sets the current status message.</summary>
     ''' <param name="text">The message to display.</param>
     Public Sub SetCurrentStatusMessage(ByVal text As String)
-        Me.CurrentStatusMessage = text
+        Me.SetCurrentStatusMessage(text, False)
     End Sub
 
     Protected _StatusMessage_NoImageSelected As String = "No image selected."
@@ -867,7 +1163,7 @@ Partial Public Class SimpleImageUpload
         End Set
     End Property
 
-    Protected _StatusMessage_UploadError As String = "<span style=""color:#cc0000;"">A server error has occurred during the upload process.<br/>Please ensure that the file is smaller than {0} KBytes.</span>"
+    Protected _StatusMessage_UploadError As String = "A server error has occurred during the upload process.<br/>Please ensure that the file is smaller than {0} KBytes."
     ''' <summary>
     ''' Gets or sets the text displayed when a (generic) upload error has occurred.</summary>
     Public Property StatusMessage_UploadError() As String
@@ -879,7 +1175,7 @@ Partial Public Class SimpleImageUpload
         End Set
     End Property
 
-    Protected _StatusMessage_InvalidImage As String = "<span style=""color:#cc0000;"">The uploaded file is not a valid image.</span>"
+    Protected _StatusMessage_InvalidImage As String = "The uploaded file is not a valid image."
     ''' <summary>
     ''' Gets or sets the text displayed when the uploaded image file is invalid.</summary>
     Public Property StatusMessage_InvalidImage() As String
@@ -891,7 +1187,7 @@ Partial Public Class SimpleImageUpload
         End Set
     End Property
 
-    Protected _StatusMessage_InvalidImageSize As String = "<span style=""color:#cc0000;"">The uploaded image is not valid (too small or too large).</span>"
+    Protected _StatusMessage_InvalidImageSize As String = "The uploaded image is not valid (too small or too large)."
     ''' <summary>
     ''' Gets or sets the text displayed when the size of the uploaded image is too small or too large (please see: CodeCarvings.Piczard.Configuration.DrawingSettings.MaxImageSize).</summary>
     Public Property StatusMessage_InvalidImageSize() As String
@@ -903,7 +1199,7 @@ Partial Public Class SimpleImageUpload
         End Set
     End Property
 
-    Protected _StatusMessage_Wait As String = "<span style=""color:#aaaaaa;"">Please wait...</span>"
+    Protected _StatusMessage_Wait As String = "Please wait..."
     ''' <summary>
     ''' Gets or sets the text displayed when the user has to wait (e.g. a postback has been delayed).</summary>
     Public Property StatusMessage_Wait() As String
@@ -1102,7 +1398,7 @@ Partial Public Class SimpleImageUpload
 #Region "PictureTrimmer properties"
 
     ''' <summary>
-    ''' Gets the current <see cref="PictureTrimmerUserState"/> of the <see cref="PictureTrimmer"/> control.</summary>
+    ''' Gets the current PictureTrimmerUserState of the PictureTrimmer control.</summary>
     Public ReadOnly Property UserState() As PictureTrimmerUserState
         Get
             If (Not Me.HasImage) Then
@@ -1114,7 +1410,7 @@ Partial Public Class SimpleImageUpload
     End Property
 
     ''' <summary>
-    ''' Gets the current <see cref="PictureTrimmerValue"/> of the <see cref="PictureTrimmer"/> control.</summary>
+    ''' Gets the current PictureTrimmerValue of the PictureTrimmer control.</summary>
     Public ReadOnly Property Value() As PictureTrimmerValue
         Get
             If (Not Me.HasImage) Then
@@ -1137,7 +1433,7 @@ Partial Public Class SimpleImageUpload
     End Property
 
     ''' <summary>
-    ''' Gets or sets the CanvasColor used by the <see cref="PictureTrimmer"/> control.</summary>
+    ''' Gets or sets the CanvasColor used by the PictureTrimmer" control.</summary>
     <DesignerSerializationVisibility(DesignerSerializationVisibility.Content)> _
     <NotifyParentProperty(True)> Public Property CanvasColor() As BackgroundColor
         Get
@@ -1149,7 +1445,7 @@ Partial Public Class SimpleImageUpload
     End Property
 
     ''' <summary>
-    ''' Gets or sets the ImageBackColor used by the <see cref="PictureTrimmer"/> control.</summary>
+    ''' Gets or sets the ImageBackColor used by the PictureTrimmer" control.</summary>
     <DesignerSerializationVisibility(DesignerSerializationVisibility.Content)> _
     <NotifyParentProperty(True)> Public Property ImageBackColor() As BackgroundColor
         Get
@@ -1161,7 +1457,7 @@ Partial Public Class SimpleImageUpload
     End Property
 
     ''' <summary>
-    ''' Gets or sets the <see cref="PictureTrimmer.ImageBackColorApplyMode"/> property of the <see cref="PictureTrimmer"/> control.</summary>
+    ''' Gets or sets the ImageBackColorApplyMode property of the PictureTrimmer control.</summary>
     Public Property ImageBackColorApplyMode() As PictureTrimmerImageBackColorApplyMode
         Get
             Return Me.popupPictureTrimmer1.ImageBackColorApplyMode
@@ -1172,7 +1468,7 @@ Partial Public Class SimpleImageUpload
     End Property
 
     ''' <summary>
-    ''' Gets or sets the UIUnit used by the <see cref="PictureTrimmer"/> control.</summary>
+    ''' Gets or sets the UIUnit used by the PictureTrimmer control.</summary>
     Public Property UIUnit() As GfxUnit
         Get
             Return Me.popupPictureTrimmer1.UIUnit
@@ -1183,8 +1479,10 @@ Partial Public Class SimpleImageUpload
     End Property
 
     ''' <summary>
-    ''' Gets or sets the <see cref="PictureTrimmer.CropShadowMode"/> property of the <see cref="PictureTrimmer"/> control.</summary>
-    Public Property CropShadowMode() As PictureTrimmerCropShadowMode
+    ''' Gets or sets a value indicating how the PictureTrimmer GUI renders the cropping mask.
+    ''' This property is marked as obsolete since version 3.0.0 of the control and will be soon removed.
+    ''' Use 'PictureTrimmerSettings-CropShadowMode' instead.</summary>
+    <Obsolete()> Public Property CropShadowMode() As PictureTrimmerCropShadowMode
         Get
             Return Me.popupPictureTrimmer1.CropShadowMode
         End Get
@@ -1192,6 +1490,8 @@ Partial Public Class SimpleImageUpload
             Me.popupPictureTrimmer1.CropShadowMode = value
         End Set
     End Property
+
+#Region "Read-only properties"
 
     ''' <summary>
     ''' Gets the size (pixel) of the source image.</summary>
@@ -1228,6 +1528,8 @@ Partial Public Class SimpleImageUpload
             Return Me.popupPictureTrimmer1.SourceImageFormatId
         End Get
     End Property
+
+#End Region
 
 #End Region
 
@@ -1383,20 +1685,27 @@ Partial Public Class SimpleImageUpload
 
 #Region "Load"
 
-    Protected Sub LoadImageFromFileSystem_Internal(ByVal sourceImageFilePath As String, ByVal value As PictureTrimmerValue)
+    Protected Sub LoadImageFromFileSystem_Internal(ByVal sourceImageFilePath As String, ByVal sourceImage As System.Drawing.Image, ByVal sourceImageFormatId As Guid, ByVal sourceImageResolution As Single, ByVal disposeSourceImage As Boolean, ByVal value As PictureTrimmerValue)
         ' Calculate the client file name
-        Using image As LoadedImage = ImageArchiver.LoadImage(sourceImageFilePath)
-            Me.SourceImageClientFileName = "noname" + ImageArchiver.GetFileExtensionFromImageFormatId(image.FormatId)
+        Me.SourceImageClientFileName = "noname" + ImageArchiver.GetFormatEncoderParams(sourceImageFormatId).FileExtension
 
-            If (CodeCarvings.Piczard.Configuration.WebSettings.PictureTrimmer.UseTemporaryFiles) Then
-                ' The picture trimmer can use temporary files -> Load the image now
-                ' This generates a new temporary files, however saves CPU and RAM
-                Me.popupPictureTrimmer1.LoadImage(image.Image, Me._OutputResolution, Me._CropConstraint)
-            End If
-        End Using
+        If (CodeCarvings.Piczard.Configuration.WebSettings.PictureTrimmer.UseTemporaryFiles) Then
+            ' The picture trimmer can use temporary files -> Load the image now
+            ' This generates a new temporary files, however saves CPU and RAM
+            Me.popupPictureTrimmer1.LoadImage(sourceImage, Me._OutputResolution, Me._CropConstraint)
+        End If
+        If (disposeSourceImage) Then
+            ' The source image is no longer necessary
+            sourceImage.Dispose()
+            sourceImage = Nothing
+        End If
 
         If (Not CodeCarvings.Piczard.Configuration.WebSettings.PictureTrimmer.UseTemporaryFiles) Then
             ' The picture trimmer cannot use temporary files -> Load the image now
+            Me.popupPictureTrimmer1.SetLoadImageData_ImageSize(sourceImage.Size)
+            Me.popupPictureTrimmer1.SetLoadImageData_ImageResolution(sourceImageResolution)
+            Me.popupPictureTrimmer1.SetLoadImageData_ImageFormatId(sourceImageFormatId)
+
             Me.popupPictureTrimmer1.LoadImageFromFileSystem(sourceImageFilePath, Me._OutputResolution, Me._CropConstraint)
         End If
 
@@ -1413,10 +1722,16 @@ Partial Public Class SimpleImageUpload
         Me._UpdatePreview = True
     End Sub
 
+    Protected Sub LoadImageFromFileSystem_Internal(ByVal sourceImageFilePath As String, ByVal value As PictureTrimmerValue)
+        Using image As LoadedImage = ImageArchiver.LoadImage(sourceImageFilePath)
+            Me.LoadImageFromFileSystem_Internal(sourceImageFilePath, image.Image, image.FormatId, image.Resolution, True, value)
+        End Using
+    End Sub
+
     ''' <summary>
-    ''' Loads an image stored in the file system and applies a specific <see cref="PictureTrimmerValue"/>.</summary>
+    ''' Loads an image stored in the file system and applies a specific PictureTrimmerValue.</summary>
     ''' <param name="sourceImageFilePath">The path of the image to load.</param>
-    ''' <param name="value">The <see cref="PictureTrimmerValue"/> to apply.</param>
+    ''' <param name="value">The PictureTrimmerValue to apply.</param>
     Public Sub LoadImageFromFileSystem(ByVal sourceImageFilePath As String, ByVal value As PictureTrimmerValue)
         ' Copy the source image into the temporary folder
         ' So there is no problem il the original source image is deleted (e.g. when a record is updated...)
@@ -1430,16 +1745,16 @@ Partial Public Class SimpleImageUpload
     End Sub
 
     ''' <summary>
-    ''' Loads an image stored in the file system and auto-calculates the <see cref="PictureTrimmerValue"/> to use.</summary>
+    ''' Loads an image stored in the file system and auto-calculates the PictureTrimmerValue to use.</summary>
     ''' <param name="sourceImageFilePath">The path of the image to load.</param>
     Public Sub LoadImageFromFileSystem(ByVal sourceImageFilePath As String)
         Me.LoadImageFromFileSystem(sourceImageFilePath, Nothing)
     End Sub
 
     ''' <summary>
-    ''' Loads an image from a <see cref="Stream"/> and applies a specific <see cref="PictureTrimmerValue"/>.</summary>
-    ''' <param name="sourceImageStream">The <see cref="Stream"/> containing the image to load.</param>
-    ''' <param name="value">The <see cref="PictureTrimmerValue"/> to apply.</param>
+    ''' Loads an image from a Stream and applies a specific PictureTrimmerValue.</summary>
+    ''' <param name="sourceImageStream">The Stream containing the image to load.</param>
+    ''' <param name="value">The PictureTrimmerValue to apply.</param>
     Public Sub LoadImageFromStream(ByVal sourceImageStream As Stream, ByVal value As PictureTrimmerValue)
         ' Save the stream
         Using writer As Stream = File.Create(Me.TemporarySourceImageFilePath)
@@ -1465,16 +1780,16 @@ Partial Public Class SimpleImageUpload
     End Sub
 
     ''' <summary>
-    ''' Loads an image from a <see cref="Stream"/> and auto-calculates the <see cref="PictureTrimmerValue"/> to use.</summary>
-    ''' <param name="sourceImageStream">The <see cref="Stream"/> containing the image to load.</param>    
+    ''' Loads an image from a Stream and auto-calculates the PictureTrimmerValue to use.</summary>
+    ''' <param name="sourceImageStream">The Stream containing the image to load.</param>    
     Public Sub LoadImageFromStream(ByVal sourceImageStream As Stream)
         Me.LoadImageFromStream(sourceImageStream, Nothing)
     End Sub
 
     ''' <summary>
-    ''' Loads an image from an array of bytes and applies a specific <see cref="PictureTrimmerValue"/>.</summary>
+    ''' Loads an image from an array of bytes and applies a specific PictureTrimmerValue.</summary>
     ''' <param name="sourceImageBytes">The array of bytes to load.</param>
-    ''' <param name="value">The <see cref="PictureTrimmerValue"/> to apply.</param>
+    ''' <param name="value">The PictureTrimmerValue to apply.</param>
     Public Sub LoadImageFromByteArray(ByVal sourceImageBytes As Byte(), ByVal value As PictureTrimmerValue)
         ' Save the byte array
         Using writer As Stream = File.Create(Me.TemporarySourceImageFilePath)
@@ -1487,10 +1802,48 @@ Partial Public Class SimpleImageUpload
     End Sub
 
     ''' <summary>
-    ''' Loads an image from an array of bytes and auto-calculates the <see cref="PictureTrimmerValue"/> to use.</summary>
+    ''' Loads an image from an array of bytes and auto-calculates the PictureTrimmerValue to use.</summary>
     ''' <param name="sourceImageBytes">The array of bytes to load.</param>
     Public Sub LoadImageFromByteArray(ByVal sourceImageBytes As Byte())
         Me.LoadImageFromByteArray(sourceImageBytes, Nothing)
+    End Sub
+
+    ''' <summary>
+    ''' Loads an image from an array of bytes and applies a specific PictureTrimmerValue.</summary>
+    ''' <param name="sourceImage">The source image to load.</param>
+    ''' <param name="value">The PictureTrimmerValue to apply.</param>
+    Public Sub LoadImage(ByVal sourceImage As LoadedImage, ByVal value As PictureTrimmerValue)
+        ' Save the image - Use PNG as image format to preserve transparency
+        ImageArchiver.SaveImageToFileSystem(sourceImage.Image, Me.TemporarySourceImageFilePath, New PngFormatEncoderParams())
+
+        ' Load the image into the control
+        Me.LoadImageFromFileSystem_Internal(Me.TemporarySourceImageFilePath, sourceImage.Image, sourceImage.FormatId, sourceImage.Resolution, False, value)
+    End Sub
+
+    ''' <summary>
+    ''' Loads an image and auto-calculates the PictureTrimmerValue to use.</summary>
+    ''' <param name="sourceImage">The source image to load.</param>
+    Public Sub LoadImage(ByVal sourceImage As LoadedImage)
+        Me.LoadImage(sourceImage, Nothing)
+    End Sub
+
+    ''' <summary>
+    ''' Loads an image from an array of bytes and applies a specific PictureTrimmerValue.</summary>
+    ''' <param name="sourceImage">The source image to load.</param>
+    ''' <param name="value">The PictureTrimmerValue to apply.</param>
+    Public Sub LoadImage(ByVal sourceImage As System.Drawing.Image, ByVal value As PictureTrimmerValue)
+        ' Save the image - Use PNG as image format to preserve transparency
+        ImageArchiver.SaveImageToFileSystem(sourceImage, Me.TemporarySourceImageFilePath, New PngFormatEncoderParams())
+
+        ' Load the image into the control
+        Me.LoadImageFromFileSystem_Internal(Me.TemporarySourceImageFilePath, sourceImage, sourceImage.RawFormat.Guid, CodeCarvings.Piczard.Helpers.ImageHelper.GetImageResolution(sourceImage), False, value)
+    End Sub
+
+    ''' <summary>
+    ''' Loads an image and auto-calculates the PictureTrimmerValue to use.</summary>
+    ''' <param name="sourceImage">The source image to load.</param>
+    Public Sub LoadImage(ByVal sourceImage As System.Drawing.Image)
+        Me.LoadImage(sourceImage, Nothing)
     End Sub
 
     ''' <summary>
@@ -1521,8 +1874,8 @@ Partial Public Class SimpleImageUpload
 #Region "Image Processing"
 
     ''' <summary>
-    ''' Returns the <see cref="ImageProcessingJob"/> that can be used to process the source image.</summary>
-    ''' <returns>An <see cref="ImageProcessingJob"/> ready to be used to process imagess.</returns>
+    ''' Returns the ImageProcessingJob that can be used to process the source image.</summary>
+    ''' <returns>An ImageProcessingJob ready to be used to process imagess.</returns>
     Public Function GetImageProcessingJob() As ImageProcessingJob
         Dim result As ImageProcessingJob = Me.popupPictureTrimmer1.GetImageProcessingJob()
         If (Not (Me.PostProcessingFilter Is Nothing)) Then
@@ -1545,15 +1898,24 @@ Partial Public Class SimpleImageUpload
 
     ''' <summary>
     ''' Returns the output image processed by the control.</summary>
-    ''' <returns>A <see cref="Bitmap"/> image processed by the control.</returns>
+    ''' <param name="hintFormatEncoderParams">The image format that will be used then to save image.</param>
+    ''' <returns>A Bitmap image processed by the control.</returns>
+    Public Function GetProcessedImage(ByVal hintFormatEncoderParams As FormatEncoderParams) As Bitmap
+        Dim job As ImageProcessingJob = Me.GetImageProcessingJob()
+        Return job.GetProcessedImage(Me.TemporarySourceImageFilePath, hintFormatEncoderParams)
+    End Function
+
+    ''' <summary>
+    ''' Returns the output image processed by the control.</summary>
+    ''' <returns>A Bitmap image processed by the control.</returns>
     Public Function GetProcessedImage() As Bitmap
         Dim job As ImageProcessingJob = Me.GetImageProcessingJob()
         Return job.GetProcessedImage(Me.TemporarySourceImageFilePath)
     End Function
 
     ''' <summary>
-    ''' Processes  the source image and saves the output in a <see cref="Stream"/> with a specific image format.</summary>
-    ''' <param name="destStream">The <see cref="Stream"/> in which the image will be saved.</param>
+    ''' Processes  the source image and saves the output in a Stream with a specific image format.</summary>
+    ''' <param name="destStream">The Stream in which the image will be saved.</param>
     ''' <param name="formatEncoderParams">The image format of the saved image.</param>
     Public Sub SaveProcessedImageToStream(ByVal destStream As Stream, ByVal formatEncoderParams As FormatEncoderParams)
         Dim job As ImageProcessingJob = Me.GetImageProcessingJob()
@@ -1561,8 +1923,8 @@ Partial Public Class SimpleImageUpload
     End Sub
 
     ''' <summary>
-    ''' Processes the source image and saves the output in a <see cref="Stream"/> with the default image format.</summary>
-    ''' <param name="destStream">The <see cref="Stream"/> in which the image will be saved.</param>
+    ''' Processes the source image and saves the output in a Stream with the default image format.</summary>
+    ''' <param name="destStream">The Stream in which the image will be saved.</param>
     Public Sub SaveProcessedImageToStream(ByVal destStream As Stream)
         Dim job As ImageProcessingJob = Me.GetImageProcessingJob()
         job.SaveProcessedImageToStream(Me.TemporarySourceImageFilePath, destStream)
@@ -1620,7 +1982,7 @@ Partial Public Class SimpleImageUpload
     ''' Opens the image edit popup window.</summary>
     Public Sub OpenImageEditPopup()
         If (Not Me.HasImage) Then
-            Throw New Exception("Image not loaded")
+            Throw New Exception("Image not loaded.")
         End If
 
         ' Open the image edit popup
@@ -1652,13 +2014,51 @@ Partial Public Class SimpleImageUpload
         End If
     End Sub
 
-    Protected Function GetRenderStyleWidth() As String
-        If (Not Me._Width.IsEmpty) Then
-            Return "width:" + Me._Width.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";"
-        Else
-            ' Do not render the value
-            Return ""
+    Protected Function GetRenderStyle_container0() As String
+        Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+        sb.Append(Me.GetRenderStyleValue("width", Me._Width))
+        sb.Append(Me.GetRenderStyleValue("background-color", Me._BackColor))
+        sb.Append(Me.GetRenderStyleValue("border-color", Me._BorderColor))
+        sb.Append(Me.GetRenderStyleValue("border-style", Me._BorderStyle))
+        sb.Append(Me.GetRenderStyleValue("border-width", Me._BorderWidth))
+        Return sb.ToString()
+    End Function
+
+    Protected Function GetRenderStyle_content() As String
+        Dim sb As System.Text.StringBuilder = New System.Text.StringBuilder()
+        sb.Append(Me.GetRenderStyleValue("background-color", Me._ContentBackColor))
+        sb.Append(Me.GetRenderStyleValue("color", Me._ContentForeColor))
+        sb.Append(Me.GetRenderStyleValue("border-color", Me._ContentBorderColor))
+        sb.Append(Me.GetRenderStyleValue("border-style", Me._ContentBorderStyle))
+        sb.Append(Me.GetRenderStyleValue("border-width", Me._ContentBorderWidth))
+        Return sb.ToString()
+    End Function
+
+    Protected Function GetRenderStyleValue(ByVal name As String, ByVal value As Unit) As String
+        If (Not value.IsEmpty) Then
+            Return name + ":" + value.ToString(System.Globalization.CultureInfo.InvariantCulture).ToLowerInvariant() + ";"
         End If
+
+        ' Do not render the value
+        Return ""
+    End Function
+
+    Protected Function GetRenderStyleValue(ByVal name As String, ByVal value As Color) As String
+        If (Not value.IsEmpty) Then
+            Return name + ":" + ColorTranslator.ToHtml(value) + ";"
+        End If
+
+        ' Do not render the value
+        Return ""
+    End Function
+
+    Protected Function GetRenderStyleValue(ByVal name As String, ByVal value As BorderStyle) As String
+        If (value <> BorderStyle.NotSet) Then
+            Return name + ":" + value.ToString().ToLowerInvariant() + ";"
+        End If
+
+        ' Do not render the value
+        Return ""
     End Function
 
     Protected Function GetQueryKey(ByVal additionalData As String) As String
@@ -1682,10 +2082,33 @@ Partial Public Class SimpleImageUpload
             Me.UnloadImage(False)
         End If
 
-        ' Copy the uploaded file
-        File.Copy(Me.UploadFilePath, Me.TemporarySourceImageFilePath, True)
+        ' Delete old files
+        If (File.Exists(Me.TemporarySourceImageFilePath)) Then
+            File.Delete(Me.TemporarySourceImageFilePath)
+        End If
+
+        If (Me._ImageUploadPreProcessingFilter Is Nothing) Then
+            ' Just copy the source image
+            File.Copy(Me.UploadFilePath, Me.TemporarySourceImageFilePath, True)
+        End If
 
         Try
+            If (Me._ImageUploadPreProcessingFilter IsNot Nothing) Then
+                ' Pre-process the just uploaded image
+                Using sourceImage As LoadedImage = ImageArchiver.LoadImage(Me.UploadFilePath)
+                    '  Use PNG to preserve transparency
+                    Dim format As FormatEncoderParams = New PngFormatEncoderParams()
+                    Using tempImage As System.Drawing.Image = Me._ImageUploadPreProcessingFilter.GetProcessedImage(sourceImage, sourceImage.Resolution, format)
+                        ImageArchiver.SaveImageToFileSystem(tempImage, Me.TemporarySourceImageFilePath, format)
+
+                        ' Optimization: save server resources...
+                        Me.popupPictureTrimmer1.SetLoadImageData_ImageSize(tempImage.Size)
+                        Me.popupPictureTrimmer1.SetLoadImageData_ImageResolution(sourceImage.Resolution)
+                        Me.popupPictureTrimmer1.SetLoadImageData_ImageFormatId(sourceImage.FormatId)
+                    End Using
+                End Using
+            End If
+
             ' Load the image in the PictureTrimmer control
             Me.popupPictureTrimmer1.LoadImageFromFileSystem(Me.TemporarySourceImageFilePath, Me._OutputResolution, Me.CropConstraint)
         Catch ex As InvalidImageSizeException
@@ -1693,7 +2116,7 @@ Partial Public Class SimpleImageUpload
             ex.ToString()
 
             ' Display the invalid image size message
-            Me.CurrentStatusMessage = Me.StatusMessage_InvalidImageSize
+            Me.SetCurrentStatusMessage(Me.StatusMessage_InvalidImageSize, True)
 
             ' EVENT: Upload error (invalid image size)
             Me.OnUploadError(EventArgs.Empty)
@@ -1701,7 +2124,7 @@ Partial Public Class SimpleImageUpload
             ' Invalid image
 
             ' Display the invalid image message
-            Me.CurrentStatusMessage = Me.StatusMessage_InvalidImage
+            Me.SetCurrentStatusMessage(Me.StatusMessage_InvalidImage, True)
 
             ' EVENT: Upload error (invalid image)
             Me.OnUploadError(EventArgs.Empty)
@@ -1786,7 +2209,7 @@ Partial Public Class SimpleImageUpload
         End If
 
         ' Display the error message;
-        Me.CurrentStatusMessage = Me.StatusMessage_UploadError
+        Me.SetCurrentStatusMessage(Me.StatusMessage_UploadError, True)
 
         ' EVENT: Upload error
         Me.OnUploadError(EventArgs.Empty)
@@ -1815,7 +2238,7 @@ Partial Public Class SimpleImageUpload
     Protected Sub ProcessSelectedConfigurationIndexChanged()
         ' The new image has been edited
         Me._ImageUploaded = False
-        Me._ImageEdited = False
+        Me._ImageEdited = True
 
         ' Update the preview
         Me._UpdatePreview = True
@@ -1887,7 +2310,7 @@ Partial Public Class SimpleImageUpload
         Inherits EventArgs
 
         ''' <summary>
-        ''' Intializes new instace of the <see cref="ConfigurationEventArgs"/> class.</summary>
+        ''' Intializes new instace of the ConfigurationEventArgs class.</summary>
         ''' <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         ''' <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         ''' <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
@@ -2021,7 +2444,7 @@ Partial Public Class SimpleImageUpload
         Inherits ConfigurationEventArgs
 
         ''' <summary>
-        ''' Intializes new instace of the <see cref="ImageUploadEventArgs"/> class.</summary>
+        ''' Intializes new instace of the ImageUploadEventArgs class.</summary>
         ''' <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         ''' <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         ''' <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
@@ -2037,7 +2460,7 @@ Partial Public Class SimpleImageUpload
         Inherits ConfigurationEventArgs
 
         ''' <summary>
-        ''' Intializes new instace of the <see cref="SelectedConfigurationIndexChangedEventArgs"/> class.</summary>
+        ''' Intializes new instace of the SelectedConfigurationIndexChangedEventArgs class.</summary>
         ''' <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         ''' <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         ''' <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
@@ -2048,13 +2471,271 @@ Partial Public Class SimpleImageUpload
     End Class
 
     ''' <summary>
-    ''' Specifies if and when ImageProcessingFilter must be applied.</summary>
+    ''' Specifies if and when PostProcessingFilter must be applied.</summary>
     <Serializable()> _
     Public Enum SimpleImageUploadPostProcessingFilterApplyMode As Integer
         Never = 0
         OnlyNewImages = 1
         Always = 2
     End Enum
+
+    Public Class PopupPictureTrimmerSettingsProvider
+        Public Sub New(ByVal pictureTrimmer As PopupPictureTrimmer)
+            Me._PictureTrimmer = pictureTrimmer
+        End Sub
+
+        Private _PictureTrimmer As PopupPictureTrimmer
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether users can resize the source image through the GUI.</summary>
+        Public Property AllowResize() As Boolean
+            Get
+                Return Me._PictureTrimmer.AllowResize
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.AllowResize = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether the control has to automatically freeze the GUI when the form is submitted.</summary>
+        Public Property AutoFreezeOnFormSubmit() As Boolean
+            Get
+                Return Me._PictureTrimmer.AutoFreezeOnFormSubmit
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.AutoFreezeOnFormSubmit = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating how the PictureTrimmer instance automatically calculates the ZoomFactor.</summary>
+        Public Property AutoZoomMode() As PictureTrimmerAutoZoomMode
+            Get
+                Return Me._PictureTrimmer.AutoZoomMode
+            End Get
+            Set(ByVal value As PictureTrimmerAutoZoomMode)
+                Me._PictureTrimmer.AutoZoomMode = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets the BackColor property of the PictureTrimmer control.</summary>
+        Public Property BackColor() As Color
+            Get
+                Return Me._PictureTrimmer.BackColor
+            End Get
+            Set(ByVal value As Color)
+                Me._PictureTrimmer.BackColor = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets the text of the "Cancel button".</summary>
+        Public Property CancelButtonText() As String
+            Get
+                Return Me._PictureTrimmer.CancelButtonText
+            End Get
+            Set(ByVal value As String)
+                Me._PictureTrimmer.CancelButtonText = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating how the PictureTrimmer GUI renders the cropping mask.</summary>
+        Public Property CropShadowMode() As PictureTrimmerCropShadowMode
+            Get
+                Return Me._PictureTrimmer.CropShadowMode
+            End Get
+            Set(ByVal value As PictureTrimmerCropShadowMode)
+                Me._PictureTrimmer.CropShadowMode = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether the control has to automatically
+        ''' center the view after the user drags the crop area outside the visible area.</summary>
+        Public Property EnableAutoCenterView() As Boolean
+            Get
+                Return Me._PictureTrimmer.EnableAutoCenterView
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.EnableAutoCenterView = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether the crop area automatically snaps
+        ''' to the edge or the center of the image when the user moves the rectangle
+        ''' near those positions.</summary>
+        Public Property EnableSnapping() As Boolean
+            Get
+                Return Me._PictureTrimmer.EnableSnapping
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.EnableSnapping = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets the Window Mode property of the Adobe Flash movie for transparency,
+        ''' layering, and positioning in the browser (it is strongly suggested to use
+        ''' the FlashWMode.Window setting).</summary>
+        Public Property FlashWMode() As FlashWMode
+            Get
+                Return Me._PictureTrimmer.FlashWMode
+            End Get
+            Set(ByVal value As FlashWMode)
+                Me._PictureTrimmer.FlashWMode = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets the foreground color.</summary>
+        Public Property ForeColor() As Color
+            Get
+                Return Me._PictureTrimmer.ForeColor
+            End Get
+            Set(ByVal value As Color)
+                Me._PictureTrimmer.ForeColor = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets the Cascading Style Sheet (CSS) class used to customize the
+        ''' style of the LightBox popup window.</summary>
+        Public Property LightBoxCssClass() As String
+            Get
+                Return Me._PictureTrimmer.LightBoxCssClass
+            End Get
+            Set(ByVal value As String)
+                Me._PictureTrimmer.LightBoxCssClass = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets the text of the "Save button".</summary>
+        Public Property SaveButtonText() As String
+            Get
+                Return Me._PictureTrimmer.SaveButtonText
+            End Get
+            Set(ByVal value As String)
+                Me._PictureTrimmer.SaveButtonText = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether to display the "Cancel button" in the popup window.</summary>
+        Public Property ShowCancelButton() As Boolean
+            Get
+                Return Me._PictureTrimmer.ShowCancelButton
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.ShowCancelButton = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether to show lines that facilitate the
+        ''' alignment of the crop rectangle.</summary>
+        Public Property ShowCropAlignmentLines() As Boolean
+            Get
+                Return Me._PictureTrimmer.ShowCropAlignmentLines
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.ShowCropAlignmentLines = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether to show the "Details panel" in the
+        ''' component GUI.</summary>
+        Public Property ShowDetailsPanel() As Boolean
+            Get
+                Return Me._PictureTrimmer.ShowDetailsPanel
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.ShowDetailsPanel = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether to show the flip control in the "Rotate/Flip panel". 
+        ''' The flip control allows the user to flip the image horizontally and/or vertically.</summary>
+        Public Property ShowFlipPanel() As Boolean
+            Get
+                Return Me._PictureTrimmer.ShowFlipPanel
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.ShowFlipPanel = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether to show the "Adjustments panel" in
+        ''' the component GUI. The "Adjustments panel" allows the user to change Brightness,
+        ''' Contrast, Hue and/or Saturation of the Image.</summary>
+        Public Property ShowImageAdjustmentsPanel() As Boolean
+            Get
+                Return Me._PictureTrimmer.ShowImageAdjustmentsPanel
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.ShowImageAdjustmentsPanel = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether to show the "Resize panel" in the
+        ''' component GUI. The "Resize panel" allows the user to change the ResizeFactor
+        ''' applied to the source Image.</summary>
+        Public Property ShowResizePanel() As Boolean
+            Get
+                Return Me._PictureTrimmer.ShowResizePanel
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.ShowResizePanel = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether to show the rotate control in the
+        ''' "Rotate/Flip panel". The rotate control allows the user to rotate the image
+        ''' clockwise by 0, 90, 180 or 270 degrees.</summary>
+        Public Property ShowRotatePanel() As Boolean
+            Get
+                Return Me._PictureTrimmer.ShowRotatePanel
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.ShowRotatePanel = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether to show the rulers at the left and
+        ''' at the top of the working area.</summary>
+        Public Property ShowRulers() As Boolean
+            Get
+                Return Me._PictureTrimmer.ShowRulers
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.ShowRulers = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets a value indicating whether to show the "Zoom panel" in the component
+        ''' GUI. The "Zoom panel" allows the user to magnify an area of the image.
+        ''' Please note that ZoomPanel is always invisible when the crop feature is disabled (CropConstraint = null).</summary>
+        Public Property ShowZoomPanel() As Boolean
+            Get
+                Return Me._PictureTrimmer.ShowZoomPanel
+            End Get
+            Set(ByVal value As Boolean)
+                Me._PictureTrimmer.ShowZoomPanel = value
+            End Set
+        End Property
+
+    End Class
 
 #End Region
 

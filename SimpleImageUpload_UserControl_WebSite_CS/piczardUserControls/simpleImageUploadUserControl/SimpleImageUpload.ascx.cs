@@ -35,7 +35,7 @@
  */
  
 // #########
-// SimpleImageUpload Version 2.1.0
+// SimpleImageUpload Version 3.0.0
 // #########
 
 using System;
@@ -65,6 +65,22 @@ public partial class SimpleImageUpload
     protected static readonly Size DefaultButtonSize = new Size(110, 26);
     protected static bool PerformTemporaryFolderWriteTestOnPageLoad = true;
 
+    protected const string DefaultValues_BackColor = "#eeeeee";
+    protected const string DefaultValues_BorderColor = "#cccccc";
+    protected static readonly BorderStyle DefaultValues_BorderStyle = BorderStyle.Solid;
+    protected static readonly Unit DefaultValues_BorderWidth = Unit.Pixel(1);
+
+    protected const string DefaultValues_ContentBackColor = "#ffffff";
+    protected const string DefaultValues_ContentForeColor = "#000000";
+    protected const string DefaultValues_ContentErrorForeColor = "#cc0000";
+    protected const string DefaultValues_ContentBorderColor = "#cccccc";
+    protected static readonly BorderStyle DefaultValues_ContentBorderStyle = BorderStyle.Solid;
+    protected static readonly Unit DefaultValues_ContentBorderWidth = Unit.Pixel(1);
+
+    protected const string DefaultValues_PreviewBorderColor = "#cccccc";
+    protected static readonly BorderStyle DefaultValues_PreviewBorderStyle = BorderStyle.Solid;
+    protected static readonly Unit DefaultValues_PreviewBorderWidth = Unit.Pixel(1);
+
     #endregion
 
     #region Event Handlers
@@ -82,7 +98,7 @@ public partial class SimpleImageUpload
         string scriptKey = "simpleImageUpload.js";
         if (!this.Page.ClientScript.IsClientScriptIncludeRegistered(t, scriptKey))
         {
-            this.Page.ClientScript.RegisterClientScriptInclude(t, scriptKey, this.ResolveUrl("simpleImageUpload.js?v=2"));
+            this.Page.ClientScript.RegisterClientScriptInclude(t, scriptKey, this.ResolveUrl("simpleImageUpload.js?v=4"));
         }
 
         // Reset the initialization function
@@ -103,6 +119,7 @@ public partial class SimpleImageUpload
         values.Add(this.TemporaryFileId);
         values.Add(this._OutputResolution);
         values.Add(JSONSerializer.SerializeToString(this._CropConstraint));
+        values.Add(JSONSerializer.SerializeToString(this._ImageUploadPreProcessingFilter, true)); // Important: also serialize the type!
         values.Add(JSONSerializer.SerializeToString(this._PostProcessingFilter, true)); // Important: also serialize the type!
         values.Add((int)this._PostProcessingFilterApplyMode);
         values.Add(JSONSerializer.SerializeToString(this._PreviewFilter, true)); // Important: also serialize the type!
@@ -110,7 +127,11 @@ public partial class SimpleImageUpload
         values.Add(this._ImageEdited);
         values.Add(this._SourceImageClientFileName);
         values.Add(this._Configurations);
-        values.Add(this.imgPreview.ImageUrl); // This property is important and is not saved in the viewsate! (EnableViewState=false in ASCX)
+
+        // These properties are important and are not saved in the viewsate! (EnableViewState=false in ASCX)
+        values.Add(this.imgPreview.ImageUrl); 
+        values.Add(this.imgPreview.Width);
+        values.Add(this.imgPreview.Height);
 
         values.Add(this._DebugUploadProblems);
 
@@ -128,6 +149,7 @@ public partial class SimpleImageUpload
             this._TemporaryFileId = (string)values[i++];
             this._OutputResolution = (float)values[i++];
             this._CropConstraint = CropConstraint.FromJSON((string)values[i++]);
+            this._ImageUploadPreProcessingFilter = (ImageProcessingFilter)JSONSerializer.Deserialize((string)values[i++]);
             this._PostProcessingFilter = (ImageProcessingFilter)JSONSerializer.Deserialize((string)values[i++]);
             this._PostProcessingFilterApplyMode = (SimpleImageUploadPostProcessingFilterApplyMode)(int)values[i++];
             this._PreviewFilter = (ImageProcessingFilter)JSONSerializer.Deserialize((string)values[i++]);
@@ -135,7 +157,10 @@ public partial class SimpleImageUpload
             this._ImageEdited = (bool)values[i++];
             this._SourceImageClientFileName = (string)values[i++];
             this._Configurations = (string[])values[i++];
+
             this.imgPreview.ImageUrl = (string)values[i++];
+            this.imgPreview.Width = (Unit)values[i++];
+            this.imgPreview.Height = (Unit)values[i++];
 
             this._DebugUploadProblems = (bool)values[i++];
         }
@@ -151,7 +176,25 @@ public partial class SimpleImageUpload
         values.Add(base.SaveViewState());
 
         values.Add(this._Width);
+
+        values.Add(this._BackColor);
+        values.Add(this._BorderColor);
+        values.Add(this._BorderStyle);
+        values.Add(this._BorderWidth);
+
+        values.Add(this._ContentBackColor);
+        values.Add(this._ContentForeColor);
+        values.Add(this._ContentErrorForeColor);
+        values.Add(this._ContentBorderColor);
+        values.Add(this._ContentBorderStyle);
+        values.Add(this._ContentBorderWidth);
+
+        values.Add(this._PreviewBorderColor);
+        values.Add(this._PreviewBorderStyle);
+        values.Add(this._PreviewBorderWidth);
+
         values.Add(this._AutoOpenImageEditPopupAfterUpload);
+        values.Add(this._AutoDisableImageEdit);
         values.Add(this._ImageEditPopupSize);
         values.Add(this._ButtonSize);
         values.Add(this._CssClass);
@@ -184,7 +227,25 @@ public partial class SimpleImageUpload
             base.LoadViewState(values[i++]);
 
             this._Width = (Unit)values[i++];
+
+            this._BackColor = (Color)values[i++];
+            this._BorderColor = (Color)values[i++];
+            this._BorderStyle = (BorderStyle)values[i++];
+            this._BorderWidth = (Unit)values[i++];
+
+            this._ContentBackColor = (Color)values[i++];            
+            this._ContentForeColor = (Color)values[i++];
+            this._ContentErrorForeColor = (Color)values[i++];
+            this._ContentBorderColor = (Color)values[i++];
+            this._ContentBorderStyle = (BorderStyle)values[i++];
+            this._ContentBorderWidth = (Unit)values[i++];
+
+            this._PreviewBorderColor = (Color)values[i++];
+            this._PreviewBorderStyle = (BorderStyle)values[i++];
+            this._PreviewBorderWidth = (Unit)values[i++];
+
             this._AutoOpenImageEditPopupAfterUpload = (bool)values[i++];
+            this._AutoDisableImageEdit = (bool)values[i++];
             this._ImageEditPopupSize = (Size)values[i++];
             this._ButtonSize = (Size)values[i++];
             this._CssClass = (string)values[i++];
@@ -246,6 +307,7 @@ public partial class SimpleImageUpload
         sb.Append(",btnBrowseClientId:\"" + JSHelper.EncodeString(this.btnBrowse.ClientID) + "\"" + crlf);
         sb.Append(",hfActClientId:\"" + JSHelper.EncodeString(this.hfAct.ClientID) + "\"" + crlf);
         sb.Append(",ddlConfigurationsClientId:\"" + JSHelper.EncodeString(this.ddlConfigurations.ClientID) + "\"" + crlf);
+        sb.Append(",hlPictureImageEditId:\"" + JSHelper.EncodeString(this.hlPictureImageEdit.ClientID) + "\"" + crlf);        
 
         sb.Append(",uploadUrl:\"" + JSHelper.EncodeString(this.UploadUrl) + "\"" + crlf);
         sb.Append(",uploadMonitorUrl:\"" + JSHelper.EncodeString(this.UploadMonitorUrl) + "\"" + crlf);
@@ -253,8 +315,11 @@ public partial class SimpleImageUpload
         sb.Append(",imageEditPopupSize_width:" + this.ImageEditPopupSize.Width.ToString(System.Globalization.CultureInfo.InvariantCulture) + crlf);
         sb.Append(",imageEditPopupSize_height:" + this.ImageEditPopupSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) + crlf);
         sb.Append(",autoOpenImageEditPopup:" + JSHelper.EncodeBool(this._AutoOpenImageEditPopup) + crlf);
+        sb.Append(",autoDisableImageEdit:" + JSHelper.EncodeBool(this._AutoDisableImageEdit) + crlf);
         sb.Append(",buttonSize_width:" + this.ButtonSize.Width.ToString(System.Globalization.CultureInfo.InvariantCulture) + crlf);
         sb.Append(",buttonSize_height:" + this.ButtonSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) + crlf);
+        sb.Append(",enableEdit:" + JSHelper.EncodeBool(this._EnableEdit) + crlf);
+        sb.Append(",enableRemove:" + JSHelper.EncodeBool(this._EnableRemove) + crlf);
         sb.Append(",enableCancelUpload:" + JSHelper.EncodeBool(this._EnableCancelUpload) + crlf);
         sb.Append(",dup:" + JSHelper.EncodeBool(this._DebugUploadProblems) + crlf);
         sb.Append(",statusMessage_Wait:\"" + JSHelper.EncodeString(this.StatusMessage_Wait) + "\"" + crlf);
@@ -268,7 +333,7 @@ public partial class SimpleImageUpload
         sb.Append("if (typeof(window.__ccpz_siu_lt) === \"undefined\")" + crlf);
         sb.Append("{" + crlf);
         // The variable (window.__ccpz_siu_lt) (configured in simpleImageUpload.js) is undefined...
-        sb.Append(JSHelper.GetLoadScript(this.ResolveUrl("simpleImageUpload.js?v=2"), this.InitFunctionName + "_load_js", this.InitFunctionName2 + "();") + crlf);
+        sb.Append(JSHelper.GetLoadScript(this.ResolveUrl("simpleImageUpload.js?v=4"), this.InitFunctionName + "_load_js", this.InitFunctionName2 + "();") + crlf);
         sb.Append("}" + crlf);
         sb.Append("else" + crlf);
         sb.Append("{" + crlf);
@@ -301,38 +366,23 @@ public partial class SimpleImageUpload
         #endregion
 
         // Hide design-time elements
-
         this.phDesignTimeStart.Visible = false;
         this.phDesignTimeEnd.Visible = false;
 
         // Update the layout
-
-        this.btnEdit.Enabled = this.HasImage;
-        this.btnRemove.Enabled = this.HasImage;
-
         this.btnEdit.Visible = this.EnableEdit;
-        this.btnEdit.OnClientClick = "CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.openImageEditPopup(\"" + JSHelper.EncodeString(this.ClientID) + "\"); return false;";
-        if (this.EnableEdit)
-        {
-            this.hlPictureImageEdit.Attributes["onclick"] = this.btnEdit.OnClientClick;
-            this.hlPictureImageEdit.Style["cursor"] = "pointer";
-        }
-        else
-        {
-            this.hlPictureImageEdit.Attributes["onclick"] = "return false;";
-            this.hlPictureImageEdit.Style["cursor"] = "default";
-        }
-        this.btnRemove.Visible = this.EnableRemove;
-        this.btnRemove.OnClientClick = "CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.removeImage(\"" + JSHelper.EncodeString(this.ClientID) + "\"); return false;";
-
         this.btnEdit.Width = this.ButtonSize.Width;
         this.btnEdit.Height = this.ButtonSize.Height;
 
+        this.btnRemove.Visible = this.EnableRemove;
         this.btnRemove.Width = this.ButtonSize.Width;
         this.btnRemove.Height = this.ButtonSize.Height;
 
-        this.btnBrowse.Width = this.btnBrowseDisabled.Width = this.ButtonSize.Width;
-        this.btnBrowse.Height = this.btnBrowseDisabled.Height = this.ButtonSize.Height;
+        this.btnBrowse.Width = this.ButtonSize.Width;
+        this.btnBrowseDisabled.Width = this.ButtonSize.Width;
+
+        this.btnBrowse.Height = this.ButtonSize.Height;
+        this.btnBrowseDisabled.Height = this.ButtonSize.Height;
 
         this.btnCancelUpload.OnClientClick = "CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.cancelUpload(\"" + JSHelper.EncodeString(this.ClientID) + "\"); return false;";
 
@@ -345,7 +395,7 @@ public partial class SimpleImageUpload
         this.btnCancelUpload.Visible = this.EnableCancelUpload;
 
         // Update the texts
-        this.litStatusMessage.Text = this.CurrentStatusMessage;
+        this.litStatusMessage.Text = this.GetCurrentStatusMessage();
 
         this.btnEdit.Text = this.Text_EditButton;
         this.btnRemove.Text = this.Text_RemoveButton;
@@ -374,13 +424,21 @@ public partial class SimpleImageUpload
                 }
 
                 // Save the preview image
+                this.imgPreview.ImageUrl = null;
                 if (File.Exists(this.TemporarySourceImageFilePath))
                 {
-                    job.SaveProcessedImageToFileSystem(this.TemporarySourceImageFilePath, this.PreviewImageFilePath, new JpegFormatEncoderParams());
-                }
+                    // Jpeg images does not allow transparent images - Apply the right back color!
+                    FormatEncoderParams format = new JpegFormatEncoderParams();
+                    using (System.Drawing.Image previewImage = job.GetProcessedImage(this.TemporarySourceImageFilePath, format))
+                    {
+                        ImageArchiver.SaveImageToFileSystem(previewImage, this.PreviewImageFilePath, format);
 
-                // Force the reload of the preview
-                this.imgPreview.ImageUrl = this.PreviewImageUrl;
+                        // Force the reload of the preview
+                        this.imgPreview.ImageUrl = this.PreviewImageUrl;
+                        this.imgPreview.Width = Unit.Pixel(previewImage.Size.Width);
+                        this.imgPreview.Height = Unit.Pixel(previewImage.Size.Height);
+                    }
+                }
             }
         }
 
@@ -388,14 +446,15 @@ public partial class SimpleImageUpload
         {
             // Set a dummy image (for xhtml compliance)
             this.imgPreview.ImageUrl = this.ResolveUrl("blank.gif");
+            this.imgPreview.Width = Unit.Pixel(1);
+            this.imgPreview.Height = Unit.Pixel(1);
         }
 
-        if (this._CropConstraint != null)
-        {
-            // Crop Enabled
-            this.popupPictureTrimmer1.ShowZoomPanel = true;
-        }
-        else
+        this.imgPreview.BorderColor = this._PreviewBorderColor;
+        this.imgPreview.BorderStyle = this._PreviewBorderStyle;
+        this.imgPreview.BorderWidth = this._PreviewBorderWidth;
+
+        if (this._CropConstraint == null)
         {
             // Crop disabled
             this.popupPictureTrimmer1.ShowZoomPanel = false;
@@ -560,7 +619,7 @@ public partial class SimpleImageUpload
 
     #region Settings
 
-    #region Misc
+    #region Appearance
 
     protected Unit _Width = Unit.Empty;
     /// <summary>
@@ -576,6 +635,222 @@ public partial class SimpleImageUpload
             this._Width = value;
         }
     }
+
+    private Color _BackColor = ColorTranslator.FromHtml(DefaultValues_BackColor);
+    /// <summary>
+    /// Gets or sets the background color of the image upload control.</summary>
+    [DefaultValue(typeof(Color), DefaultValues_BackColor)]
+    [TypeConverter(typeof(WebColorConverter))]
+    public Color BackColor
+    {
+        get
+        {
+            return this._BackColor;
+        }
+        set
+        {
+            this._BackColor = value;
+        }
+    }
+
+    private Color _BorderColor = ColorTranslator.FromHtml(DefaultValues_BorderColor);
+    /// <summary>
+    /// Gets or sets the border color of the image upload control.</summary>
+    [DefaultValue(typeof(Color), DefaultValues_BorderColor)]
+    [TypeConverter(typeof(WebColorConverter))]
+    public Color BorderColor
+    {
+        get
+        {
+            return this._BorderColor;
+        }
+        set
+        {
+            this._BorderColor = value;
+        }
+    }
+
+    private BorderStyle _BorderStyle = DefaultValues_BorderStyle;
+    /// <summary>
+    /// Gets or sets the border style of the image upload control.</summary>
+    public BorderStyle BorderStyle
+    {
+        get
+        {
+            return this._BorderStyle;
+        }
+        set
+        {
+            this._BorderStyle = value;
+        }
+    }
+
+    private Unit _BorderWidth = DefaultValues_BorderWidth;
+    /// <summary>
+    /// Gets or sets the border width of the image upload control.</summary>
+    [DefaultValue(typeof(Unit), "1px")]
+    public Unit BorderWidth
+    {
+        get
+        {
+            return this._BorderWidth;
+        }
+        set
+        {
+            this._BorderWidth = value;
+        }
+    }
+
+    private Color _ContentBackColor = ColorTranslator.FromHtml(DefaultValues_ContentBackColor);
+    /// <summary>
+    /// Gets or sets the background color of the content element.</summary>
+    [DefaultValue(typeof(Color), DefaultValues_ContentBackColor)]
+    [TypeConverter(typeof(WebColorConverter))]
+    public Color ContentBackColor
+    {
+        get
+        {
+            return this._ContentBackColor;
+        }
+        set
+        {
+            this._ContentBackColor = value;
+        }
+    }
+
+    private Color _ContentForeColor = ColorTranslator.FromHtml(DefaultValues_ContentForeColor);
+    /// <summary>
+    /// Gets or sets the foreground color of the content element.</summary>
+    [DefaultValue(typeof(Color), DefaultValues_ContentForeColor)]
+    [TypeConverter(typeof(WebColorConverter))]
+    public Color ContentForeColor
+    {
+        get
+        {
+            return this._ContentForeColor;
+        }
+        set
+        {
+            this._ContentForeColor = value;
+        }
+    }
+
+    private Color _ContentErrorForeColor = ColorTranslator.FromHtml(DefaultValues_ContentErrorForeColor);
+    /// <summary>
+    /// Gets or sets the foreground color of the content element when an error is displayed.</summary>
+    [DefaultValue(typeof(Color), DefaultValues_ContentErrorForeColor)]
+    [TypeConverter(typeof(WebColorConverter))]
+    public Color ContentErrorForeColor
+    {
+        get
+        {
+            return this._ContentErrorForeColor;
+        }
+        set
+        {
+            this._ContentErrorForeColor = value;
+        }
+    }
+
+    private Color _ContentBorderColor = ColorTranslator.FromHtml(DefaultValues_ContentBorderColor);
+    /// <summary>
+    /// Gets or sets the border color of the content element.</summary>
+    [DefaultValue(typeof(Color), DefaultValues_ContentBorderColor)]
+    [TypeConverter(typeof(WebColorConverter))]
+    public Color ContentBorderColor
+    {
+        get
+        {
+            return this._ContentBorderColor;
+        }
+        set
+        {
+            this._ContentBorderColor = value;
+        }
+    }
+
+    private BorderStyle _ContentBorderStyle = DefaultValues_ContentBorderStyle;
+    /// <summary>
+    /// Gets or sets the border style of the content element.</summary>
+    public BorderStyle ContentBorderStyle
+    {
+        get
+        {
+            return this._ContentBorderStyle;
+        }
+        set
+        {
+            this._ContentBorderStyle = value;
+        }
+    }
+
+    private Unit _ContentBorderWidth = DefaultValues_ContentBorderWidth;
+    /// <summary>
+    /// Gets or sets the border width of the content element.</summary>
+    [DefaultValue(typeof(Unit), "1px")]
+    public Unit ContentBorderWidth
+    {
+        get
+        {
+            return this._ContentBorderWidth;
+        }
+        set
+        {
+            this._ContentBorderWidth = value;
+        }
+    }
+
+    private Color _PreviewBorderColor = ColorTranslator.FromHtml(DefaultValues_PreviewBorderColor);
+    /// <summary>
+    /// Gets or sets the border color of the preview image element.</summary>
+    [DefaultValue(typeof(Color), DefaultValues_PreviewBorderColor)]
+    [TypeConverter(typeof(WebColorConverter))]
+    public Color PreviewBorderColor
+    {
+        get
+        {
+            return this._PreviewBorderColor;
+        }
+        set
+        {
+            this._PreviewBorderColor = value;
+        }
+    }
+
+    private BorderStyle _PreviewBorderStyle = DefaultValues_PreviewBorderStyle;
+    /// <summary>
+    /// Gets or sets the border style of the preview image element.</summary>
+    public BorderStyle PreviewBorderStyle
+    {
+        get
+        {
+            return this._PreviewBorderStyle;
+        }
+        set
+        {
+            this._PreviewBorderStyle = value;
+        }
+    }
+
+    private Unit _PreviewBorderWidth = DefaultValues_PreviewBorderWidth;
+    /// <summary>
+    /// Gets or sets the border width of the preview image element.</summary>
+    [DefaultValue(typeof(Unit), "1px")]
+    public Unit PreviewBorderWidth
+    {
+        get
+        {
+            return this._PreviewBorderWidth;
+        }
+        set
+        {
+            this._PreviewBorderWidth = value;
+        }
+    }
+
+    #endregion
+
+    #region Misc
 
     protected float _OutputResolution = CommonData.DefaultResolution;
     /// <summary>
@@ -616,6 +891,21 @@ public partial class SimpleImageUpload
                 throw new Exception("Cannot change the CropConstraint after an image has been loaded.");
             }
             this._CropConstraint = value;
+        }
+    }
+
+    protected ImageProcessingFilter _ImageUploadPreProcessingFilter = null;
+    /// <summary>
+    /// Gets or sets the filter(s) to apply after a new upload, before the image is loaded into the control.</summary>
+    public ImageProcessingFilter ImageUploadPreProcessingFilter
+    {
+        get
+        {
+            return this._ImageUploadPreProcessingFilter;
+        }
+        set
+        {
+            this._ImageUploadPreProcessingFilter = value;
         }
     }
 
@@ -722,6 +1012,21 @@ public partial class SimpleImageUpload
         set
         {
             this._AutoOpenImageEditPopupAfterUpload = value;
+        }
+    }
+
+    protected bool _AutoDisableImageEdit = true;
+    /// <summary>
+    /// Gets or sets a value indicating whether to automatically disable image edit feature if not available (e.g. Flash Player not installed).</summary>
+    public bool AutoDisableImageEdit
+    {
+        get
+        {
+            return this._AutoDisableImageEdit;
+        }
+        set
+        {
+            this._AutoDisableImageEdit = value;
         }
     }
 
@@ -848,6 +1153,23 @@ public partial class SimpleImageUpload
         }
     }
 
+    protected PopupPictureTrimmerSettingsProvider _PictureTrimmerSettings = null;
+    /// <summary>
+    /// Gets an object that allows to customize settings of the PopupPictureTrimmer instance.</summary>
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+    [NotifyParentProperty(true)]
+    public PopupPictureTrimmerSettingsProvider PictureTrimmerSettings
+    {
+        get
+        {
+            if (this._PictureTrimmerSettings == null)
+            {
+                this._PictureTrimmerSettings = new PopupPictureTrimmerSettingsProvider(this.popupPictureTrimmer1);
+            }
+            return this._PictureTrimmerSettings;
+        }
+    }
+
     #endregion
 
     #region Globalization
@@ -934,30 +1256,38 @@ public partial class SimpleImageUpload
     #region Status messages
 
     protected string _CurrentStatusMessage = null;
-    protected string CurrentStatusMessage
+    protected string GetCurrentStatusMessage()
     {
-        get
+        if (this._CurrentStatusMessage != null)
         {
-            if (this._CurrentStatusMessage != null)
-            {
-                // Last status set
-                return this._CurrentStatusMessage;
-            }
+            // Last status set
+            return this._CurrentStatusMessage;
+        }
 
-            // By default return the "No image selected" text.
-            return this.StatusMessage_NoImageSelected;
-        }
-        set
+        // By default return the "No image selected" text.
+        return this.StatusMessage_NoImageSelected;
+    }
+    /// <summary>
+    /// Sets the current status message.</summary>
+    /// <param name="text">The message to display.</param>
+    /// <param name="isError">If true, the message will be displayed as error message.</param>
+    public void SetCurrentStatusMessage(string text, bool isError)
+    {
+        if (isError)
         {
-            this._CurrentStatusMessage = value;
+            if (this._ContentErrorForeColor != Color.Empty)
+            {
+                text = "<span style=\"color:" + ColorTranslator.ToHtml(this._ContentErrorForeColor) + ";\">" + text + "</span>";
+            }
         }
+        this._CurrentStatusMessage = text;
     }
     /// <summary>
     /// Sets the current status message.</summary>
     /// <param name="text">The message to display.</param>
     public void SetCurrentStatusMessage(string text)
     {
-        this.CurrentStatusMessage = text;
+        this.SetCurrentStatusMessage(text, false);
     }
 
     protected string _StatusMessage_NoImageSelected = "No image selected.";
@@ -975,7 +1305,7 @@ public partial class SimpleImageUpload
         }
     }
 
-    protected string _StatusMessage_UploadError = "<span style=\"color:#cc0000;\">A server error has occurred during the upload process.<br/>Please ensure that the file is smaller than {0} KBytes.</span>";
+    protected string _StatusMessage_UploadError = "A server error has occurred during the upload process.<br/>Please ensure that the file is smaller than {0} KBytes.";
     /// <summary>
     /// Gets or sets the text displayed when a (generic) upload error has occurred.</summary>
     public string StatusMessage_UploadError
@@ -990,7 +1320,7 @@ public partial class SimpleImageUpload
         }
     }
 
-    protected string _StatusMessage_InvalidImage = "<span style=\"color:#cc0000;\">The uploaded file is not a valid image.</span>";
+    protected string _StatusMessage_InvalidImage = "The uploaded file is not a valid image.";
     /// <summary>
     /// Gets or sets the text displayed when the uploaded image file is invalid.</summary>
     public string StatusMessage_InvalidImage
@@ -1005,7 +1335,7 @@ public partial class SimpleImageUpload
         }
     }
 
-    protected string _StatusMessage_InvalidImageSize = "<span style=\"color:#cc0000;\">The uploaded image is not valid (too small or too large).</span>";
+    protected string _StatusMessage_InvalidImageSize = "The uploaded image is not valid (too small or too large).";
     /// <summary>
     /// Gets or sets the text displayed when the size of the uploaded image is too small or too large (please see: CodeCarvings.Piczard.Configuration.DrawingSettings.MaxImageSize).</summary>
     public string StatusMessage_InvalidImageSize
@@ -1020,7 +1350,7 @@ public partial class SimpleImageUpload
         }
     }
 
-    protected string _StatusMessage_Wait = "<span style=\"color:#aaaaaa;\">Please wait...</span>";
+    protected string _StatusMessage_Wait = "Please wait...";
     /// <summary>
     /// Gets or sets the text displayed when the user has to wait (e.g. a postback has been delayed).</summary>
     public string StatusMessage_Wait
@@ -1264,7 +1594,7 @@ public partial class SimpleImageUpload
     #region PictureTrimmer properties
 
     /// <summary>
-    /// Gets the current <see cref="PictureTrimmerUserState"/> of the <see cref="PictureTrimmer"/> control.</summary>
+    /// Gets the current PictureTrimmerUserState of the PictureTrimmer control.</summary>
     public PictureTrimmerUserState UserState
     {
         get
@@ -1279,7 +1609,7 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Gets the current <see cref="PictureTrimmerValue"/> of the <see cref="PictureTrimmer"/> control.</summary>
+    /// Gets the current PictureTrimmerValue of the PictureTrimmer control.</summary>
     public PictureTrimmerValue Value
     {
         get
@@ -1308,7 +1638,7 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Gets or sets the CanvasColor used by the <see cref="PictureTrimmer"/> control.</summary>
+    /// Gets or sets the CanvasColor used by the PictureTrimmer control.</summary>
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     [NotifyParentProperty(true)]
     public BackgroundColor CanvasColor
@@ -1324,7 +1654,7 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Gets or sets the ImageBackColor used by the <see cref="PictureTrimmer"/> control.</summary>
+    /// Gets or sets the ImageBackColor used by the PictureTrimmer control.</summary>
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
     [NotifyParentProperty(true)]
     public BackgroundColor ImageBackColor
@@ -1340,7 +1670,7 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Gets or sets the <see cref="PictureTrimmer.ImageBackColorApplyMode"/> property of the <see cref="PictureTrimmer"/> control.</summary>
+    /// Gets or sets the ImageBackColorApplyMode property of the PictureTrimmer control.</summary>
     public PictureTrimmerImageBackColorApplyMode ImageBackColorApplyMode
     {
         get
@@ -1354,7 +1684,7 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Gets or sets the UIUnit used by the <see cref="PictureTrimmer"/> control.</summary>
+    /// Gets or sets the UIUnit used by the PictureTrimmer control.</summary>
     public GfxUnit UIUnit
     {
         get
@@ -1368,7 +1698,10 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Gets or sets the <see cref="PictureTrimmer.CropShadowMode"/> property of the <see cref="PictureTrimmer"/> control.</summary>
+    /// Gets or sets a value indicating how the PictureTrimmer GUI renders the cropping mask.
+    /// This property is marked as obsolete since version 3.0.0 of the control and will be soon removed.
+    /// Use 'PictureTrimmerSettings-CropShadowMode' instead.</summary>
+    [Obsolete]
     public PictureTrimmerCropShadowMode CropShadowMode
     {
         get
@@ -1379,7 +1712,9 @@ public partial class SimpleImageUpload
         {
             this.popupPictureTrimmer1.CropShadowMode = value;
         }
-    }
+    }    
+
+    #region Read-only properties
 
     /// <summary>
     /// Gets the size (pixel) of the source image.</summary>
@@ -1423,6 +1758,8 @@ public partial class SimpleImageUpload
             return this.popupPictureTrimmer1.SourceImageFormatId;
         }
     }
+
+    #endregion
 
     #endregion
 
@@ -1620,24 +1957,31 @@ public partial class SimpleImageUpload
 
     #region Load
 
-    protected void LoadImageFromFileSystem_Internal(string sourceImageFilePath, PictureTrimmerValue value)
+    protected void LoadImageFromFileSystem_Internal(string sourceImageFilePath, System.Drawing.Image sourceImage, Guid sourceImageFormatId, float sourceImageResolution, bool disposeSourceImage, PictureTrimmerValue value)
     {
         // Calculate the client file name
-        using (LoadedImage image = ImageArchiver.LoadImage(sourceImageFilePath))
-        {
-            this.SourceImageClientFileName = "noname" + ImageArchiver.GetFormatEncoderParams(image.FormatId).FileExtension;
+        this.SourceImageClientFileName = "noname" + ImageArchiver.GetFormatEncoderParams(sourceImageFormatId).FileExtension;
 
-            if (CodeCarvings.Piczard.Configuration.WebSettings.PictureTrimmer.UseTemporaryFiles)
-            {
-                // The picture trimmer can use temporary files -> Load the image now
-                // This generates a new temporary files, however saves CPU and RAM
-                this.popupPictureTrimmer1.LoadImage(image.Image, this._OutputResolution, this._CropConstraint);
-            }
+        if (CodeCarvings.Piczard.Configuration.WebSettings.PictureTrimmer.UseTemporaryFiles)
+        {
+            // The picture trimmer can use temporary files -> Load the image now
+            // This generates a new temporary files, however saves CPU and RAM
+            this.popupPictureTrimmer1.LoadImage(sourceImage, this._OutputResolution, this._CropConstraint);
+        }
+        if (disposeSourceImage)
+        {
+            // The source image is no longer necessary
+            sourceImage.Dispose();
+            sourceImage = null;
         }
 
         if (!CodeCarvings.Piczard.Configuration.WebSettings.PictureTrimmer.UseTemporaryFiles)
         {
             // The picture trimmer cannot use temporary files -> Load the image now
+            this.popupPictureTrimmer1.SetLoadImageData_ImageSize(sourceImage.Size);
+            this.popupPictureTrimmer1.SetLoadImageData_ImageResolution(sourceImageResolution);
+            this.popupPictureTrimmer1.SetLoadImageData_ImageFormatId(sourceImageFormatId);
+
             this.popupPictureTrimmer1.LoadImageFromFileSystem(sourceImageFilePath, this._OutputResolution, this._CropConstraint);
         }
 
@@ -1655,10 +1999,18 @@ public partial class SimpleImageUpload
         this._UpdatePreview = true;
     }
 
+    protected void LoadImageFromFileSystem_Internal(string sourceImageFilePath, PictureTrimmerValue value)
+    {
+        using (LoadedImage image = ImageArchiver.LoadImage(sourceImageFilePath))
+        {
+            this.LoadImageFromFileSystem_Internal(sourceImageFilePath, image.Image, image.FormatId, image.Resolution, true, value);
+        }
+    }
+
     /// <summary>
-    /// Loads an image stored in the file system and applies a specific <see cref="PictureTrimmerValue"/>.</summary>
+    /// Loads an image stored in the file system and applies a specific PictureTrimmerValue.</summary>
     /// <param name="sourceImageFilePath">The path of the image to load.</param>
-    /// <param name="value">The <see cref="PictureTrimmerValue"/> to apply.</param>
+    /// <param name="value">The PictureTrimmerValue to apply.</param>
     public void LoadImageFromFileSystem(string sourceImageFilePath, PictureTrimmerValue value)
     {
         // Copy the source image into the temporary folder
@@ -1673,7 +2025,7 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Loads an image stored in the file system and auto-calculates the <see cref="PictureTrimmerValue"/> to use.</summary>
+    /// Loads an image stored in the file system and auto-calculates the PictureTrimmerValue to use.</summary>
     /// <param name="sourceImageFilePath">The path of the image to load.</param>
     public void LoadImageFromFileSystem(string sourceImageFilePath)
     {
@@ -1681,9 +2033,9 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Loads an image from a <see cref="Stream"/> and applies a specific <see cref="PictureTrimmerValue"/>.</summary>
-    /// <param name="sourceImageStream">The <see cref="Stream"/> containing the image to load.</param>
-    /// <param name="value">The <see cref="PictureTrimmerValue"/> to apply.</param>
+    /// Loads an image from a Stream and applies a specific PictureTrimmerValue.</summary>
+    /// <param name="sourceImageStream">The Stream containing the image to load.</param>
+    /// <param name="value">The PictureTrimmerValue to apply.</param>
     public void LoadImageFromStream(Stream sourceImageStream, PictureTrimmerValue value)
     {
         // Save the stream
@@ -1714,17 +2066,17 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Loads an image from a <see cref="Stream"/> and auto-calculates the <see cref="PictureTrimmerValue"/> to use.</summary>
-    /// <param name="sourceImageStream">The <see cref="Stream"/> containing the image to load.</param>
+    /// Loads an image from a Stream and auto-calculates the PictureTrimmerValue to use.</summary>
+    /// <param name="sourceImageStream">The Stream containing the image to load.</param>
     public void LoadImageFromStream(Stream sourceImageStream)
     {
         this.LoadImageFromStream(sourceImageStream, null);
     }
 
     /// <summary>
-    /// Loads an image from an array of bytes and applies a specific <see cref="PictureTrimmerValue"/>.</summary>
+    /// Loads an image from an array of bytes and applies a specific PictureTrimmerValue.</summary>
     /// <param name="sourceImageBytes">The array of bytes to load.</param>
-    /// <param name="value">The <see cref="PictureTrimmerValue"/> to apply.</param>
+    /// <param name="value">The PictureTrimmerValue to apply.</param>
     public void LoadImageFromByteArray(byte[] sourceImageBytes, PictureTrimmerValue value)
     {
         //Save the byte array
@@ -1739,11 +2091,53 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Loads an image from an array of bytes and auto-calculates the <see cref="PictureTrimmerValue"/> to use.</summary>
+    /// Loads an image from an array of bytes and auto-calculates the PictureTrimmerValue to use.</summary>
     /// <param name="sourceImageBytes">The array of bytes to load.</param>
     public void LoadImageFromByteArray(byte[] sourceImageBytes)
     {
         this.LoadImageFromByteArray(sourceImageBytes, null);
+    }
+
+    /// <summary>
+    /// Loads an image from an array of bytes and applies a specific PictureTrimmerValue.</summary>
+    /// <param name="sourceImage">The source image to load.</param>
+    /// <param name="value">The PictureTrimmerValue to apply.</param>
+    public void LoadImage(LoadedImage sourceImage, PictureTrimmerValue value)
+    {
+        // Save the image - Use PNG as image format to preserve transparency
+        ImageArchiver.SaveImageToFileSystem(sourceImage.Image, this.TemporarySourceImageFilePath, new PngFormatEncoderParams());
+
+        // Load the image into the control
+        this.LoadImageFromFileSystem_Internal(this.TemporarySourceImageFilePath, sourceImage.Image, sourceImage.FormatId, sourceImage.Resolution, false, value);
+    }
+
+    /// <summary>
+    /// Loads an image and auto-calculates the PictureTrimmerValue to use.</summary>
+    /// <param name="sourceImage">The source image to load.</param>
+    public void LoadImage(LoadedImage sourceImage)
+    {
+        this.LoadImage(sourceImage, null);
+    }
+
+    /// <summary>
+    /// Loads an image from an array of bytes and applies a specific PictureTrimmerValue.</summary>
+    /// <param name="sourceImage">The source image to load.</param>
+    /// <param name="value">The PictureTrimmerValue to apply.</param>
+    public void LoadImage(System.Drawing.Image sourceImage, PictureTrimmerValue value)
+    {
+        // Save the image - Use PNG as image format to preserve transparency
+        ImageArchiver.SaveImageToFileSystem(sourceImage, this.TemporarySourceImageFilePath, new PngFormatEncoderParams());
+
+        // Load the image into the control
+        this.LoadImageFromFileSystem_Internal(this.TemporarySourceImageFilePath, sourceImage, sourceImage.RawFormat.Guid, CodeCarvings.Piczard.Helpers.ImageHelper.GetImageResolution(sourceImage), false, value);
+    }
+
+    /// <summary>
+    /// Loads an image and auto-calculates the PictureTrimmerValue to use.</summary>
+    /// <param name="sourceImage">The source image to load.</param>
+    public void LoadImage(System.Drawing.Image sourceImage)
+    {
+        this.LoadImage(sourceImage, null);
     }
 
     /// <summary>
@@ -1777,8 +2171,8 @@ public partial class SimpleImageUpload
     #region Image Processing
 
     /// <summary>
-    /// Returns the <see cref="ImageProcessingJob"/> that can be used to process the source image.</summary>
-    /// <returns>An <see cref="ImageProcessingJob"/> ready to be used to process imagess.</returns>
+    /// Returns the ImageProcessingJob that can be used to process the source image.</summary>
+    /// <returns>An ImageProcessingJob ready to be used to process imagess.</returns>
     public ImageProcessingJob GetImageProcessingJob()
     {
         ImageProcessingJob result = this.popupPictureTrimmer1.GetImageProcessingJob();
@@ -1808,7 +2202,17 @@ public partial class SimpleImageUpload
 
     /// <summary>
     /// Returns the output image processed by the control.</summary>
-    /// <returns>A <see cref="Bitmap"/> image processed by the control.</returns>
+    /// <param name="hintFormatEncoderParams">The image format that will be used then to save image.</param>
+    /// <returns>A Bitmap image processed by the control.</returns>
+    public Bitmap GetProcessedImage(FormatEncoderParams hintFormatEncoderParams)
+    {
+        ImageProcessingJob job = this.GetImageProcessingJob();
+        return job.GetProcessedImage(this.TemporarySourceImageFilePath, hintFormatEncoderParams);
+    }
+
+    /// <summary>
+    /// Returns the output image processed by the control.</summary>
+    /// <returns>A Bitmap image processed by the control.</returns>
     public Bitmap GetProcessedImage()
     {
         ImageProcessingJob job = this.GetImageProcessingJob();
@@ -1816,8 +2220,8 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Processes  the source image and saves the output in a <see cref="Stream"/> with a specific image format.</summary>
-    /// <param name="destStream">The <see cref="Stream"/> in which the image will be saved.</param>
+    /// Processes  the source image and saves the output in a Stream with a specific image format.</summary>
+    /// <param name="destStream">The Stream in which the image will be saved.</param>
     /// <param name="formatEncoderParams">The image format of the saved image.</param>
     public void SaveProcessedImageToStream(Stream destStream, FormatEncoderParams formatEncoderParams)
     {
@@ -1826,8 +2230,8 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Processes the source image and saves the output in a <see cref="Stream"/> with the default image format.</summary>
-    /// <param name="destStream">The <see cref="Stream"/> in which the image will be saved.</param>
+    /// Processes the source image and saves the output in a Stream with the default image format.</summary>
+    /// <param name="destStream">The Stream in which the image will be saved.</param>
     public void SaveProcessedImageToStream(Stream destStream)
     {
         ImageProcessingJob job = this.GetImageProcessingJob();
@@ -1893,7 +2297,7 @@ public partial class SimpleImageUpload
     {
         if (!this.HasImage)
         {
-            throw new Exception("Image not loaded");
+            throw new Exception("Image not loaded.");
         }
 
         // Open the image edit popup
@@ -1931,17 +2335,59 @@ public partial class SimpleImageUpload
         }
     }
 
-    protected string GetRenderStyleWidth()
+    protected string GetRenderStyle_container0()
     {
-        if (!this._Width.IsEmpty)
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        sb.Append(this.GetRenderStyleValue("width", this._Width));
+        sb.Append(this.GetRenderStyleValue("background-color", this._BackColor));
+        sb.Append(this.GetRenderStyleValue("border-color", this._BorderColor));
+        sb.Append(this.GetRenderStyleValue("border-style", this._BorderStyle));
+        sb.Append(this.GetRenderStyleValue("border-width", this._BorderWidth));
+        return sb.ToString();
+    }
+
+    protected string GetRenderStyle_content()
+    {
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        sb.Append(this.GetRenderStyleValue("background-color", this._ContentBackColor));
+        sb.Append(this.GetRenderStyleValue("color", this._ContentForeColor));
+        sb.Append(this.GetRenderStyleValue("border-color", this._ContentBorderColor));
+        sb.Append(this.GetRenderStyleValue("border-style", this._ContentBorderStyle));
+        sb.Append(this.GetRenderStyleValue("border-width", this._ContentBorderWidth));
+        return sb.ToString();
+    }
+
+    protected string GetRenderStyleValue(string name, Unit value)
+    {
+        if (!value.IsEmpty)
         {
-            return "width:" + this._Width.ToString(System.Globalization.CultureInfo.InvariantCulture) + ";";
+            return name + ":" + value.ToString(System.Globalization.CultureInfo.InvariantCulture).ToLowerInvariant() + ";";
         }
-        else
+ 
+        // Do not render the value
+        return "";
+    }
+
+    protected string GetRenderStyleValue(string name, Color value)
+    {
+        if (!value.IsEmpty)
         {
-            // Do not render the value
-            return "";
+            return name + ":" + ColorTranslator.ToHtml(value) + ";";
         }
+
+        // Do not render the value
+        return "";
+    }
+
+    protected string GetRenderStyleValue(string name, BorderStyle value)
+    {
+        if (value != BorderStyle.NotSet)
+        {
+            return name + ":" + value.ToString().ToLowerInvariant() + ";";
+        }
+
+        // Do not render the value
+        return "";
     }
 
     protected string GetQueryKey(string additionalData)
@@ -1968,11 +2414,39 @@ public partial class SimpleImageUpload
             this.UnloadImage(false);
         }
 
-        // Copy the uploaded file
-        File.Copy(this.UploadFilePath, this.TemporarySourceImageFilePath, true);
+        // Delete old files
+        if (File.Exists(this.TemporarySourceImageFilePath))
+        {
+            File.Delete(this.TemporarySourceImageFilePath);
+        }
+
+        if (this._ImageUploadPreProcessingFilter == null)
+        {
+            // Just copy the source image
+            File.Copy(this.UploadFilePath, this.TemporarySourceImageFilePath, true);
+        }
 
         try
         {
+            if (this._ImageUploadPreProcessingFilter != null)
+            {
+                // Pre-process the just uploaded image
+                using (LoadedImage sourceImage = ImageArchiver.LoadImage(this.UploadFilePath))
+                {
+                    //  Use PNG to preserve transparency
+                    FormatEncoderParams format = new PngFormatEncoderParams();
+                    using (System.Drawing.Image tempImage = this._ImageUploadPreProcessingFilter.GetProcessedImage(sourceImage, sourceImage.Resolution, format))
+                    {
+                        ImageArchiver.SaveImageToFileSystem(tempImage, this.TemporarySourceImageFilePath, format);
+
+                        // Optimization: save server resources...
+                        this.popupPictureTrimmer1.SetLoadImageData_ImageSize(tempImage.Size);
+                        this.popupPictureTrimmer1.SetLoadImageData_ImageResolution(sourceImage.Resolution);
+                        this.popupPictureTrimmer1.SetLoadImageData_ImageFormatId(sourceImage.FormatId);
+                    }
+                }
+            }
+
             // Load the image in the PictureTrimmer control
             this.popupPictureTrimmer1.LoadImageFromFileSystem(this.TemporarySourceImageFilePath, this._OutputResolution, this.CropConstraint);
         }
@@ -1982,7 +2456,7 @@ public partial class SimpleImageUpload
             ex.ToString();
 
             // Display the invalid image size message
-            this.CurrentStatusMessage = this.StatusMessage_InvalidImageSize;
+            this.SetCurrentStatusMessage(this.StatusMessage_InvalidImageSize, true);
 
             // EVENT: Upload error (invalid image size)
             this.OnUploadError(EventArgs.Empty);
@@ -1992,7 +2466,7 @@ public partial class SimpleImageUpload
             // Invalid image
 
             // Display the invalid image message
-            this.CurrentStatusMessage = this.StatusMessage_InvalidImage;
+            this.SetCurrentStatusMessage(this.StatusMessage_InvalidImage, true);
 
             // EVENT: Upload error (invalid image)
             this.OnUploadError(EventArgs.Empty);
@@ -2094,7 +2568,7 @@ public partial class SimpleImageUpload
         }
 
         // Display the error message;
-        this.CurrentStatusMessage = this.StatusMessage_UploadError;
+        this.SetCurrentStatusMessage(this.StatusMessage_UploadError, true);
 
         // EVENT: Upload error
         this.OnUploadError(EventArgs.Empty);
@@ -2126,7 +2600,7 @@ public partial class SimpleImageUpload
     {
         // The new image has been edited
         this._ImageUploaded = false;
-        this._ImageEdited = false;
+        this._ImageEdited = true;
 
         // Update the preview
         this._UpdatePreview = true;
@@ -2211,7 +2685,7 @@ public partial class SimpleImageUpload
     {
 
         /// <summary>
-        /// Intializes new instace of the <see cref="ConfigurationEventArgs"/> class.</summary>
+        /// Intializes new instace of the ConfigurationEventArgs class.</summary>
         /// <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         /// <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         /// <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
@@ -2369,7 +2843,7 @@ public partial class SimpleImageUpload
         : ConfigurationEventArgs
     {
         /// <summary>
-        /// Intializes new instace of the <see cref="ImageUploadEventArgs"/> class.</summary>
+        /// Intializes new instace of the ImageUploadEventArgs class.</summary>
         /// <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         /// <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         /// <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
@@ -2386,7 +2860,7 @@ public partial class SimpleImageUpload
         : ConfigurationEventArgs
     {
         /// <summary>
-        /// Intializes new instace of the <see cref="SelectedConfigurationIndexChangedEventArgs"/> class.</summary>
+        /// Intializes new instace of the SelectedConfigurationIndexChangedEventArgs class.</summary>
         /// <param name="outputResolution">The resolution (DPI) of the image that is generated by the control.</param>
         /// <param name="cropConstraint">The constraints that have to be satisfied by the cropped image.</param>
         /// <param name="postProcessingFilter">The filter(s) to apply to the image.</param>
@@ -2398,7 +2872,7 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Specifies if and when ImageProcessingFilter must be applied.</summary>
+    /// Specifies if and when PostProcessingFilter must be applied.</summary>
     [Serializable]
     public enum SimpleImageUploadPostProcessingFilterApplyMode
         : int
@@ -2406,6 +2880,332 @@ public partial class SimpleImageUpload
         Never = 0,
         OnlyNewImages = 1,
         Always = 2
+    }
+
+    /// <summary>
+    /// Provides acces to settings of a PopupPictureTrimmer instance.</summary>
+    public class PopupPictureTrimmerSettingsProvider
+    {
+
+        public PopupPictureTrimmerSettingsProvider(PopupPictureTrimmer pictureTrimmer)
+        {
+            this._PictureTrimmer = pictureTrimmer;
+        }
+
+        private PopupPictureTrimmer _PictureTrimmer;
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether users can resize the source image through the GUI.</summary>
+        public bool AllowResize
+        {
+            get
+            {
+                return this._PictureTrimmer.AllowResize;
+            }
+            set
+            {
+                this._PictureTrimmer.AllowResize = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the control has to automatically freeze the GUI when the form is submitted.</summary>
+        public bool AutoFreezeOnFormSubmit
+        {
+            get
+            {
+                return this._PictureTrimmer.AutoFreezeOnFormSubmit;
+            }
+            set
+            {
+                this._PictureTrimmer.AutoFreezeOnFormSubmit = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating how the PictureTrimmer instance automatically calculates the ZoomFactor.</summary>
+        public PictureTrimmerAutoZoomMode AutoZoomMode
+        {
+            get
+            {
+                return this._PictureTrimmer.AutoZoomMode;
+            }
+            set
+            {
+                this._PictureTrimmer.AutoZoomMode = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the BackColor property of the PictureTrimmer control.</summary>
+        public Color BackColor
+        {
+            get
+            {
+                return this._PictureTrimmer.BackColor;
+            }
+            set
+            {
+                this._PictureTrimmer.BackColor = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the text of the "Cancel button".</summary>
+        public string CancelButtonText
+        {
+            get
+            {
+                return this._PictureTrimmer.CancelButtonText;
+            }
+            set
+            {
+                this._PictureTrimmer.CancelButtonText = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating how the PictureTrimmer GUI renders the cropping mask.</summary>
+        public PictureTrimmerCropShadowMode CropShadowMode
+        {
+            get
+            {
+                return this._PictureTrimmer.CropShadowMode;
+            }
+            set
+            {
+                this._PictureTrimmer.CropShadowMode = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the control has to automatically
+        /// center the view after the user drags the crop area outside the visible area.</summary>
+        public bool EnableAutoCenterView
+        {
+            get
+            {
+                return this._PictureTrimmer.EnableAutoCenterView;
+            }
+            set
+            {
+                this._PictureTrimmer.EnableAutoCenterView = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the crop area automatically snaps
+        /// to the edge or the center of the image when the user moves the rectangle
+        /// near those positions.</summary>
+        public bool EnableSnapping
+        {
+            get
+            {
+                return this._PictureTrimmer.EnableSnapping;
+            }
+            set
+            {
+                this._PictureTrimmer.EnableSnapping = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Window Mode property of the Adobe Flash movie for transparency,
+        /// layering, and positioning in the browser (it is strongly suggested to use
+        /// the FlashWMode.Window setting).</summary>
+        public FlashWMode FlashWMode
+        {
+            get
+            {
+                return this._PictureTrimmer.FlashWMode;
+            }
+            set
+            {
+                this._PictureTrimmer.FlashWMode = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the foreground color.</summary>
+        public Color ForeColor
+        {
+            get
+            {
+                return this._PictureTrimmer.ForeColor;
+            }
+            set
+            {
+                this._PictureTrimmer.ForeColor = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Cascading Style Sheet (CSS) class used to customize the
+        /// style of the LightBox popup window.</summary>
+        public string LightBoxCssClass
+        {
+            get
+            {
+                return this._PictureTrimmer.LightBoxCssClass;
+            }
+            set
+            {
+                this._PictureTrimmer.LightBoxCssClass = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the text of the "Save button".</summary>
+        public string SaveButtonText
+        {
+            get
+            {
+                return this._PictureTrimmer.SaveButtonText;
+            }
+            set
+            {
+                this._PictureTrimmer.SaveButtonText = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to display the "Cancel button" in the popup window.</summary>
+        public bool ShowCancelButton
+        {
+            get
+            {
+                return this._PictureTrimmer.ShowCancelButton;
+            }
+            set
+            {
+                this._PictureTrimmer.ShowCancelButton = value;
+            }
+        }   
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to show lines that facilitate the
+        /// alignment of the crop rectangle.</summary>
+        public bool ShowCropAlignmentLines
+        {
+            get
+            {
+                return this._PictureTrimmer.ShowCropAlignmentLines;
+            }
+            set
+            {
+                this._PictureTrimmer.ShowCropAlignmentLines = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to show the "Details panel" in the
+        /// component GUI.</summary>
+        public bool ShowDetailsPanel
+        {
+            get
+            {
+                return this._PictureTrimmer.ShowDetailsPanel;
+            }
+            set
+            {
+                this._PictureTrimmer.ShowDetailsPanel = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to show the flip control in the "Rotate/Flip panel". 
+        /// The flip control allows the user to flip the image horizontally and/or vertically.</summary>
+        public bool ShowFlipPanel
+        {
+            get
+            {
+                return this._PictureTrimmer.ShowFlipPanel;
+            }
+            set
+            {
+                this._PictureTrimmer.ShowFlipPanel = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to show the "Adjustments panel" in
+        /// the component GUI. The "Adjustments panel" allows the user to change Brightness,
+        /// Contrast, Hue and/or Saturation of the Image.</summary>
+        public bool ShowImageAdjustmentsPanel
+        {
+            get
+            {
+                return this._PictureTrimmer.ShowImageAdjustmentsPanel;
+            }
+            set
+            {
+                this._PictureTrimmer.ShowImageAdjustmentsPanel = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to show the "Resize panel" in the
+        /// component GUI. The "Resize panel" allows the user to change the ResizeFactor
+        /// applied to the source Image.</summary>
+        public bool ShowResizePanel
+        {
+            get
+            {
+                return this._PictureTrimmer.ShowResizePanel;
+            }
+            set
+            {
+                this._PictureTrimmer.ShowResizePanel = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to show the rotate control in the
+        /// "Rotate/Flip panel". The rotate control allows the user to rotate the image
+        /// clockwise by 0, 90, 180 or 270 degrees.</summary>
+        public bool ShowRotatePanel
+        {
+            get
+            {
+                return this._PictureTrimmer.ShowRotatePanel;
+            }
+            set
+            {
+                this._PictureTrimmer.ShowRotatePanel = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to show the rulers at the left and
+        /// at the top of the working area.</summary>
+        public bool ShowRulers
+        {
+            get
+            {
+                return this._PictureTrimmer.ShowRulers;
+            }
+            set
+            {
+                this._PictureTrimmer.ShowRulers = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to show the "Zoom panel" in the component
+        /// GUI. The "Zoom panel" allows the user to magnify an area of the image.
+        /// Please note that ZoomPanel is always invisible when the crop feature is disabled (CropConstraint = null).</summary>
+        public bool ShowZoomPanel
+        {
+            get
+            {
+                return this._PictureTrimmer.ShowZoomPanel;
+            }
+            set
+            {
+                this._PictureTrimmer.ShowZoomPanel = value;
+            }
+        }     
+
     }
 
     #endregion

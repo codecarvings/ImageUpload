@@ -78,9 +78,8 @@ public partial class SimpleImageUpload_upload
     protected override void OnPreRender(EventArgs e)
     {
         // Setup sizes
-        this.fuFile.Style[HtmlTextWriterStyle.FontSize] = this.ButtonSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px";
-        this.fuFile.Style[HtmlTextWriterStyle.Height] = this.ButtonSize.Height.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px";
-        this.fuFile.Style[HtmlTextWriterStyle.Width] = this.ButtonSize.Width.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px";
+        int fontSize = this.ButtonSize.Width > this.ButtonSize.Height ? this.ButtonSize.Width : this.ButtonSize.Height;
+        this.fuFile.Style[HtmlTextWriterStyle.FontSize] = fontSize.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px";
 
         base.OnPreRender(e);
     }
