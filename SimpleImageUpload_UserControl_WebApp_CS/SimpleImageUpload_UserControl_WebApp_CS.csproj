@@ -18,6 +18,11 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,6 +71,11 @@
   <ItemGroup>
     <Content Include="App_Data\PiczardTempFiles\.gitignore" />
     <Content Include="Default.aspx" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\blank.gif" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\SimpleImageUpload.ascx" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\simpleImageUpload.js" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\upload.aspx" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\wait.gif" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -112,11 +122,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\blank.gif" />
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\SimpleImageUpload.ascx" />
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\simpleImageUpload.js" />
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\upload.aspx" />
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\wait.gif" />
     <Content Include="test\masters\DefaultMasterPage.master" />
   </ItemGroup>
   <ItemGroup>

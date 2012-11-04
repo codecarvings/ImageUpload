@@ -2201,7 +2201,8 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Returns the output image processed by the control.</summary>
+    /// Returns the output image processed by the control.
+    /// BackgroundColor and quantization are applied according to the specified FormatEncoderParams.</summary>
     /// <param name="hintFormatEncoderParams">The image format that will be used then to save image.</param>
     /// <returns>A Bitmap image processed by the control.</returns>
     public Bitmap GetProcessedImage(FormatEncoderParams hintFormatEncoderParams)
@@ -2883,7 +2884,7 @@ public partial class SimpleImageUpload
     }
 
     /// <summary>
-    /// Provides acces to settings of a PopupPictureTrimmer instance.</summary>
+    /// Provides access to settings of a PopupPictureTrimmer instance.</summary>
     public class PopupPictureTrimmerSettingsProvider
     {
 

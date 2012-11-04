@@ -5518,13 +5518,19 @@
             <summary>Indicates the possible values of the WMode attribute of the Adobe Flash Plugin.</summary>
         </member>
         <member name="F:CodeCarvings.Piczard.Web.FlashWMode.Window">
-            <summary>The Adobe Flash movie plays in its own rectangular window on the web page (suggested value).</summary>
+            <summary>The Adobe Flash movie plays in its own rectangle ("window") on the web page.</summary>
         </member>
         <member name="F:CodeCarvings.Piczard.Web.FlashWMode.Opaque">
             <summary>The Adobe Flash movie hides everything on the page behind it (this may slow animation performance).</summary>
         </member>
         <member name="F:CodeCarvings.Piczard.Web.FlashWMode.Transparent">
             <summary>The background of the HTML page shows through all transparent portions of the Adobe Flash movie (this may slow animation performance).</summary>
+        </member>
+        <member name="F:CodeCarvings.Piczard.Web.FlashWMode.Direct">
+            <summary>The SWF content is directly rendered to the screen, bypassing compositing in the screen buffer. Requires version 10 of Adobe Flash player or greater and Piczard v1.2.3.1 or greater. -This is the suggested value-</summary>
+        </member>
+        <member name="F:CodeCarvings.Piczard.Web.FlashWMode.GPU">
+            <summary>Use additional hardware acceleration. Requires version 10 of Adobe Flash player or greater and Piczard v1.2.3.1 or greater.</summary>
         </member>
         <member name="T:CodeCarvings.Piczard.Web.PictureTrimmerAutoPostBackOnPopupCloseMode">
             <summary>Specifies when a PopupPictureTrimmer control has to perform an automatic postback.</summary>
@@ -6001,8 +6007,8 @@
             <remarks>    The user can temporarily disable the snap feature by     holding down the shift key while the crop rectangle is     moved.     Please see the example A.403 -     "Customize layout".     Please see also the ShowCropAlignmentLines     property.     This property is ignored when the crop feature is     disabled (EnableCropping: false).</remarks>
         </member>
         <member name="P:CodeCarvings.Piczard.Web.PictureTrimmer.FlashWMode">
-            <summary>Gets or sets the Window Mode property of the Adobe Flash movie for transparency, layering, and positioning in the browser (it is strongly suggested to use the FlashWMode.Window setting).</summary>
-            <remarks>Using the FlashWMode.Opaque or FlashWMode.Transparent settings could slow down the animation and cause unexpected behaviors. It is strongly suggested to use the FlashWMode.Window setting.</remarks>
+            <summary>Gets or sets the Window Mode property of the Adobe Flash movie for transparency, layering, and positioning in the browser (it is strongly suggested to use the FlashWMode.Direct or the FlashWMode.Window setting).</summary>
+            <remarks>    Before version 1.2.3.1 of Piczard the default value was     FlashWMode.Window.     Using the FlashWMode.Opaque or FlashWMode.Transparent     settings could slow down the animation and cause unexpected     behaviors.     It is strongly suggested to use the FlashWMode.Direct     or the FlashWMode.Window setting.</remarks>
         </member>
         <member name="P:CodeCarvings.Piczard.Web.PictureTrimmer.ImageBackColor">
             <summary>Gets or sets the color used to fill the image background.</summary>
@@ -6512,8 +6518,8 @@
             <remarks>    The user can temporarily disable the snap feature by     holding down the shift key while the crop rectangle is     moved.     Please see the example A.403 -     "Customize layout".     Please see also the ShowCropAlignmentLines     property.     This property is ignored when the crop feature is     disabled (EnableCropping: false).</remarks>
         </member>
         <member name="P:CodeCarvings.Piczard.Web.PictureTrimmerCore.FlashWMode">
-            <summary>Gets or sets the Window Mode property of the Adobe Flash movie for transparency, layering, and positioning in the browser (it is strongly suggested to use the FlashWMode.Window setting).</summary>
-            <remarks>Using the FlashWMode.Opaque or FlashWMode.Transparent settings could slow down the animation and cause unexpected behaviors. It is strongly suggested to use the FlashWMode.Window setting.</remarks>
+            <summary>Gets or sets the Window Mode property of the Adobe Flash movie for transparency, layering, and positioning in the browser (it is strongly suggested to use the FlashWMode.Direct or the FlashWMode.Window setting).</summary>
+            <remarks>    Before version 1.2.3.1 of Piczard the default value was     FlashWMode.Window.     Using the FlashWMode.Opaque or FlashWMode.Transparent     settings could slow down the animation and cause unexpected     behaviors.     It is strongly suggested to use the FlashWMode.Direct     or the FlashWMode.Window setting.</remarks>
         </member>
         <member name="P:CodeCarvings.Piczard.Web.PictureTrimmerCore.ImageBackColor">
             <summary>Gets or sets the color used to fill the image background.</summary>

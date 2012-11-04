@@ -22,18 +22,18 @@
             </div>
         </div>
         
-        <div id="<% =HttpUtility.HtmlAttributeEncode(this.GetSubElementId("commands")) %>" class="ccpz_siu_commands" style="padding: 5px 0px 0px 0px;">
+        <div id="<% =HttpUtility.HtmlAttributeEncode(this.GetSubElementId("commands")) %>" class="ccpz_siu_commands" style="padding: 5px 0 0 0;">
             <asp:PlaceHolder runat="server" ID="phEditCommands" EnableViewState="false">
-                <div id="<% =HttpUtility.HtmlAttributeEncode(this.GetSubElementId("editCommands")) %>" class="ccpz_siu_editCommands" style="display:inline; float: left;">
-                    <asp:Button runat="server" ID="btnEdit" CausesValidation="false" Text="Edit..." Enabled="false" CssClass="DoNotApplyButtonStyle" style="padding:0; margin:0;" EnableViewState="false" />
+                <div id="<% =HttpUtility.HtmlAttributeEncode(this.GetSubElementId("editCommands")) %>" class="ccpz_siu_editCommands" style="float: left;">
+                    <asp:Button runat="server" ID="btnEdit" CausesValidation="false" Text="Edit..." Enabled="false" CssClass="DoNotApplyButtonStyle" style="padding:0; margin:0 5px 0 0;" EnableViewState="false" />
                     <asp:Button runat="server" ID="btnRemove" CausesValidation="false" Text="Remove" Enabled="false" CssClass="DoNotApplyButtonStyle" style="padding:0; margin:0;" EnableViewState="false" />
                 </div>
-                <div style="display:inline; float: left; width:10px; height:10px;">
+                <div style="float: left; width:15px; height:10px;">
                 </div>
             </asp:PlaceHolder>
             
             <asp:PlaceHolder runat="server" ID="phUploadCommands" EnableViewState="false">
-                <div id="<% =HttpUtility.HtmlAttributeEncode(this.GetSubElementId("uploadCommands")) %>" class="ccpz_siu_uploadCommands" style="display:inline; float: left;">
+                <div id="<% =HttpUtility.HtmlAttributeEncode(this.GetSubElementId("uploadCommands")) %>" class="ccpz_siu_uploadCommands" style="float: left;">
                     <div id="<% =HttpUtility.HtmlAttributeEncode(this.GetSubElementId("uploadContainer_0")) %>" class="ccpz_siu_uploadContainer_0" style="position: relative; width:<% =(this.ButtonSize.Width + 25).ToString() %>px; height:<% =(this.ButtonSize.Height).ToString() %>px; overflow: hidden; display:none;">
                         <asp:Button runat="server" ID="btnBrowseDisabled" CausesValidation="false" Text="Browse..." Enabled="false" CssClass="DoNotApplyButtonStyle" style="display:inline; padding:0; margin:0;" EnableViewState="false" />
                         <asp:Button runat="server" ID="btnCancelUpload" CausesValidation="false" Text="Cancel upload" CssClass="DoNotApplyButtonStyle" style="display:none; padding:0; margin:0;" EnableViewState="false" />
@@ -42,7 +42,7 @@
                     <div id="<% =HttpUtility.HtmlAttributeEncode(this.GetSubElementId("uploadContainer_1")) %>" class="ccpz_siu_uploadContainer_1" style="position: relative; width:<% =(this.ButtonSize.Width + 25).ToString() %>px; height:<% =(this.ButtonSize.Height).ToString() %>px; overflow: hidden; display:inline;">
                         <asp:Button runat="server" ID="btnBrowse" CausesValidation="false" Text="Browse..." OnClientClick="return false;" Enabled="false" CssClass="DoNotApplyButtonStyle" style="padding:0; margin:0;" EnableViewState="false" />
                         <div id="<% =HttpUtility.HtmlAttributeEncode(this.GetSubElementId("uploadPlaceHolder")) %>" class="ccpz_siu_uploadPlaceHolder"
-                            style="opacity: 0; filter:alpha(opacity: 0);  position: absolute; top:0px; left:0px;">
+                            style="opacity: 0; filter:alpha(opacity: 0);  position: absolute; top:0; left:0;">
                         </div>
                     </div>    
                 </div>

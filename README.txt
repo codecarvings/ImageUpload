@@ -27,11 +27,14 @@ Quick links:
 - Online demo:
   http://piczard.com/demos/imageUpload 
 
+- Piczard installer (examples and help file are included):
+  http://piczard.com/download
+
 - Examples (Git):
   https://github.com/CodeCarvings/Piczard.Examples
 
-- Working examples and help file are included in the Piczard package:
-  http://piczard.com/download
+- Changes log:
+  http://piczard.com/docs/help/v1/online/?Changes_Log.html
   
 - Online documentation:
   http://piczard.com/docs/help/v1/online/?SimpleImageUpload_ASCX_User_Control_Overview.html

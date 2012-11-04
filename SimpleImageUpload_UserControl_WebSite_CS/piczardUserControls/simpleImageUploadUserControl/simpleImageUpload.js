@@ -273,7 +273,7 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
 
         var oStatusMessage = this.getSubElement(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_content_statusMessage);
         if (oStatusMessage) {
-            oStatusMessage.innerHTML = value;
+            oStatusMessage.innerHTML = "<div style=\"padding:5px;\">" + value + "</div>";
         }
 
         this.updateUI();

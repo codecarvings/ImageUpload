@@ -22,6 +22,11 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -93,6 +98,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\PiczardTempFiles\.gitignore" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\blank.gif" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\SimpleImageUpload.ascx" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\simpleImageUpload.js" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\upload.aspx" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\wait.gif" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -162,15 +172,8 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\preview.ashx" />
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\uploadMonitor.ashx" />
     <Content Include="default.aspx" />
     <Content Include="favicon.ico" />
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\blank.gif" />
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\SimpleImageUpload.ascx" />
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\simpleImageUpload.js" />
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\upload.aspx" />
-    <Content Include="piczardUserControls\simpleImageUploadUserControl\wait.gif" />
     <Content Include="test\masters\DefaultMasterPage.master" />
     <Content Include="test\css\default.css" />
     <Content Include="test\default.aspx" />
@@ -181,6 +184,8 @@
     <Content Include="test\gfx\pageBGTop.jpg" />
     <Content Include="test\gfx\pageBorder.gif" />
     <Content Include="test\gfx\piczardPageLogo.gif" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\preview.ashx" />
+    <Content Include="piczardUserControls\simpleImageUploadUserControl\uploadMonitor.ashx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

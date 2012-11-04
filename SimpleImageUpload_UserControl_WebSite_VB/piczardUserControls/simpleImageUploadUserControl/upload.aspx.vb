@@ -69,7 +69,12 @@ Partial Public Class SimpleImageUpload_upload
 
     Protected Overrides Sub OnPreRender(ByVal e As System.EventArgs)
         ' Setup sizes
-        Dim fontSize As Integer = DirectCast(If(Me.ButtonSize.Width > Me.ButtonSize.Height, Me.ButtonSize.Width, Me.ButtonSize.Height), Integer)
+        Dim fontSize As Integer
+        If (Me.ButtonSize.Width > Me.ButtonSize.Height) Then
+            fontSize = Me.ButtonSize.Width
+        Else
+            fontSize = Me.ButtonSize.Height
+        End If
         Me.fuFile.Style(HtmlTextWriterStyle.FontSize) = fontSize.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px"
 
         MyBase.OnPreRender(e)

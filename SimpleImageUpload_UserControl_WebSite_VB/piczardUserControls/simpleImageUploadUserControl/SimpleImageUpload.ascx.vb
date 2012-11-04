@@ -1897,7 +1897,8 @@ Partial Public Class SimpleImageUpload
     End Function
 
     ''' <summary>
-    ''' Returns the output image processed by the control.</summary>
+    ''' Returns the output image processed by the control.
+    ''' BackgroundColor and quantization are applied according to the specified FormatEncoderParams.</summary>
     ''' <param name="hintFormatEncoderParams">The image format that will be used then to save image.</param>
     ''' <returns>A Bitmap image processed by the control.</returns>
     Public Function GetProcessedImage(ByVal hintFormatEncoderParams As FormatEncoderParams) As Bitmap
@@ -2479,6 +2480,8 @@ Partial Public Class SimpleImageUpload
         Always = 2
     End Enum
 
+    ''' <summary>
+    ''' Provides access to settings of a PopupPictureTrimmer instance.</summary>
     Public Class PopupPictureTrimmerSettingsProvider
         Public Sub New(ByVal pictureTrimmer As PopupPictureTrimmer)
             Me._PictureTrimmer = pictureTrimmer
