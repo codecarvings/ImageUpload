@@ -3,7 +3,7 @@
 <asp:PlaceHolder runat="server" ID="phDesignTimeStart" EnableViewState="false">
     <div style="display:none;">
 </asp:PlaceHolder> 
-<div id='<% =HttpUtility.HtmlAttributeEncode(Me.GetSubElementId("container0"))%>' class="ccpz_siu_container0<% =If(Not string.IsNullOrEmpty(Me.CssClass), " " + HttpUtility.HtmlAttributeEncode(Me.CssClass), "") %>>" style="<% =Me.GetRenderStyle_container0()%>">
+<div id='<% =HttpUtility.HtmlAttributeEncode(Me.GetSubElementId("container0"))%>' class="ccpz_siu_container0<% =If(Not string.IsNullOrEmpty(Me.CssClass), " " + HttpUtility.HtmlAttributeEncode(Me.CssClass), "") %>" style="<% =Me.GetRenderStyle_container0()%>">
     <div id='<% =HttpUtility.HtmlAttributeEncode(Me.GetSubElementId("container1"))%>' class="ccpz_siu_container1" style="padding:5px;">
     
         <div id='<% =HttpUtility.HtmlAttributeEncode(Me.GetSubElementId("content"))%>' class="ccpz_siu_content" style="overflow: auto; <% =Me.GetRenderStyle_content()%>">
