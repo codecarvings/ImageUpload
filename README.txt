@@ -68,7 +68,7 @@ http://msdn.microsoft.com/en-us/library/dd547590.aspx
 ============================================================
 Image Upload package is released under the terms of BSD License.
 
-Copyright (c) 2011-2012 Sergio Turolla
+Copyright (c) 2011-2013 Sergio Turolla
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or

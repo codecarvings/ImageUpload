@@ -3,7 +3,7 @@
  * Author: Sergio Turolla
  * <codecarvings.com>
  * 
- * Copyright (c) 2011-2012 Sergio Turolla
+ * Copyright (c) 2011-2013 Sergio Turolla
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or
@@ -35,7 +35,7 @@
  */
  
 // #########
-// SimpleImageUpload Version 3.0.0
+// SimpleImageUpload Version 3.0.1
 // #########
 
 using System;
@@ -2406,12 +2406,10 @@ public partial class SimpleImageUpload
     protected void ProcessUploadSuccess()
     {
         string sourceImageClientFileName = this._SourceImageClientFileName;
-        string pictureTrimmerTID = null;
 
         if (this.HasImage)
         {
             // Unload the current image
-            pictureTrimmerTID = this.popupPictureTrimmer1.TemporaryFileId;
             this.UnloadImage(false);
         }
 
@@ -2488,24 +2486,30 @@ public partial class SimpleImageUpload
             if (this.ImageUpload != null)
             {
                 // EVENT: Image upload
+                string pictureTrimmerTID = this.popupPictureTrimmer1.TemporaryFileId;
                 ImageUploadEventArgs args = new ImageUploadEventArgs(this._OutputResolution, this.CropConstraint, this.PostProcessingFilter, this.PreviewFilter);
                 this.OnImageUpload(args);
                 if (this.HasImage)
                 {
-                    if (!string.IsNullOrEmpty(pictureTrimmerTID))
+                    if (this.popupPictureTrimmer1.TemporaryFileId != pictureTrimmerTID)
                     {
-                        if (this.popupPictureTrimmer1.TemporaryFileId != pictureTrimmerTID)
+                        // The image has been reloeaded outside the control
+
+                        if (this.AutoOpenImageEditPopupAfterUpload)
                         {
-                            // The image has been reloeaded outside the control, exit.
-                            return;
+                            // Open the image edit popup if necessary
+                            this.OpenImageEditPopup();
                         }
+
+                        // Exit !!!
+                        return;
                     }
                 }
                 else
                 {
                     // The image has been unloaded, exit.
                     return;
-                }                
+                }
 
                 bool reloadImage = false;
                 if (args.OutputResolutionChanged)

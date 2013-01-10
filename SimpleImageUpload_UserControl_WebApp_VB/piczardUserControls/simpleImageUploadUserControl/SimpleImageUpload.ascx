@@ -81,7 +81,7 @@
     </div>
     <div style="margin:5px; padding: 5px; border: solid 1px #c6c6c6; background-color: #d6d6d6; font-size: 12px; font-family:Arial,Hevetica,sans-serif;text-align:left;">
         <span style="font-weight:bold;">Piczard</span> - .NET Image Manipulation Library by Sergio Turolla<br />
-         SimpleImageUpload User Control &nbsp;v 3.0.0
+         SimpleImageUpload User Control &nbsp;v 3.0.1
     </div>
 </asp:PlaceHolder>  
         

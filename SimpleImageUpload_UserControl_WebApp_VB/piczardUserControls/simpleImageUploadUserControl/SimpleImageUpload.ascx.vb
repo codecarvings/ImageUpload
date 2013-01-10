@@ -3,7 +3,7 @@
 ' Author: Sergio Turolla
 ' <codecarvings.com>
 ' 
-' Copyright (c) 2011-2012 Sergio Turolla
+' Copyright (c) 2011-2013 Sergio Turolla
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or
@@ -35,7 +35,7 @@
 ' -------------------------------------------------------
 
 ' #########
-' SimpleImageUpload Version 3.0.0
+' SimpleImageUpload Version 3.0.1
 ' #########
 
 Option Strict On
@@ -2075,11 +2075,9 @@ Partial Public Class SimpleImageUpload
 
     Protected Sub ProcessUploadSuccess()
         Dim sourceImageClientFileName As String = Me._SourceImageClientFileName
-        Dim pictureTrimmerTID As String = Nothing
 
         If (Me.HasImage) Then
             ' Unload the current image
-            pictureTrimmerTID = Me.popupPictureTrimmer1.TemporaryFileId
             Me.UnloadImage(False)
         End If
 
@@ -2144,14 +2142,20 @@ Partial Public Class SimpleImageUpload
 
             '--- If (Not (Me.ImageUploadEvent Is Nothing)) Then
             ' EVENT: Image upload
+            Dim pictureTrimmerTID As String = Me.popupPictureTrimmer1.TemporaryFileId
             Dim args As ImageUploadEventArgs = New ImageUploadEventArgs(Me._OutputResolution, Me.CropConstraint, Me.PostProcessingFilter, Me.PreviewFilter)
             Me.OnImageUpload(args)
             If (Me.HasImage) Then
-                If (Not String.IsNullOrEmpty(pictureTrimmerTID)) Then
-                    If (Me.popupPictureTrimmer1.TemporaryFileId <> pictureTrimmerTID) Then
-                        ' The image has been reloeaded outside the control, exit.
-                        Return
+                If (Me.popupPictureTrimmer1.TemporaryFileId <> pictureTrimmerTID) Then
+                    ' The image has been reloaded outside the control
+
+                    If (Me.AutoOpenImageEditPopupAfterUpload) Then
+                        ' Open the image edit popup
+                        Me.OpenImageEditPopup()
                     End If
+
+                    ' Exit !!!
+                    Return
                 End If
             Else
                 ' The image has been unloaded, exit.

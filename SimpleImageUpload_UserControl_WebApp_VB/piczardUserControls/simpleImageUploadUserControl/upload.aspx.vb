@@ -3,7 +3,7 @@
 ' Author: Sergio Turolla
 ' <codecarvings.com>
 ' 
-' Copyright (c) 2011-2012 Sergio Turolla
+' Copyright (c) 2011-2013 Sergio Turolla
 ' All rights reserved.
 ' 
 ' Redistribution and use in source and binary forms, with or

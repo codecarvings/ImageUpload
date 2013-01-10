@@ -11,7 +11,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("SimpleImageUpload, an advanced image upload user control with a powerful and intuitive image manipulation interface.")> 
 <Assembly: AssemblyCompany("")> 
 <Assembly: AssemblyProduct("Piczard - .NET Image Manipulation Library")> 
-<Assembly: AssemblyCopyright("Copyright © 2012 Sergio Turolla")> 
+<Assembly: AssemblyCopyright("Copyright © 2013 Sergio Turolla")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
@@ -30,5 +30,5 @@ Imports System.Runtime.InteropServices
 ' utilizzando l'asterisco (*) come descritto di seguito:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("3.0.0.0")> 
-<Assembly: AssemblyFileVersion("3.0.0.0")> 
+<Assembly: AssemblyVersion("3.0.1.0")> 
+<Assembly: AssemblyFileVersion("3.0.1.0")> 
