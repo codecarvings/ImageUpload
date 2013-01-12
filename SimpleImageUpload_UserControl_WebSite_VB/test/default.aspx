@@ -39,6 +39,9 @@
                 <br />    
                 <br />   
                 <asp:Button runat="server" ID="btnDummyPostback" Text="PostBack" style="padding:10px;" />             
+
+                &nbsp;&nbsp;&nbsp;
+                <asp:Button runat="server" ID="btnLoadImage" Text="Load image" style="padding:10px;" />
             </div>
             
         </ContentTemplate>

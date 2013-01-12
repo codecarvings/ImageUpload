@@ -35,7 +35,7 @@
 ' -------------------------------------------------------
 
 ' #########
-' SimpleImageUpload Version 3.0.1
+' SimpleImageUpload Version 3.0.2
 ' #########
 
 Option Strict On
@@ -1685,7 +1685,7 @@ Partial Public Class SimpleImageUpload
 
 #Region "Load"
 
-    Protected Sub LoadImageFromFileSystem_Internal(ByVal sourceImageFilePath As String, ByVal sourceImage As System.Drawing.Image, ByVal sourceImageFormatId As Guid, ByVal sourceImageResolution As Single, ByVal disposeSourceImage As Boolean, ByVal value As PictureTrimmerValue)
+    Protected Sub LoadImageFromFileSystem_Internal(ByVal sourceImageFilePath As String, ByVal sourceImage As System.Drawing.Image, ByVal sourceImageSize As Size, ByVal sourceImageFormatId As Guid, ByVal sourceImageResolution As Single, ByVal disposeSourceImage As Boolean, ByVal value As PictureTrimmerValue)
         ' Calculate the client file name
         Me.SourceImageClientFileName = "noname" + ImageArchiver.GetFormatEncoderParams(sourceImageFormatId).FileExtension
 
@@ -1702,7 +1702,7 @@ Partial Public Class SimpleImageUpload
 
         If (Not CodeCarvings.Piczard.Configuration.WebSettings.PictureTrimmer.UseTemporaryFiles) Then
             ' The picture trimmer cannot use temporary files -> Load the image now
-            Me.popupPictureTrimmer1.SetLoadImageData_ImageSize(sourceImage.Size)
+            Me.popupPictureTrimmer1.SetLoadImageData_ImageSize(sourceImageSize)
             Me.popupPictureTrimmer1.SetLoadImageData_ImageResolution(sourceImageResolution)
             Me.popupPictureTrimmer1.SetLoadImageData_ImageFormatId(sourceImageFormatId)
 
@@ -1724,7 +1724,7 @@ Partial Public Class SimpleImageUpload
 
     Protected Sub LoadImageFromFileSystem_Internal(ByVal sourceImageFilePath As String, ByVal value As PictureTrimmerValue)
         Using image As LoadedImage = ImageArchiver.LoadImage(sourceImageFilePath)
-            Me.LoadImageFromFileSystem_Internal(sourceImageFilePath, image.Image, image.FormatId, image.Resolution, True, value)
+            Me.LoadImageFromFileSystem_Internal(sourceImageFilePath, image.Image, image.Size, image.FormatId, image.Resolution, True, value)
         End Using
     End Sub
 
@@ -1733,6 +1733,9 @@ Partial Public Class SimpleImageUpload
     ''' <param name="sourceImageFilePath">The path of the image to load.</param>
     ''' <param name="value">The PictureTrimmerValue to apply.</param>
     Public Sub LoadImageFromFileSystem(ByVal sourceImageFilePath As String, ByVal value As PictureTrimmerValue)
+        ' Translate path to absolute
+        sourceImageFilePath = CodeCarvings.Piczard.Helpers.IOHelper.TranslatePathToAbsolute(sourceImageFilePath)
+
         ' Copy the source image into the temporary folder
         ' So there is no problem il the original source image is deleted (e.g. when a record is updated...)
         System.IO.File.Copy(sourceImageFilePath, Me.TemporarySourceImageFilePath, True)
@@ -1817,7 +1820,7 @@ Partial Public Class SimpleImageUpload
         ImageArchiver.SaveImageToFileSystem(sourceImage.Image, Me.TemporarySourceImageFilePath, New PngFormatEncoderParams())
 
         ' Load the image into the control
-        Me.LoadImageFromFileSystem_Internal(Me.TemporarySourceImageFilePath, sourceImage.Image, sourceImage.FormatId, sourceImage.Resolution, False, value)
+        Me.LoadImageFromFileSystem_Internal(Me.TemporarySourceImageFilePath, sourceImage.Image, sourceImage.Size, sourceImage.FormatId, sourceImage.Resolution, False, value)
     End Sub
 
     ''' <summary>
@@ -1836,7 +1839,7 @@ Partial Public Class SimpleImageUpload
         ImageArchiver.SaveImageToFileSystem(sourceImage, Me.TemporarySourceImageFilePath, New PngFormatEncoderParams())
 
         ' Load the image into the control
-        Me.LoadImageFromFileSystem_Internal(Me.TemporarySourceImageFilePath, sourceImage, sourceImage.RawFormat.Guid, CodeCarvings.Piczard.Helpers.ImageHelper.GetImageResolution(sourceImage), False, value)
+        Me.LoadImageFromFileSystem_Internal(Me.TemporarySourceImageFilePath, sourceImage, sourceImage.Size, sourceImage.RawFormat.Guid, CodeCarvings.Piczard.Helpers.ImageHelper.GetImageResolution(sourceImage), False, value)
     End Sub
 
     ''' <summary>

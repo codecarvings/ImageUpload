@@ -21,4 +21,9 @@ public partial class test_default : System.Web.UI.Page
             this.ImageUpload2.PostProcessingFilter = new ScaledResizeConstraint(300, 300);
         }
     }
+
+    protected void btnLoadImage_Click(object sender, EventArgs e)
+    {
+        this.ImageUpload1.LoadImageFromFileSystem("~/App_Data/source/trevi1.jpg");
+    }
 }

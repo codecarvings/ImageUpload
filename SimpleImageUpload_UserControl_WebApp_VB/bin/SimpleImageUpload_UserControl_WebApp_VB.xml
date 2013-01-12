@@ -582,43 +582,51 @@ Per la modifica, spostare la dichiarazione di campo dal file di progettazione al
 	<remarks></remarks>
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.ScriptManager1">
 	<summary>
-Controllo ScriptManager1.
+ScriptManager1 control.
 </summary>
 	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.UpdatePanel1">
 	<summary>
-Controllo UpdatePanel1.
+UpdatePanel1 control.
 </summary>
 	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.ImageUpload1">
 	<summary>
-Controllo ImageUpload1.
+ImageUpload1 control.
 </summary>
 	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.ImageUpload2">
 	<summary>
-Controllo ImageUpload2.
+ImageUpload2 control.
 </summary>
 	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.btnDummyPostback">
 	<summary>
-Controllo btnDummyPostback.
+btnDummyPostback control.
 </summary>
 	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_default.btnLoadImage">
+	<summary>
+btnLoadImage control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.SimpleImageUpload.phDesignTimeStart">
 	<summary>

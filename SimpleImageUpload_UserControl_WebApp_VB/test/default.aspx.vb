@@ -14,4 +14,8 @@ Partial Class test_default
             Me.ImageUpload2.PostProcessingFilter = New ScaledResizeConstraint(300, 300)
         End If
     End Sub
+
+    Protected Sub btnLoadImage_Click(sender As Object, e As EventArgs) Handles btnLoadImage.Click
+        Me.ImageUpload1.LoadImageFromFileSystem("~/App_Data/source/trevi1.jpg")
+    End Sub
 End Class

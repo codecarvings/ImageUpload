@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\PiczardTempFiles\.gitignore" />
+    <Content Include="App_Data\source\trevi1.jpg" />
     <Content Include="piczardUserControls\simpleImageUploadUserControl\blank.gif" />
     <Content Include="piczardUserControls\simpleImageUploadUserControl\SimpleImageUpload.ascx" />
     <Content Include="piczardUserControls\simpleImageUploadUserControl\simpleImageUpload.js" />
