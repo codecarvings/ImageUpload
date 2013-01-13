@@ -525,35 +525,43 @@ To modify move field declaration from designer file to code-behind file.
 </summary>
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.form1">
 	<summary>
-Controllo form1.
+form1 control.
 </summary>
 	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.Image1">
+	<summary>
+Image1 control.
+</summary>
+	<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.imgCodeCarvingsLogo">
 	<summary>
-Controllo imgCodeCarvingsLogo.
+imgCodeCarvingsLogo control.
 </summary>
 	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.imgPageBrandLogo">
 	<summary>
-Controllo imgPageBrandLogo.
+imgPageBrandLogo control.
 </summary>
 	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member><member name="F:SimpleImageUpload_UserControl_WebApp_VB.test_masters_DefaultMasterPage.pageBody">
 	<summary>
-Controllo pageBody.
+pageBody control.
 </summary>
 	<remarks>
-Campo generato automaticamente.
-Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
 </remarks>
 </member><member name="P:SimpleImageUpload_UserControl_WebApp_VB.My.MyWebExtension.Computer">
 	<summary>

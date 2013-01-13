@@ -100,6 +100,26 @@ input[type=text]
 	left: 900px;
 }
 
+#Master_Page_Border_Left_PubTab
+{
+    position: absolute; 
+    width: 42px;     
+    height: 350px; 
+    overflow: hidden; 
+    top: 180px;
+    left: -49px;
+    filter:alpha(opacity=70);
+    opacity:0.7;
+    -ms-filter:'alpha(opacity=70);'
+}
+
+#Master_Page_Border_Left_PubTab:hover
+{
+    filter:alpha(opacity=100);
+    opacity:1;
+    -ms-filter:'alpha(opacity=100);'
+}
+
 #Master_Page_Header
 {
 	position: relative;

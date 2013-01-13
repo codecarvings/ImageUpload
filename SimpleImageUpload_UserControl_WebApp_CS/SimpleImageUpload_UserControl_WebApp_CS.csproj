@@ -77,6 +77,7 @@
     <Content Include="piczardUserControls\simpleImageUploadUserControl\simpleImageUpload.js" />
     <Content Include="piczardUserControls\simpleImageUploadUserControl\upload.aspx" />
     <Content Include="piczardUserControls\simpleImageUploadUserControl\wait.gif" />
+    <Content Include="test\gfx\digivogueTab1.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

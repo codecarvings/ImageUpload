@@ -18,6 +18,9 @@
                 </div>
                 <div id="Master_Page_Border_Right" class="Master_Page_Border">
                 </div>
+                <div id="Master_Page_Border_Left_PubTab">
+                    <a href="http://digivogue.com" onclick="window.open(this.href); return false;"><asp:Image ID="Image1" runat="server" ImageUrl="~/test/gfx/digivogueTab1.png" style="width:42px; height:350px; border:none;" AlternateText="Digivogue" /></a>
+                </div> 
                
                 <div id="Master_Page_Header">
                     <div id="Master_Page_Header_Logo">
