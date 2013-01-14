@@ -37,7 +37,7 @@
                     <div id='<% =HttpUtility.HtmlAttributeEncode(Me.GetSubElementId("uploadContainer_0"))%>' class="ccpz_siu_uploadContainer_0" style="position: relative; width:<% =(Me.ButtonSize.Width + 25).ToString()%>px; height:<% =(Me.ButtonSize.Height).ToString()%>px; overflow: hidden; display:none;">
                         <asp:Button runat="server" ID="btnBrowseDisabled" CausesValidation="false" Text="Browse..." Enabled="false" CssClass="DoNotApplyButtonStyle" style="display:inline; padding:0; margin:0;" EnableViewState="false" />
                         <asp:Button runat="server" ID="btnCancelUpload" CausesValidation="false" Text="Cancel upload" CssClass="DoNotApplyButtonStyle" style="display:none; padding:0; margin:0;" EnableViewState="false" />
-                        <asp:Image ID="Image1" runat="server" AlternateText="Uploading file..." ImageUrl="wait.gif?v=4" style="width:16px; height:16px; margin-left:5px; vertical-align:middle;" EnableViewState="false" />
+                        <asp:Image ID="Image1" runat="server" AlternateText="Uploading file..." ImageUrl="wait.gif?v=5" style="width:16px; height:16px; margin-left:5px; vertical-align:middle;" EnableViewState="false" />
                     </div>
                     <div id='<% =HttpUtility.HtmlAttributeEncode(Me.GetSubElementId("uploadContainer_1"))%>' class="ccpz_siu_uploadContainer_1" style="position: relative; width:<% =(Me.ButtonSize.Width + 25).ToString()%>px; height:<% =(Me.ButtonSize.Height).ToString()%>px; overflow: hidden; display:inline;">
                         <asp:Button runat="server" ID="btnBrowse" CausesValidation="false" Text="Browse..." OnClientClick="return false;" Enabled="false" CssClass="DoNotApplyButtonStyle" style="padding:0; margin:0;" EnableViewState="false" />
@@ -73,7 +73,7 @@
         AutoFreezeOnFormSubmit="true" AutoPostBackOnPopupClose="Never"
         OnClientBeforePopupOpenFunction="CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onImageEditBeforePopupOpen"
         OnClientAfterPopupCloseFunction="CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.onImageEditAfterPopupClose"
-        EnableViewState="false" />
+        EnableViewState="true" />
              
     </div>
 </div>
@@ -81,7 +81,7 @@
     </div>
     <div style="margin:5px; padding: 5px; border: solid 1px #c6c6c6; background-color: #d6d6d6; font-size: 12px; font-family:Arial,Hevetica,sans-serif;text-align:left;">
         <span style="font-weight:bold;">Piczard</span> - .NET Image Manipulation Library by Sergio Turolla<br />
-         SimpleImageUpload User Control &nbsp;v 3.0.2
+         SimpleImageUpload User Control &nbsp;v 3.0.3
     </div>
 </asp:PlaceHolder>  
         

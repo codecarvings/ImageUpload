@@ -35,7 +35,7 @@
  */
  
 // #########
-// SimpleImageUpload Version 3.0.2
+// SimpleImageUpload Version 3.0.3
 // #########
 
 using System;
@@ -98,7 +98,7 @@ public partial class SimpleImageUpload
         string scriptKey = "simpleImageUpload.js";
         if (!this.Page.ClientScript.IsClientScriptIncludeRegistered(t, scriptKey))
         {
-            this.Page.ClientScript.RegisterClientScriptInclude(t, scriptKey, this.ResolveUrl("simpleImageUpload.js?v=4"));
+            this.Page.ClientScript.RegisterClientScriptInclude(t, scriptKey, this.ResolveUrl("simpleImageUpload.js?v=5"));
         }
 
         // Reset the initialization function
@@ -333,7 +333,7 @@ public partial class SimpleImageUpload
         sb.Append("if (typeof(window.__ccpz_siu_lt) === \"undefined\")" + crlf);
         sb.Append("{" + crlf);
         // The variable (window.__ccpz_siu_lt) (configured in simpleImageUpload.js) is undefined...
-        sb.Append(JSHelper.GetLoadScript(this.ResolveUrl("simpleImageUpload.js?v=4"), this.InitFunctionName + "_load_js", this.InitFunctionName2 + "();") + crlf);
+        sb.Append(JSHelper.GetLoadScript(this.ResolveUrl("simpleImageUpload.js?v=5"), this.InitFunctionName + "_load_js", this.InitFunctionName2 + "();") + crlf);
         sb.Append("}" + crlf);
         sb.Append("else" + crlf);
         sb.Append("{" + crlf);

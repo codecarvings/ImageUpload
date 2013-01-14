@@ -389,6 +389,17 @@ CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.prototype =
     },
 
     cancelUpload: function () {
+        var oFrId = this.getSubElementId(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_ifr);
+        var oFr = this.getSubElement(CodeCarvings.Wcs.Piczard.Upload.SimpleImageUpload.subElementSubId_ifr);
+        if (oFr) {
+            var ex;
+            try {
+                oFr.parentNode.removeChild(oFr);
+            }
+            catch (ex) {
+            }
+        }
+
         this.onUploadEnd();
         this.executeAction("calcelUpload");
     },

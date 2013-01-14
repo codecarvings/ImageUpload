@@ -35,7 +35,7 @@
 ' -------------------------------------------------------
 
 ' #########
-' SimpleImageUpload Version 3.0.2
+' SimpleImageUpload Version 3.0.3
 ' #########
 
 Option Strict On
@@ -93,7 +93,7 @@ Partial Public Class SimpleImageUpload
         Dim t As Type = Me.Page.GetType()
         Dim scriptKey As String = "simpleImageUpload.js"
         If (Not Me.Page.ClientScript.IsClientScriptIncludeRegistered(t, scriptKey)) Then
-            Me.Page.ClientScript.RegisterClientScriptInclude(t, scriptKey, Me.ResolveUrl("simpleImageUpload.js?v=4"))
+            Me.Page.ClientScript.RegisterClientScriptInclude(t, scriptKey, Me.ResolveUrl("simpleImageUpload.js?v=5"))
         End If
 
         ' Reset the initialization function
@@ -369,7 +369,7 @@ Partial Public Class SimpleImageUpload
         sb.Append("if (typeof(window.__ccpz_siu_lt) === ""undefined"")" + crlf)
         sb.Append("{" + crlf)
         ' The variable (window.__ccpz_siu_lt) (configured in simpleImageUpload.js) is undefined...
-        sb.Append(JSHelper.GetLoadScript(Me.ResolveUrl("simpleImageUpload.js?v=4"), Me.InitFunctionName + "_load_js", Me.InitFunctionName2 + "();") + crlf)
+        sb.Append(JSHelper.GetLoadScript(Me.ResolveUrl("simpleImageUpload.js?v=5"), Me.InitFunctionName + "_load_js", Me.InitFunctionName2 + "();") + crlf)
         sb.Append("}" + crlf)
         sb.Append("else" + crlf)
         sb.Append("{" + crlf)
